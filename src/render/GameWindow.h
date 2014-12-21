@@ -9,18 +9,25 @@
 
 class GameWindow
 {
-private:
-    int16_t width,  height;
-    SDL_Window*     r_window;
-    SDL_Surface*    r_surface;
-
 public:
     GameWindow();
     ~GameWindow();
-    void r_init();
-    void r_redraw();
-    void r_setWindowSize(int16_t width, int16_t height);
 
+    //Class functions
+    void            r_init(bool fullscreen);
+    void            r_redraw();
+    void            r_setWindowSize(int16_t width, int16_t height);
+
+    bool            r_isFullscreen();
+
+    SDL_Window*     r_getGameWindow();
+    SDL_Surface*    r_getDrawSurface();
+
+private:
+    int16_t         width,  height;
+    bool            fullscreen;
+    SDL_Window*     r_window;
+    SDL_Surface*    r_surface;
 };
 
 #endif // GAMEWINDOW_H_

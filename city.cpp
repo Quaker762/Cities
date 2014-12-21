@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "src\render\GameWindow.h"
+#include "src\game\Global.h"
 
 #define SCREEN_HEIGHT   640
 #define SCREEN_WIDTH    480
@@ -9,6 +10,46 @@
 bool running = true;
 
 GameWindow window;
+SDL_Event event;
+
+//Basic window input handing
+void g_handleInput()
+{
+    while(SDL_PollEvent(&event) != 0)
+    {
+        switch(event.type)
+        {
+        case SDL_KEYDOWN:
+            if(event.key.keysym.sym == SDLK_ESCAPE)
+            {
+                running = false;
+                break;
+            }
+
+            if(event.key.keysym.sym == SDLK_RCTRL) //Check for a right alt press
+            {
+                if(event.key.keysym.sym == SDLK_RETURN)
+                {
+                    //Cheap set fullscreen function
+                    if(window.r_isFullscreen() == false)
+                    {
+                        SDL_SetWindowFullscreen(window.r_getGameWindow(), SDL_WINDOW_FULLSCREEN);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void g_updateWindow()
+{
+    switch(event.type)
+    {
+    case SDL_QUIT:
+        running = false;
+        break;
+    }
+}
 
 int main(int argc, char* argv[])
 {
@@ -16,26 +57,21 @@ int main(int argc, char* argv[])
         Basic game loop style shit, yo
     **/
 
-    window.r_init();
+    window.r_init(false);
 
-    SDL_Event event;
+    g_currentState->init();
 
     while(running)
     {
-        while(SDL_PollEvent(&event) != 0)
-        {
-            switch(event.type)
-            {
-            case SDL_KEYDOWN:
-                if(event.key.keysym.sym == SDLK_ESCAPE)
-                {
-                    running = false;
-                    break;
-                }
-            }
-        }
+        g_handleInput();
+        g_updateWindow();
+
+        //GameState logic
+        g_currentState->update();
+        g_currentState->render(window);
+
+        //Redraw the window
         window.r_redraw();
     }
-
     return 0;
 }
