@@ -4,8 +4,8 @@
 GameWindow::GameWindow()
 {
     //Set the screen size to a default one.
-    width = DEFAULT_WIDTH;
-    height = DEFAULT_HEIGHT;
+    width = 1280;
+    height = 720;
 }
 
 //Class destructor

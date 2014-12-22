@@ -10,7 +10,7 @@ void g_changeState(uint8_t stateID)
     switch(stateID)
     {
     case NULL:
-        g_currentState = nullptr;
+        g_currentState = NULL;
         break;
     case CTITLESTATE:
         g_currentState = new CTitleState();
