@@ -1,5 +1,7 @@
 #include "CGameState.h"
 
+float time = 0;
+
 CTitleState::CTitleState()
 {
 
@@ -27,9 +29,18 @@ void CTitleState::update()
 
 void CTitleState::render()
 {
-   // SDL_FillRect(window.r_getDrawSurface(), NULL, SDL_MapRGB(window.r_getDrawSurface()->format, 0xFF, 0xFF, 0x00));
-    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+
+    glBegin(GL_TRIANGLES);                  // Begin Drawing Triangles
+        glColor3f(1.0f,0.0f,0.0f);          // Set The Color To Red
+        glVertex3f( 0.0f, 1.0f, 0.0f);          // Move Up One Unit From Center (Top Point)
+        glColor3f(0.0f,1.0f,0.0f);          // Set The Color To Green
+        glVertex3f(-1.0f,-1.0f, 0.0f);          // Left And Down One Unit (Bottom Left)
+        glColor3f(0.0f,0.0f,1.0f);          // Set The Color To Blue
+        glVertex3f( 1.0f,-1.0f, 0.0f);          // Right And Down One Unit (Bottom Right)
+    glEnd();                            // Done Drawing The Quad
+
 }
 
 

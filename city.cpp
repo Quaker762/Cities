@@ -67,15 +67,16 @@ int main(int argc, char* argv[])
         g_handleInput();
 
         //GameState logic
-        g_currentState->update();
         //Only Draw if FPS
         Currenttime = SDL_GetTicks();
 
         if ((Currenttime - Lasttime) >= 1000/FPS)
         {
+            g_currentState->update();
             g_currentState->render();
             Lasttime = SDL_GetTicks();
-            printf("%d\n",Currenttime);
+
+            SDL_Delay((Currenttime - Lasttime) / 1000);
         }
             window.r_refresh();
     }
