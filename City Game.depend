@@ -645,21 +645,22 @@
 1418985389 source:e:\users\jesse\documents\c++\city game\src\render\gamewindow.cpp
 	"GameWindow.h"
 
-1419300264 source:e:\users\jesse\documents\github\cities\src\render\gamewindow.cpp
+1419300483 source:e:\users\jesse\documents\github\cities\src\render\gamewindow.cpp
 	"GameWindow.h"
 
-1419300270 e:\users\jesse\documents\github\cities\src\render\gamewindow.h
+1419300482 e:\users\jesse\documents\github\cities\src\render\gamewindow.h
 	<SDL.h>
 	<stdio.h>
 	<SDL_opengl.h>
 
-1419300321 source:e:\users\jesse\documents\github\cities\city.cpp
+1419301319 source:e:\users\jesse\documents\github\cities\city.cpp
 	<SDL.h>
 	<stdio.h>
+	<string.h>
 	"src\render\GameWindow.h"
 	"src\game\Global.h"
 
-1419248720 e:\users\jesse\documents\github\cities\src\game\global.h
+1419300482 e:\users\jesse\documents\github\cities\src\game\global.h
 	<string>
 	<iostream>
 	<stdlib.h>
@@ -670,14 +671,14 @@
 	<SDL.h>
 	"CGameState.h"
 
-1419300310 e:\users\jesse\documents\github\cities\src\game\cgamestate.h
+1419300482 e:\users\jesse\documents\github\cities\src\game\cgamestate.h
 	<SDL.h>
 	"../render/GameWindow.h"
 
-1419300199 source:e:\users\jesse\documents\github\cities\src\game\ctitlestate.cpp
+1419300482 source:e:\users\jesse\documents\github\cities\src\game\ctitlestate.cpp
 	"CGameState.h"
 
-1419299088 source:e:\users\jesse\documents\github\cities\src\game\global.cpp
+1419301337 source:e:\users\jesse\documents\github\cities\src\game\global.cpp
 	"Global.h"
 
 1419248842 source:e:\users\jesse\documents\github\cities\src\game\csplashstate.cpp
