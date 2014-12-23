@@ -67,20 +67,21 @@ void GameWindow::r_init()
     r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
     r_glContext = SDL_GL_CreateContext(r_window);
 
-    //Enable OpenGL!!
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+
+    gluPerspective(60.0f, width/height, 0.01f, 100.0f);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    gluPerspective(45.0f,width/height,0.1f,100.0f);
+    glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
+	glClearDepth(1.0f);									// Depth Buffer Setup
+	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
+	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 
-    glClearDepth(1.0f);                         // Depth Buffer Setup
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LEQUAL);
-    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 }
 
 

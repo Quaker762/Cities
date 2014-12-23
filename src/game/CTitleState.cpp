@@ -24,13 +24,16 @@ void CTitleState::destroy()
 
 void CTitleState::update()
 {
-
+    time += 0.1;
 }
 
 void CTitleState::render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
+
+    glTranslatef(0.0f, 0.0f, -6.0f);
+    glRotatef(45 * time, 0.0f, 1.0f, 0.0f);
 
     glBegin(GL_TRIANGLES);                  // Begin Drawing Triangles
         glColor3f(1.0f,0.0f,0.0f);          // Set The Color To Red
