@@ -702,7 +702,7 @@
 	"CGameState.h"
 	<SDL_opengl.h>
 
-1419301430 source:c:\users\matthew\documents\github\cities\city.cpp
+1419302348 source:c:\users\matthew\documents\github\cities\city.cpp
 	<SDL.h>
 	<stdio.h>
 	<string.h>
@@ -1026,7 +1026,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1419301430 c:\users\matthew\documents\github\cities\src\render\gamewindow.h
+1419302348 c:\users\matthew\documents\github\cities\src\render\gamewindow.h
 	<SDL.h>
 	<stdio.h>
 	<SDL_opengl.h>
@@ -1042,18 +1042,20 @@
 	<SDL.h>
 	"CGameState.h"
 
-1419301430 c:\users\matthew\documents\github\cities\src\game\cgamestate.h
+1419302348 c:\users\matthew\documents\github\cities\src\game\cgamestate.h
 	<SDL.h>
+	<SDL_opengl.h>
 	"../render/GameWindow.h"
 
-1419301430 source:c:\users\matthew\documents\github\cities\src\game\ctitlestate.cpp
+1419302348 source:c:\users\matthew\documents\github\cities\src\game\ctitlestate.cpp
 	"CGameState.h"
 
 1419301518 source:c:\users\matthew\documents\github\cities\src\game\global.cpp
 	"Global.h"
 
-1419301430 source:c:\users\matthew\documents\github\cities\src\render\gamewindow.cpp
+1419302348 source:c:\users\matthew\documents\github\cities\src\render\gamewindow.cpp
 	"GameWindow.h"
+	"../game/Global.h"
 
 1419255327 c:\users\matthew\documents\github\cities\sdl2\include\sdl2\sdl_opengl.h
 	"SDL_config.h"
