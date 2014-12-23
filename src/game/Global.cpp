@@ -8,12 +8,21 @@ void g_changeState(uint8_t stateID)
 
     switch(stateID)
     {
+<<<<<<< HEAD
         case CNULLSTATE:
             g_currentState = nullptr;
             break;
         case CTITLESTATE:
             g_currentState = new CTitleState();
             break;
+=======
+    case NULL:
+        g_currentState = NULL;
+        break;
+    case CTITLESTATE:
+        g_currentState = new CTitleState();
+        break;
+>>>>>>> origin/master
     }
 
     g_currentState->init(); //Call the state's init function

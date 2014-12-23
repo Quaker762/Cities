@@ -65,9 +65,14 @@ int main(int argc, char* argv[])
     int FPS = 60;
     int32_t Currenttime;
     int32_t Lasttime = 0;
+<<<<<<< HEAD
 
     //Debug variables
     //int FUCKYOU;
+=======
+    //Debug variables
+    int FUCKYOU;
+>>>>>>> origin/master
 
     while(running)
     {
@@ -80,11 +85,18 @@ int main(int argc, char* argv[])
         Currenttime = SDL_GetTicks();
         if ((Currenttime - Lasttime) >= 1000/FPS)
         {
+<<<<<<< HEAD
             g_currentState->render();
             Lasttime = SDL_GetTicks();
             printf("%d\n",Currenttime);
         }
 
+=======
+            g_currentState->render(window);
+            Lasttime = SDL_GetTicks();
+            printf("%d\n",Currenttime);
+        }
+>>>>>>> origin/master
         //Redraw the window
         window.r_redraw();
     }
