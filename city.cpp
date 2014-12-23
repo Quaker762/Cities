@@ -4,8 +4,8 @@
 #include "src\render\GameWindow.h"
 #include "src\game\Global.h"
 
-#define SCREEN_HEIGHT   640
-#define SCREEN_WIDTH    480
+#define SCREEN_HEIGHT   1280
+#define SCREEN_WIDTH    720
 
 bool running = true;
 
@@ -57,9 +57,17 @@ int main(int argc, char* argv[])
         Basic game loop style shit, yo
     **/
 
-    window.r_init(false);
+    window.r_init();
 
     g_currentState->init();
+
+    //Declare FPS variables
+    int FPS = 60;
+    int32_t Currenttime;
+    int32_t Lasttime = 0;
+
+    //Debug variables
+    //int FUCKYOU;
 
     while(running)
     {
@@ -68,7 +76,14 @@ int main(int argc, char* argv[])
 
         //GameState logic
         g_currentState->update();
-        g_currentState->render(window);
+        //Only Draw if FPS
+        Currenttime = SDL_GetTicks();
+        if ((Currenttime - Lasttime) >= 1000/FPS)
+        {
+            g_currentState->render();
+            Lasttime = SDL_GetTicks();
+            printf("%d\n",Currenttime);
+        }
 
         //Redraw the window
         window.r_redraw();

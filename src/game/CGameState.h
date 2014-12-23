@@ -1,43 +1,35 @@
 #ifndef CGAMESTATE_H
 #define CGAMESTATE_H
-
 #include <SDL.h>
 
 #include "../render/GameWindow.h"
 
-#define NULLSTATE   -1
-#define SPLASH       0
-#define MENU         1
-#define GAME         2
+#define NULLSTATE -1
+#define SPLASH 0
+#define MENU 1
+#define GAME 2
 
 class CGameState
 {
 public:
     CGameState() {};
-    ~CGameState() {};
-
+    virtual ~CGameState() {};
     virtual void init() = 0; //Do we need these if we have a constructor and destructor???
     virtual void destroy() = 0;
-
     virtual void update() = 0;
-    virtual void render(GameWindow& window) = 0;
+    virtual void render() = 0;
 
 private:
-
 };
 
 class CTitleState : public CGameState
 {
-public:
+    public:
     CTitleState();
     ~CTitleState();
-
     void init();
     void destroy();
-
     void update();
-    void render(GameWindow& window);
+    void render();
 };
-
-
 #endif // CGAMESTATE_H

@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <stdio.h>
+#include <SDL_opengl.h>
 
 #define DEFAULT_WIDTH   640
 #define DEFAULT_HEIGHT  480
@@ -14,20 +15,19 @@ public:
     ~GameWindow();
 
     //Class functions
-    void            r_init(bool fullscreen);
+    void            r_init();
     void            r_redraw();
     void            r_setWindowSize(int16_t width, int16_t height);
 
     bool            r_isFullscreen();
 
     SDL_Window*     r_getGameWindow();
-    SDL_Surface*    r_getDrawSurface();
 
 private:
     int16_t         width,  height;
     bool            fullscreen;
     SDL_Window*     r_window;
-    SDL_Surface*    r_surface;
+    SDL_GLContext   r_glContext;
 };
 
 #endif // GAMEWINDOW_H_

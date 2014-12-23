@@ -4,22 +4,19 @@
 GameWindow::GameWindow()
 {
     //Set the screen size to a default one.
-    width = DEFAULT_WIDTH;
-    height = DEFAULT_HEIGHT;
+    width = 1280;
+    height = 720;
 }
 
 //Class destructor
 GameWindow::~GameWindow()
 {
-    SDL_FreeSurface(r_surface);
-    r_surface = NULL;
-
     SDL_DestroyWindow(r_window);
-    r_window = NULL;
-
-    SDL_Quit();
+    SDL_GL_DeleteContext(r_glContext);
+    SDL_Quit(); //Kill Engine
 }
 
+/**
 //Window initialisation routine.
 void GameWindow::r_init(bool fullscreen)
 {
@@ -46,6 +43,29 @@ void GameWindow::r_init(bool fullscreen)
        }
     }
 }
+*/
+
+void GameWindow::r_init()
+{
+    r_window = NULL;
+
+    if(SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
+       // die("Failed to initialise variable!!");
+    }
+
+    //Intialise OpenGL
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8); /**< Set the size in bits the least amount allocated for each colour */
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 24);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); //Enable double buffering
+
+    r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
+    r_glContext = SDL_GL_CreateContext(r_window);
+}
+
 
 //Redraw the screen
 void GameWindow::r_redraw()
@@ -68,11 +88,3 @@ SDL_Window* GameWindow::r_getGameWindow()
 {
     return r_window;
 }
-
-SDL_Surface* GameWindow::r_getDrawSurface()
-{
-    return r_surface;
-}
-
-
-

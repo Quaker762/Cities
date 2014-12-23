@@ -25,9 +25,9 @@ void CTitleState::update()
 
 }
 
-void CTitleState::render(GameWindow& window)
+void CTitleState::render()
 {
-    SDL_FillRect(window.r_getDrawSurface(), NULL, SDL_MapRGB(window.r_getDrawSurface()->format, 0xFF, 0x00, 0x00));
+   // SDL_FillRect(window.r_getDrawSurface(), NULL, SDL_MapRGB(window.r_getDrawSurface()->format, 0xFF, 0xFF, 0x00));
 }
 
 

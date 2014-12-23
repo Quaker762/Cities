@@ -24,10 +24,12 @@
 					<Add option="-O2" />
 					<Add option="-std=c++11" />
 					<Add directory="E:/Users/Jesse/Documents/C++/City Game/SDL2/include/SDL2" />
+					<Add directory="E:/Users/Jesse/Documents/Github/Cities/GL" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add option="-lmingw32 -lSDL2main -lSDL2" />
+					<Add option="-lopengl32 -lglu32" />
 					<Add directory="E:/Users/Jesse/Documents/C++/City Game/SDL2/lib" />
 				</Linker>
 			</Target>
@@ -36,7 +38,9 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="city.cpp" />
+		<Unit filename="src/game/CGLTestState.cpp" />
 		<Unit filename="src/game/CGameState.h" />
+		<Unit filename="src/game/CSplashState.cpp" />
 		<Unit filename="src/game/CTitleState.cpp" />
 		<Unit filename="src/game/Global.cpp" />
 		<Unit filename="src/game/Global.h" />
@@ -47,6 +51,15 @@
 			<envvars />
 			<debugger />
 			<lib_finder disable_auto="1" />
+			<DoxyBlocks>
+				<comment_style block="4" line="0" />
+				<doxyfile_project />
+				<doxyfile_build />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot />
+				<general />
+			</DoxyBlocks>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
