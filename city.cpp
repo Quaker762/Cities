@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "src\render\GameWindow.h"
 #include "src\game\Global.h"
