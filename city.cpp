@@ -42,16 +42,6 @@ void g_handleInput()
     }
 }
 
-void g_updateWindow()
-{
-    switch(event.type)
-    {
-    case SDL_QUIT:
-        running = false;
-        break;
-    }
-}
-
 int main(int argc, char* argv[])
 {
     /**
@@ -72,26 +62,22 @@ int main(int argc, char* argv[])
     //Debug variables
     //int FUCKYOU;
 
-    while(running)
+    while(window.r_isRunning())
     {
         g_handleInput();
-        g_updateWindow();
 
         //GameState logic
         g_currentState->update();
         //Only Draw if FPS
         Currenttime = SDL_GetTicks();
+
         if ((Currenttime - Lasttime) >= 1000/FPS)
         {
             g_currentState->render();
             Lasttime = SDL_GetTicks();
             printf("%d\n",Currenttime);
         }
-            g_currentState->render();
-            Lasttime = SDL_GetTicks();
-            printf("%d\n",Currenttime);
-        }
-        //Redraw the window
-        window.r_redraw();
-        return 0;
+            window.r_refresh();
     }
+        return 0;
+}
