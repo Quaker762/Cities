@@ -43,9 +43,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="city.cpp" />
-		<Unit filename="src/game/CGLTestState.cpp" />
 		<Unit filename="src/game/CGameState.h" />
-		<Unit filename="src/game/CSplashState.cpp" />
 		<Unit filename="src/game/CTitleState.cpp" />
 		<Unit filename="src/game/Global.cpp" />
 		<Unit filename="src/game/Global.h" />

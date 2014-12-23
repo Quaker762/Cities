@@ -1,6 +1,8 @@
 #ifndef CGAMESTATE_H
 #define CGAMESTATE_H
+
 #include <SDL.h>
+#include <SDL_opengl.h>
 
 #include "../render/GameWindow.h"
 
