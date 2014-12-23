@@ -59,8 +59,6 @@ int main(int argc, char* argv[])
 
     //Debug variables
     //int FUCKYOU;
-    //Debug variables
-    //int FUCKYOU;
 
     while(window.r_isRunning())
     {

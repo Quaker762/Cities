@@ -53,7 +53,7 @@ void GameWindow::r_init()
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
-       // die("Failed to initialise variable!!");
+       die("Failed to initialise variable!!");
     }
 
     //Intialise OpenGL
@@ -75,6 +75,7 @@ void GameWindow::r_init()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+    glEnable(GL_TEXTURE_2D);
     glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
