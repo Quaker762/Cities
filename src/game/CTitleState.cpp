@@ -3,7 +3,7 @@
 
 float time = 0.0f;
 
-Camera gamecam(0.0f, 0.0f, -6.0f);
+Camera gamecam(0.0f, 0.0f, -3.0f);
 
 CTitleState::CTitleState()
 {
@@ -36,10 +36,11 @@ void CTitleState::handleInput(GameWindow& window)
             {
                 window.r_shutdown();
             }
+        }
 
-            if(event.key.keysym.sym == SDLK_z)
-            {
-            }
+        if(event.type == SDL_MOUSEMOTION)
+        {
+            gamecam.update(0.0f, 0.0f, (GLfloat)event.motion.yrel * 0.01);
         }
     }
 }
@@ -48,7 +49,6 @@ void CTitleState::update()
 {
     time += 0.1;
 }
-
 
 void CTitleState::render()
 {

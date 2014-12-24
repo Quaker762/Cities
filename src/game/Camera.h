@@ -14,14 +14,13 @@ public:
     Camera(GLfloat x, GLfloat y, GLfloat z);
     ~Camera();
 
-    void update(glm::vec3 posvec);
+    void update(GLfloat x, GLfloat y, GLfloat z);
 
     GLfloat getX();
     GLfloat getY();
     GLfloat getZ();
 
 private:
-
     glm::vec3 pos;
     GLfloat angle;
 };

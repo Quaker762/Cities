@@ -11,9 +11,10 @@ Camera::~Camera()
 
 }
 
-void Camera::update(glm::vec3 posvec)
+void Camera::update(GLfloat x, GLfloat y, GLfloat z)
 {
     //TODO: Mouse input here, change vec3 accordingly.
+    pos = glm::vec3(pos.x + x, pos.y + y, pos.z + z);
 }
 
 GLfloat Camera::getX()
