@@ -45,6 +45,7 @@
 		<Unit filename="city.cpp" />
 		<Unit filename="src/game/CGameState.h" />
 		<Unit filename="src/game/CTitleState.cpp" />
+		<Unit filename="src/game/Camera.h" />
 		<Unit filename="src/game/Global.cpp" />
 		<Unit filename="src/game/Global.h" />
 		<Unit filename="src/render/GameWindow.cpp" />

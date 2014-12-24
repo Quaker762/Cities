@@ -645,16 +645,16 @@
 1418985389 source:e:\users\jesse\documents\c++\city game\src\render\gamewindow.cpp
 	"GameWindow.h"
 
-1419308859 source:e:\users\jesse\documents\github\cities\src\render\gamewindow.cpp
+1419395635 source:e:\users\jesse\documents\github\cities\src\render\gamewindow.cpp
 	"GameWindow.h"
 	"../game/Global.h"
 
-1419308871 e:\users\jesse\documents\github\cities\src\render\gamewindow.h
+1419395602 e:\users\jesse\documents\github\cities\src\render\gamewindow.h
 	<SDL.h>
 	<stdio.h>
 	<SDL_opengl.h>
 
-1419308883 source:e:\users\jesse\documents\github\cities\city.cpp
+1419396351 source:e:\users\jesse\documents\github\cities\city.cpp
 	<SDL.h>
 	<stdio.h>
 	<string.h>
@@ -672,13 +672,12 @@
 	<SDL.h>
 	"CGameState.h"
 
-1419306389 e:\users\jesse\documents\github\cities\src\game\cgamestate.h
+1419396333 e:\users\jesse\documents\github\cities\src\game\cgamestate.h
 	<SDL.h>
 	<SDL_opengl.h>
-	<math.h>
 	"../render/GameWindow.h"
 
-1419307157 source:e:\users\jesse\documents\github\cities\src\game\ctitlestate.cpp
+1419395970 source:e:\users\jesse\documents\github\cities\src\game\ctitlestate.cpp
 	"CGameState.h"
 
 1419301337 source:e:\users\jesse\documents\github\cities\src\game\global.cpp
@@ -1073,4 +1072,409 @@
 	<stdint.h>
 	<stdint.h>
 	<inttypes.h>
+
+1419393830 source:e:\users\jesse\documents\github\cities\src\tgareader.cpp
+	"../include/TGAReader.h"
+
+1419393487 e:\users\jesse\documents\github\cities\include\tgareader.h
+
+1419395903 source:e:\users\jesse\documents\github\cities\src\game\camera.cpp
+	"Camera.h"
+
+1419394448 e:\users\jesse\documents\github\cities\src\game\camera.h
+	<SDL.h>
+	<SDL_opengl.h>
+	<glm/glm.hpp>
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\glm.hpp
+	"detail/_fixes.hpp"
+	<cmath>
+	<climits>
+	<cfloat>
+	<limits>
+	<cassert>
+	"fwd.hpp"
+	"vec2.hpp"
+	"vec3.hpp"
+	"vec4.hpp"
+	"mat2x2.hpp"
+	"mat2x3.hpp"
+	"mat2x4.hpp"
+	"mat3x2.hpp"
+	"mat3x3.hpp"
+	"mat3x4.hpp"
+	"mat4x2.hpp"
+	"mat4x3.hpp"
+	"mat4x4.hpp"
+	"trigonometric.hpp"
+	"exponential.hpp"
+	"common.hpp"
+	"packing.hpp"
+	"geometric.hpp"
+	"matrix.hpp"
+	"vector_relational.hpp"
+	"integer.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\_fixes.hpp
+	<cmath>
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\fwd.hpp
+	"detail/type_int.hpp"
+	"detail/type_float.hpp"
+	"detail/type_vec.hpp"
+	"detail/type_mat.hpp"
+
+1418175329 e:\users\jesse\documents\github\cities\gl\glm\detail\type_int.hpp
+	"setup.hpp"
+	<type_traits>
+	<cstdint>
+
+1418242137 e:\users\jesse\documents\github\cities\gl\glm\detail\setup.hpp
+	<cassert>
+	<cstddef>
+	<cuda.h>
+	<intrin.h>
+	<immintrin.h>
+	<immintrin.h>
+	<smmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_float.hpp
+	"setup.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec.hpp
+	"precision.hpp"
+	"type_int.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\precision.hpp
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat.hpp
+	"precision.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\vec2.hpp
+	"detail/type_vec2.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec2.hpp
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec2.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\_swizzle.hpp
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\_swizzle_func.hpp
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec2.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\vec3.hpp
+	"detail/type_vec3.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec3.hpp
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec3.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec3.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\vec4.hpp
+	"detail/type_vec4.hpp"
+
+1418079323 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec4.hpp
+	"setup.hpp"
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec4.inl"
+
+1418079323 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec4.inl
+	"type_vec4_sse2.inl"
+	"type_vec4_avx.inl"
+	"type_vec4_avx2.inl"
+
+1418079323 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec4_sse2.inl
+
+1418079323 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec4_avx.inl
+
+1418079323 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec4_avx2.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat2x2.hpp
+	"detail/type_mat2x2.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat2x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x2.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat2x2.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat2x3.hpp
+	"detail/type_mat2x3.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat2x3.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x3.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat2x3.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat2x4.hpp
+	"detail/type_mat2x4.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat2x4.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat2x4.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat2x4.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat3x2.hpp
+	"detail/type_mat3x2.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat3x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x2.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat3x2.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat3x3.hpp
+	"detail/type_mat3x3.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat3x3.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x3.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat3x3.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat3x4.hpp
+	"detail/type_mat3x4.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat3x4.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat3x4.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat3x4.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat4x2.hpp
+	"detail/type_mat4x2.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat4x2.hpp
+	"../fwd.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x2.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat4x2.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat4x3.hpp
+	"detail/type_mat4x3.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat4x3.hpp
+	"../fwd.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x3.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat4x3.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\mat4x4.hpp
+	"detail/type_mat4x4.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat4x4.hpp
+	"../fwd.hpp"
+	"type_vec4.hpp"
+	"type_mat.hpp"
+	<limits>
+	<cstddef>
+	"type_mat4x4.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_mat4x4.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\trigonometric.hpp
+	"detail/func_trigonometric.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_trigonometric.hpp
+	"setup.hpp"
+	"precision.hpp"
+	"func_trigonometric.inl"
+
+1418155753 e:\users\jesse\documents\github\cities\gl\glm\detail\func_trigonometric.inl
+	"_vectorize.hpp"
+	<cmath>
+	<limits>
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\_vectorize.hpp
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec1.hpp
+	"../fwd.hpp"
+	"type_vec.hpp"
+	"_swizzle.hpp"
+	"_swizzle_func.hpp"
+	<cstddef>
+	"type_vec1.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_vec1.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\exponential.hpp
+	"detail/func_exponential.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_exponential.hpp
+	"type_vec1.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	<cmath>
+	"func_exponential.inl"
+
+1418156144 e:\users\jesse\documents\github\cities\gl\glm\detail\func_exponential.inl
+	"func_vector_relational.hpp"
+	"_vectorize.hpp"
+	<limits>
+	<cmath>
+	<cassert>
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_vector_relational.hpp
+	"precision.hpp"
+	"setup.hpp"
+	"func_vector_relational.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_vector_relational.inl
+	<limits>
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\common.hpp
+	"detail/func_common.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_common.hpp
+	"setup.hpp"
+	"precision.hpp"
+	"type_int.hpp"
+	"_fixes.hpp"
+	"func_common.inl"
+
+1418156195 e:\users\jesse\documents\github\cities\gl\glm\detail\func_common.inl
+	"func_vector_relational.hpp"
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"_vectorize.hpp"
+	<limits>
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\packing.hpp
+	"detail/func_packing.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_packing.hpp
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"func_packing.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_packing.inl
+	"func_common.hpp"
+	"type_half.hpp"
+	"../fwd.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_half.hpp
+	"setup.hpp"
+	"type_half.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\type_half.inl
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\geometric.hpp
+	"detail/func_geometric.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_geometric.hpp
+	"type_vec3.hpp"
+	"func_geometric.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_geometric.inl
+	"func_exponential.hpp"
+	"func_common.hpp"
+	"type_vec2.hpp"
+	"type_vec4.hpp"
+	"type_float.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\matrix.hpp
+	"detail/func_matrix.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_matrix.hpp
+	"../detail/precision.hpp"
+	"../detail/setup.hpp"
+	"../detail/type_mat.hpp"
+	"../vec2.hpp"
+	"../vec3.hpp"
+	"../vec4.hpp"
+	"../mat2x2.hpp"
+	"../mat2x3.hpp"
+	"../mat2x4.hpp"
+	"../mat3x2.hpp"
+	"../mat3x3.hpp"
+	"../mat3x4.hpp"
+	"../mat4x2.hpp"
+	"../mat4x3.hpp"
+	"../mat4x4.hpp"
+	"func_matrix.inl"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_matrix.inl
+	"../geometric.hpp"
+	<limits>
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\vector_relational.hpp
+	"detail/func_vector_relational.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\integer.hpp
+	"detail/func_integer.hpp"
+
+1417390282 e:\users\jesse\documents\github\cities\gl\glm\detail\func_integer.hpp
+	"setup.hpp"
+	"precision.hpp"
+	"func_common.hpp"
+	"func_vector_relational.hpp"
+	"func_integer.inl"
+
+1418201464 e:\users\jesse\documents\github\cities\gl\glm\detail\func_integer.inl
+	"type_vec2.hpp"
+	"type_vec3.hpp"
+	"type_vec4.hpp"
+	"type_int.hpp"
+	"_vectorize.hpp"
+	<intrin.h>
+	<limits>
 

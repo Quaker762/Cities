@@ -70,7 +70,7 @@ void GameWindow::r_init()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    gluPerspective(60.0f, width/height, 0.01f, 100.0f);
+    gluPerspective(45.0f, width/height, 0.01f, 100.0f);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -82,7 +82,14 @@ void GameWindow::r_init()
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+}
 
+void GameWindow::r_shutdown()
+{
+    SDL_DestroyWindow(r_window);
+    SDL_GL_DeleteContext(r_glContext);
+    SDL_Quit(); //Kill Engine
+    running = false;
 }
 
 
@@ -94,15 +101,7 @@ void GameWindow::r_refresh()
     //Poll operating system event so Windows doesn't think we've locked up!
     SDL_Event event;
 
-    while(SDL_PollEvent(&event))
-    {
-        if(event.type == SDL_QUIT)
-        {
-            running = false;
-        }
-    }
 }
-
 
 void GameWindow::r_setWindowSize(int16_t width, int16_t height)
 {
