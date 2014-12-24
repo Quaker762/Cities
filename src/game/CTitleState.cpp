@@ -1,10 +1,9 @@
 #include "CGameState.h"
+#include "Camera.h"
 
-float time = 0;
+float time = 0.0f;
 
-float x = 0.0f;
-float y = 0.0f;
-float z = -3.0f;
+Camera gamecam(0.0f, 0.0f, -6.0f);
 
 CTitleState::CTitleState()
 {
@@ -40,7 +39,6 @@ void CTitleState::handleInput(GameWindow& window)
 
             if(event.key.keysym.sym == SDLK_z)
             {
-                z -= 0.5f;
             }
         }
     }
@@ -57,7 +55,7 @@ void CTitleState::render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    glTranslatef(x, y, z);
+    glTranslatef(gamecam.getX(), gamecam.getY(), gamecam.getZ());
     glRotatef(45 * time, 0.0f, 1.0f, 0.0f);
 
     glBegin(GL_TRIANGLES);                  // Begin Drawing Triangles

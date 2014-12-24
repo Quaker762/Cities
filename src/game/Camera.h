@@ -11,20 +11,19 @@
 class Camera
 {
 public:
-    Camera();
+    Camera(GLfloat x, GLfloat y, GLfloat z);
     ~Camera();
 
     void update(glm::vec3 posvec);
+
+    GLfloat getX();
+    GLfloat getY();
+    GLfloat getZ();
 
 private:
 
     glm::vec3 pos;
     GLfloat angle;
-
-    GLint xpos;
-    GLint ypos;
-    GLint zpos;
-
 };
 
 

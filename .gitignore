@@ -4,3 +4,6 @@
 *.layout
 *.depend
 *.o
+*.o
+obj/Release/src/game/CTitleState.o
+*.o
