@@ -67,13 +67,11 @@ void CTitleState::render()
     glLoadIdentity();
 
     //glTranslatef(gamecam.getX(), gamecam.getY(), gamecam.getZ());
+    gluLookAt(0.0, 0.0,(GLdouble)gamecam.getZ(), 0.0, 0.0, 0.0, 0.0, 1.0, 1.0);
 
-    glTranslatef(0.0f, 0.0f, -7.0f);
+    //glTranslatef(0.0f, 0.0f, -7.0f);
 
-    glRotatef(45 * time, 0.0f, 1.0f, 0.0f);
-
-    //Why the fuck is this not working???
-    //gluLookAt(0.0, 0.0, (GLdouble)gamecam.getZ(), 0.0, 0.0, (GLdouble)gamecam.getZ(), 0.0, 0.0, 0.0);
+    //glRotatef(45 * time, 0.0f, 1.0f, 0.0f);
 
     glBegin(GL_TRIANGLES);                  // Begin Drawing Triangles
         glColor3f(1.0f,0.0f,0.0f);          // Set The Color To Red
