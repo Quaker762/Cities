@@ -43,8 +43,11 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="city.cpp" />
+		<Unit filename="include/TGAReader.h" />
+		<Unit filename="src/TGAReader.cpp" />
 		<Unit filename="src/game/CGameState.h" />
 		<Unit filename="src/game/CTitleState.cpp" />
+		<Unit filename="src/game/Camera.cpp" />
 		<Unit filename="src/game/Camera.h" />
 		<Unit filename="src/game/Global.cpp" />
 		<Unit filename="src/game/Global.h" />

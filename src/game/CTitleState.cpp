@@ -38,9 +38,9 @@ void CTitleState::handleInput(GameWindow& window)
             }
         }
 
-        if(event.type == SDL_MOUSEMOTION)
+        if(event.type == SDL_MOUSEWHEEL)
         {
-            gamecam.update(0.0f, 0.0f, (GLfloat)event.motion.yrel * 0.01);
+            gamecam.update(0.0f, 0.0f, (GLfloat)event.wheel.y);
         }
     }
 }
