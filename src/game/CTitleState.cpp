@@ -36,6 +36,16 @@ void CTitleState::handleInput(GameWindow& window)
             {
                 window.r_shutdown();
             }
+
+            if(event.key.keysym.sym == SDLK_LEFT)
+            {
+                gamecam.update(1.0f * 0.1, 0.0f, 0.0f);
+            }
+
+            if(event.key.keysym.sym == SDLK_RIGHT)
+            {
+                gamecam.update(-1.0f * 0.1, 0.0f, 0.0f);
+            }
         }
 
         if(event.type == SDL_MOUSEWHEEL)
@@ -52,11 +62,18 @@ void CTitleState::update()
 
 void CTitleState::render()
 {
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    glTranslatef(gamecam.getX(), gamecam.getY(), gamecam.getZ());
+    //glTranslatef(gamecam.getX(), gamecam.getY(), gamecam.getZ());
+
+    glTranslatef(0.0f, 0.0f, -7.0f);
+
     glRotatef(45 * time, 0.0f, 1.0f, 0.0f);
+
+    //Why the fuck is this not working???
+    //gluLookAt(0.0, 0.0, (GLdouble)gamecam.getZ(), 0.0, 0.0, (GLdouble)gamecam.getZ(), 0.0, 0.0, 0.0);
 
     glBegin(GL_TRIANGLES);                  // Begin Drawing Triangles
         glColor3f(1.0f,0.0f,0.0f);          // Set The Color To Red
@@ -66,7 +83,6 @@ void CTitleState::render()
         glColor3f(0.0f,0.0f,1.0f);          // Set The Color To Blue
         glVertex3f( 1.0f,-1.0f, 0.0f);          // Right And Down One Unit (Bottom Right)
     glEnd();                            // Done Drawing The Quad
-
 }
 
 
