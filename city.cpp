@@ -38,6 +38,9 @@ int main(int argc, char* argv[])
         //Only Draw if FPS
         Currenttime = SDL_GetTicks();
 
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glLoadIdentity();
+
         if ((Currenttime - Lasttime) >= 1000/FPS)
         {
             g_currentState->update();

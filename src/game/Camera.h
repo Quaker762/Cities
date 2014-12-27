@@ -15,6 +15,7 @@ public:
     ~Camera();
 
     void update(GLfloat x, GLfloat y, GLfloat z);
+    void setAngle(GLdouble nang);
 
     GLfloat getX();
     GLfloat getY();
@@ -22,7 +23,7 @@ public:
 
 private:
     glm::vec3 pos;
-    GLfloat angle;
+    GLdouble angle;
 };
 
 

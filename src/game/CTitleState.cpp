@@ -29,6 +29,11 @@ void CTitleState::handleInput(GameWindow& window)
 {
     while(SDL_PollEvent(&event) != 0)
     {
+        if(event.type == SDL_QUIT)
+        {
+            window.r_shutdown();
+        }
+
         if(event.type == SDL_KEYDOWN)
         {
             //Check for escape key press
@@ -62,16 +67,14 @@ void CTitleState::update()
 
 void CTitleState::render()
 {
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-
     //glTranslatef(gamecam.getX(), gamecam.getY(), gamecam.getZ());
-    gluLookAt(0.0, 0.0,(GLdouble)gamecam.getZ(), 0.0, 0.0, 0.0, 0.0, 1.0, 1.0);
+
+    //THIS HAS TO BE CALLED BEFORE WE MAKE ANY CHANGES TO MATRIX!!!
+    gluLookAt(0.0, 0.0,(GLdouble)gamecam.getZ(), 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
     //glTranslatef(0.0f, 0.0f, -7.0f);
 
-    //glRotatef(45 * time, 0.0f, 1.0f, 0.0f);
+    glRotatef(45 * time, 0.0f, 1.0f, 0.0f);
 
     glBegin(GL_TRIANGLES);                  // Begin Drawing Triangles
         glColor3f(1.0f,0.0f,0.0f);          // Set The Color To Red
