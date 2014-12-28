@@ -4,9 +4,10 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <glm/glm.hpp>
+#include <cmath>
 
 //Max Camera angle
-#define GIMBLE_LOCK 90
+#define PITCH_LOCK 90
 
 class Camera
 {
@@ -14,16 +15,23 @@ public:
     Camera(GLfloat x, GLfloat y, GLfloat z);
     ~Camera();
 
-    void update(GLfloat x, GLfloat y, GLfloat z);
-    void setAngle(GLdouble nang);
+    void updatePos(GLfloat x, GLfloat y, GLfloat z);
+    void rotate(GLdouble nyaw, GLdouble npitch);
+
+    void look();
 
     GLfloat getX();
     GLfloat getY();
     GLfloat getZ();
 
+    GLdouble getYaw();
+    GLdouble getPitch();
+
 private:
-    glm::vec3 pos;
-    GLdouble angle;
+    glm::vec3 _pos;
+
+    GLdouble _yawang = 0; //Camera yaw angle
+    GLdouble _pitchang = 0; //Camera pitch angle
 };
 
 

@@ -3,7 +3,7 @@
 Camera::Camera(GLfloat x, GLfloat y, GLfloat z)
 {
     //Initialise the camera
-    pos = glm::vec3(x, y, z);
+    _pos = glm::vec3(x, y, z);
 }
 
 Camera::~Camera()
@@ -11,33 +11,62 @@ Camera::~Camera()
 
 }
 
-void Camera::update(GLfloat x, GLfloat y, GLfloat z)
+void Camera::updatePos(GLfloat x, GLfloat y, GLfloat z)
 {
-    pos = glm::vec3(pos.x + x, pos.y + y, pos.z + z);
+    _pos = glm::vec3(_pos.x + x, _pos.y + y, _pos.z + z);
+
 }
 
-void Camera::setAngle(GLdouble nang)
+void Camera::rotate(GLdouble nyaw, GLdouble npitch)
 {
-    //Check to see if we're not
-    if(!angle <= 0 || !angle >= GIMBLE_LOCK)
+    //THIS IS VERY ROUGH!!!!
+    if(_pitchang >= PITCH_LOCK)
     {
-        //Add the new angle to the current angle
-        angle += nang;
+        _pitchang = PITCH_LOCK; //Ewww, nasty hack here...
     }
+
+    if(_pitchang <= 0)
+    {
+        _pitchang = 0;
+    }
+
+    _pitchang += npitch;
+    _yawang += nyaw;
+}
+
+//Update where our camera is looking (by moving the world hehehehe)
+void Camera::look()
+{
+    //Oookaay, this is sort of weird, but it works for now...
+    //We should probably fix this up, because changing the location of the world
+    //can result in some bizzare things.
+    glTranslatef(getX(), getY(), getZ());
+    glRotatef(getYaw(), 0.0f, 1.0f, 0.0f);
+    glRotatef(getPitch(), 1.0f, 0.0f, 0.0f);
 }
 
 GLfloat Camera::getX()
 {
-    return pos.x;
+    return _pos.x;
 }
 
 GLfloat Camera::getY()
 {
-    return pos.y;
+    return _pos.y;
 }
 
 GLfloat Camera::getZ()
 {
-    return pos.z;
+    return _pos.z;
+}
+
+GLdouble Camera::getYaw()
+{
+    return _yawang;
+}
+
+GLdouble Camera::getPitch()
+{
+    return _pitchang;
 }
 

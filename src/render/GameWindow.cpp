@@ -70,7 +70,7 @@ void GameWindow::r_init()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    gluPerspective(45.0f, width/height, 0.01f, 100.0f);
+    gluPerspective(75.0f, (GLfloat)width/(GLfloat)height, 0.01f, 100.0f);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
