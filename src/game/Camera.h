@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <glm/glm.hpp>
+#include <GL\glu.h>
 #include <cmath>
 
 //Max Camera angle

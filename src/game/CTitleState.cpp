@@ -63,6 +63,8 @@ void CTitleState::handleInput(GameWindow& window)
             gamecam.rotate(event.motion.xrel, event.motion.yrel);
         }
     }
+
+    gamecam.look();
 }
 
 void CTitleState::update()
@@ -75,8 +77,6 @@ void CTitleState::render()
 
     //THIS HAS TO BE CALLED BEFORE WE MAKE ANY CHANGES TO MATRIX!!!
     //gluLookAt(0.0, 0.0,(GLdouble)gamecam.getZ(), (GLdouble)gamecam.getX(), (GLdouble)gamecam.getY(), 0.0, 0.0, 1.0, 0.0);
-
-    gamecam.look();
 
     //Draw a cube
     glBegin(GL_QUADS);

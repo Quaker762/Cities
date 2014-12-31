@@ -97,10 +97,6 @@ void GameWindow::r_shutdown()
 void GameWindow::r_refresh()
 {
     SDL_GL_SwapWindow(r_window);
-
-    //Poll operating system event so Windows doesn't think we've locked up!
-    SDL_Event event;
-
 }
 
 void GameWindow::r_setWindowSize(int16_t width, int16_t height)

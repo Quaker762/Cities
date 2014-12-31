@@ -15,8 +15,6 @@
     #include <MACOS.h> //TODO: Find where the goddamn OSX header file is...
 #endif
 
-
-
 #include <SDL.h>
 
 #include "CGameState.h"
