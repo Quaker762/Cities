@@ -1,6 +1,6 @@
 #ifndef TGAREADER_H
 #define TGAREADER_H
-
+#include <stdio.h>
 
 class TGAReader
 {
