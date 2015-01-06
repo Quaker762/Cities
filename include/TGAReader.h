@@ -1,6 +1,8 @@
 #ifndef TGAREADER_H
 #define TGAREADER_H
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 class TGAReader
 {
@@ -9,7 +11,7 @@ public:
     ~TGAReader();
 
     void tgaLoadHeader(FILE *file);
-    void tgaLoadImageData(FILE* file);
+    void tgaLoadImageData(FILE *file);
 
 
 private:
