@@ -4,6 +4,7 @@
 
 #include "src\render\GameWindow.h"
 #include "src\game\Global.h"
+#include "include\Terrain Generator.h"
 
 #define SCREEN_HEIGHT   1280
 #define SCREEN_WIDTH    720
@@ -12,6 +13,7 @@ bool running = true;
 
 GameWindow window;
 SDL_Event event;
+TerrainGenerator WORLDSPACE;
 
 int main(int argc, char* argv[])
 {
@@ -27,6 +29,10 @@ int main(int argc, char* argv[])
     int FPS = 60;
     int32_t Currenttime;
     int32_t Lasttime = 0;
+
+    //Temporary Create Worldspace -> Will need title space and then move to hear when getting to game state
+    string File = "map.tga";
+    WORLDSPACE.BuildHeightMap(File);
 
     //Debug variables
     //int FUCKYOU;
@@ -46,6 +52,7 @@ int main(int argc, char* argv[])
             g_currentState->update();
             g_currentState->handleInput(window);
             g_currentState->render();
+            WORLDSPACE.UpdateHeightMap();
             Lasttime = SDL_GetTicks();
 
             SDL_Delay((Currenttime - Lasttime) / 1000);

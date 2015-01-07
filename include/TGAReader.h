@@ -2,7 +2,7 @@
 #define TGAREADER_H
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string>
 #include <iostream>
 #include <fstream>
 
@@ -12,7 +12,9 @@ public:
     TGAReader();
     ~TGAReader();
 
-    void tgaLoadFile(FILE *file);
+    char * tgaLoadFile(std::string File);
+    int getwidth();
+    int getlength();
 
 
 private:

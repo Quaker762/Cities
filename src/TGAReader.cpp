@@ -13,14 +13,14 @@ TGAReader::~TGAReader()
 
 }
 
-void TGAReader::tgaLoadFile(FILE *file)
+char * TGAReader::tgaLoadFile(string File)
 {
     char * cGarbage;
     char * infomove;
     char intermediary;
 
     ifstream TGAMAP;
-    TGAMAP.open("Temp", ios::in|ios::binary);
+    TGAMAP.open(File, ios::in|ios::binary);
     TGAMAP.seekg(0,ios::beg);
     //Read Header
 
@@ -55,30 +55,24 @@ void TGAReader::tgaLoadFile(FILE *file)
     //Mode is # components per pixel
     int mode;
     int total;
-    int i;
-    int j;
-    char aux;
 
     //Set mode
-    mode = pixDepth /8;
+    mode = pixDepth / 8;
 
     //Calculate data to read
     total = length * width * mode;
 
     //Load bits into imageData
     TGAMAP.read (imageData, total);
+    return(imageData);
+}
 
-    //Generate Heights
-    //Order is width -> length
-    //Width is left to right
-    //Length is top to bottom or vise versa
-    char heightmap[1000][1000];
-    for (i=0; i < width; i++)
-    {
-        for (j=0; j < length; j++)
-        {
-            heightmap[i][j] = imageData[i*width + j];
-        }
-    }
+int TGAReader::getwidth()
+{
+    return(width);
+}
 
+int TGAReader::getlength()
+{
+    return(length);
 }
