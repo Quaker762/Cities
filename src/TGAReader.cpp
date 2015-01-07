@@ -17,6 +17,7 @@ void TGAReader::tgaLoadFile(FILE *file)
 {
     char * cGarbage;
     char * infomove;
+    char intermediary;
 
     ifstream TGAMAP;
     TGAMAP.open("Temp", ios::in|ios::binary);
@@ -37,12 +38,15 @@ void TGAReader::tgaLoadFile(FILE *file)
     TGAMAP.read (cGarbage, sizeof(short int));
     TGAMAP.read (cGarbage, sizeof(short int));
 
-    infomove = &width;
+    infomove = &intermediary;
     TGAMAP.read (infomove, sizeof(short int));
-    infomove = &height;
+    width = (short int)intermediary;
+    infomove = &intermediary;
     TGAMAP.read (infomove, sizeof(short int));
-    infomove = &pixdepth;
+    height = (short int)intermediary;
+    infomove = &intermediary;
     TGAMAP.read (infomove, sizeof(unsigned char));
+    pixDepth = (short int)intermediary;
 
     TGAMAP.read (cGarbage, sizeof(unsigned char));
 }

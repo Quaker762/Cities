@@ -18,7 +18,7 @@ public:
 
 private:
     int status;
-    unsigned char type, pixDepth;
+    char type, pixDepth;
     short int width, height;
     unsigned char *imageData;
 };
