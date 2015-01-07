@@ -21,7 +21,7 @@ class TerrainGenerator
         int SaveHeightMap();
     protected:
     private:
-        char heightmap[1000][1000];
+        unsigned char heightmap[1000][1000];
         short int width;
         short int length;
 };

@@ -37,6 +37,7 @@ char * TGAReader::tgaLoadFile(string File)
     //Gets info and such
     infomove = &type;
     TGAMAP.read (infomove, 1);
+    printf("Type=%d\n", type);
 
     TGAMAP.read(cGarbage, sizeof(short int));
     TGAMAP.read(cGarbage, sizeof(short int));
@@ -56,8 +57,12 @@ char * TGAReader::tgaLoadFile(string File)
 
     TGAMAP.read(cGarbage, 1);
 
-    //Load Image Pixels
+    //Debug shit
+    printf("width is %d\n", width);
+    printf("length is %d\n", length);
+    printf("pixdepth is %d\n", pixDepth);
 
+    //Load Image Pixels
     //Mode is # components per pixel
     int mode;
     int total;
