@@ -13,14 +13,13 @@ public:
     ~TGAReader();
 
     void tgaLoadFile(FILE *file);
-    void tgaLoadImageData(FILE *file);
 
 
 private:
     int status;
     char type, pixDepth;
-    short int width, height;
-    unsigned char *imageData;
+    short int width, length;
+    char *imageData;
 };
 
 #endif // TGAREADER_H

@@ -25,16 +25,16 @@ void TGAReader::tgaLoadFile(FILE *file)
     //Read Header
 
     //Discard useless
-    TGAMAP.read (cGarbage, sizeof(unsigned char));
-    TGAMAP.read (cGarbage, sizeof(unsigned char));
+    TGAMAP.read (cGarbage, 1);
+    TGAMAP.read (cGarbage, 1);
 
     //Gets info and such
     infomove = &type;
-    TGAMAP.read (infomove, sizeof(unsigned char));
+    TGAMAP.read (infomove, 1);
 
     TGAMAP.read (cGarbage, sizeof(short int));
     TGAMAP.read (cGarbage, sizeof(short int));
-    TGAMAP.read (cGarbage, sizeof(unsigned char));
+    TGAMAP.read (cGarbage, 1);
     TGAMAP.read (cGarbage, sizeof(short int));
     TGAMAP.read (cGarbage, sizeof(short int));
 
@@ -43,52 +43,42 @@ void TGAReader::tgaLoadFile(FILE *file)
     width = (short int)intermediary;
     infomove = &intermediary;
     TGAMAP.read (infomove, sizeof(short int));
-    height = (short int)intermediary;
+    length = (short int)intermediary;
     infomove = &intermediary;
-    TGAMAP.read (infomove, sizeof(unsigned char));
+    TGAMAP.read (infomove, 1);
     pixDepth = (short int)intermediary;
 
-    TGAMAP.read (cGarbage, sizeof(unsigned char));
-}
+    TGAMAP.read (cGarbage, 1);
 
-//Loads image pixels, don't call directly
-//void tgaLoadImageData(FILE *file)
-//{
+    //Load Image Pixels
+
     //Mode is # components per pixel
-//    int mode;
-//    int total;
-//    int i;
-//    unsigned char aux;
+    int mode;
+    int total;
+    int i;
+    int j;
+    char aux;
 
     //Set mode
-//    mode = pixeldepth / 8;
-    //Calculate amount of data to be read
-//    total = height * width * mode;
+    mode = pixDepth /8;
+
+    //Calculate data to read
+    total = length * width * mode;
+
     //Load bits into imageData
-//    fread(imageData, sizeof(unsigned char), total, file);
+    TGAMAP.read (imageData, total);
 
-    //Convert from BGR(A) to RGB(A) if image is coloured
+    //Generate Heights
+    //Order is width -> length
+    //Width is left to right
+    //Length is top to bottom or vise versa
+    char heightmap[1000][1000];
+    for (i=0; i < width; i++)
+    {
+        for (j=0; j < length; j++)
+        {
+            heightmap[i][j] = imageData[i*width + j];
+        }
+    }
 
- //   if (mode >= 3)
- //   {
- //       for (i=0; i < total; i+=mode)
- //       {
- //           aux = info->imageData[i];
- //           imageData[i] = info->imageData[i+2];
- //           imageData[i+2] = aux;
- //       }
- //   }
-//}
-
-//Function to load image
-//void tgaInfo(char *filename)
-//{
-//    FILE *file;
-//    int mode, total;
-    //Allocate Memory
-//    info = (tgaInfo *)malloc(sizeof(tgaInfo));
-//    if (info == NULL)
-//    {
-//        return(NULL);
-//    }
-//}
+}
