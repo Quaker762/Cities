@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
+#include <fstream>
 
 class TGAReader
 {
@@ -10,7 +12,7 @@ public:
     TGAReader();
     ~TGAReader();
 
-    void tgaLoadHeader(FILE *file);
+    void tgaLoadFile(FILE *file);
     void tgaLoadImageData(FILE *file);
 
 
