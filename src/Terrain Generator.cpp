@@ -27,11 +27,9 @@ void TerrainGenerator::BuildHeightMap(string File)
     int j;
     char aux;
 
- //   for (i=0; i < width; i++)
-    for(i=0; i < 1000; i++)
+    for (i=0; i < width; i++)
     {
- //       for (j=0; j < length; j++)
-        for (j=0; j < 1000; j++)
+        for (j=0; j < length; j++)
         {
             heightmap[i][j] = (unsigned char)imageData[i*width + j];
             printf("i=%d j=%d y=%d\n", i, j, heightmap[i][j]);
@@ -46,8 +44,8 @@ int TerrainGenerator::UpdateHeightMap()
 	int i,j,aux;
 
 	// compute the initial point of the terrain on the XZ plane
-	startW = 1000 / 2.0 - 1000;
-	startL = - 1000 / 2.0 + 1000;
+	startW = width / 2.0 - width;
+	startL = - length / 2.0 + length;
 
 	// Create the id for the display list
 	terrainDL = glGenLists(1);
@@ -57,10 +55,10 @@ int TerrainGenerator::UpdateHeightMap()
 
 	// generate n-1 strips, where n = terrainGridLength
 	// for each vertex test if colors and normals are enabled
-	for (i = 0 ; i < 1000-1; i++)
+	for (i = 0 ; i < width-1; i++)
     {
 		glBegin(GL_TRIANGLE_STRIP);
-		for (j = 0;j < 1000; j++)
+		for (j = 0;j < length; j++)
         {
             glColor3f(1.0f, 1.0f, 1.0f);
 			glVertex3f(startW + j, heightmap[i+1][j], startL - (i+1));

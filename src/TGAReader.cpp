@@ -18,6 +18,7 @@ char * TGAReader::tgaLoadFile(string File)
     char * cGarbage;
     char * infomove;
     char intermediary;
+    short int INTermediary;
 
     //Assign Memory
     cGarbage = (char*)malloc(2);
@@ -45,15 +46,15 @@ char * TGAReader::tgaLoadFile(string File)
     TGAMAP.read(cGarbage, sizeof(short int));
     TGAMAP.read(cGarbage, sizeof(short int));
 
-    infomove = &intermediary;
+    infomove = (char*)&INTermediary;
     TGAMAP.read(infomove, sizeof(short int));
-    width = (short int)intermediary;
-    infomove = &intermediary;
+    width = INTermediary;
+    infomove = (char*)&INTermediary;
     TGAMAP.read(infomove, sizeof(short int));
-    length = (short int)intermediary;
-    infomove = &intermediary;
+    length = INTermediary;
+    infomove = (char*)&INTermediary;
     TGAMAP.read(infomove, 1);
-    pixDepth = (short int)intermediary;
+    pixDepth = INTermediary;
 
     TGAMAP.read(cGarbage, 1);
 
