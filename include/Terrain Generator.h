@@ -7,6 +7,8 @@
 #include <GL\glu.h>
 #include <cmath>
 #include <string>
+#include <math.h>
+
 using namespace std;
 
 
@@ -16,12 +18,14 @@ class TerrainGenerator
         TerrainGenerator();
         virtual ~TerrainGenerator();
         void BuildHeightMap(string File);
+        void ScaleHeightMap();
         int EditHeightMap();
         int UpdateHeightMap();
         int SaveHeightMap();
     protected:
     private:
         unsigned char heightmap[1000][1000];
+        int scaledheightmap[1000][1000];
         short int width;
         short int length;
 };

@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
     //Temporary Create Worldspace -> Will need title space and then move to hear when getting to game state
     string File = "map.tga";
     WORLDSPACE.BuildHeightMap(File);
+    WORLDSPACE.ScaleHeightMap();
 
     //Debug variables
     //int FUCKYOU;

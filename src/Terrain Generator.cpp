@@ -1,6 +1,8 @@
 #include "Terrain Generator.h"
 #include "TGAReader.h"
 
+#define PI 3.141592653589793238462643383279502884197169
+
 TerrainGenerator::TerrainGenerator()
 {
     //ctor
@@ -19,10 +21,10 @@ void TerrainGenerator::BuildHeightMap(string File)
     //Width is left to right
     //Length is top to bottom or vise versa
     char * imageData = Mapget.tgaLoadFile(File);
-    //length = Mapget.getlength();
-    //width = Mapget.getwidth();
-    //printf("%d\n", width);
-    //printf("%d", length);
+    length = Mapget.getlength();
+    width = Mapget.getwidth();
+    printf("Map Width = %d\n", width);
+    printf("Map Length = %d\n", length);
     int i;
     int j;
     char aux;
@@ -32,7 +34,20 @@ void TerrainGenerator::BuildHeightMap(string File)
         for (j=0; j < length; j++)
         {
             heightmap[i][j] = (unsigned char)imageData[i*width + j];
-            printf("i=%d j=%d y=%d\n", i, j, heightmap[i][j]);
+            //printf("i=%d j=%d y=%d\n", i, j, heightmap[i][j]);
+        }
+    }
+}
+
+void TerrainGenerator::ScaleHeightMap()
+{
+    int i,j;
+    for (i=0; i < width; i++)
+    {
+        for (j=0; j < length; j++)
+        {
+            scaledheightmap[i][j] = (4.70588 * (sin(((((double)heightmap[i][j]) / 510) * PI))) * (double)heightmap[i][j]) - 200;
+            printf("Scaled x = %d, z = %d, y = %d\n",i,j,scaledheightmap[i][j]);
         }
     }
 }
