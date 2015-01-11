@@ -1,4 +1,5 @@
 #include "Camera.h"
+#define PI 3.1415926535897932384626433
 
 Camera::Camera(GLfloat x, GLfloat y, GLfloat z)
 {
@@ -40,10 +41,10 @@ void Camera::look()
     //Oookaay, this is sort of weird, but it works for now...
     //We should probably fix this up, because changing the location of the world
     //can result in some bizzare things.
-    glTranslatef(getX(), getY(), getZ());
-    glRotatef(getYaw(), 0.0f, 1.0f, 0.0f);
-    glRotatef(getPitch(), 1.0f, 0.0f, 0.0f);
-    //gluLookAt((GLdouble)getX() + sin(getPitch), (GLdouble)getY() + - cos(getYaw()), (Gldouble)getZ(), (Gldouble)getX(), (Gldouble)getY(), (GLdouble)getZ(), 0.0, 1.0, 0.0);
+    //glTranslatef(getX(), getY(), getZ());
+    //glRotatef(getYaw(), 0.0f, 1.0f, 0.0f);
+    //glRotatef(getPitch(), 1.0f, 0.0f, 0.0f);
+    gluLookAt(getX(), getY(), getZ(), getX() + cos(getYaw()), getY() + 5*sin(getPitch()+0.5*PI), getZ() + sin(getYaw()), 0.0, 1.0, 0.0);
 }
 
 GLfloat Camera::getX()
