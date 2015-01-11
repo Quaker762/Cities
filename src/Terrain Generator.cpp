@@ -47,7 +47,7 @@ void TerrainGenerator::ScaleHeightMap()
         for (j=0; j < length; j++)
         {
             scaledheightmap[i][j] = (4.70588 * (sin(((((double)heightmap[i][j]) / 510) * PI))) * (double)heightmap[i][j]) - 200;
-            printf("Scaled x = %d, z = %d, y = %d\n",i,j,scaledheightmap[i][j]);
+            //printf("Scaled x = %d, z = %d, y = %d\n",i,j,scaledheightmap[i][j]);
         }
     }
 }

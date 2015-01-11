@@ -29,11 +29,15 @@ int main(int argc, char* argv[])
     int FPS = 60;
     int32_t Currenttime;
     int32_t Lasttime = 0;
+    GLuint terrainDL;
+
 
     //Temporary Create Worldspace -> Will need title space and then move to hear when getting to game state
     string File = "map.tga";
     WORLDSPACE.BuildHeightMap(File);
     WORLDSPACE.ScaleHeightMap();
+    terrainDL = WORLDSPACE.UpdateHeightMap();
+
 
     //Debug variables
     //int FUCKYOU;
@@ -53,7 +57,7 @@ int main(int argc, char* argv[])
             g_currentState->update();
             g_currentState->handleInput(window);
             g_currentState->render();
-            WORLDSPACE.UpdateHeightMap();
+            glCallList(terrainDL);
             Lasttime = SDL_GetTicks();
 
             SDL_Delay((Currenttime - Lasttime) / 1000);
