@@ -69,7 +69,7 @@ void CTitleState::handleInput(GameWindow& window)
 
 void CTitleState::update()
 {
-    time += 0.1;
+
 }
 
 void CTitleState::render()

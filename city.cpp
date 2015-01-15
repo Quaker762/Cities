@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     g_currentState->init();
 
     //Declare FPS variables
-    int FPS = 60;
+    int FPS = 120;
     int32_t Currenttime;
     int32_t Lasttime = 0;
     GLuint terrainDL;
@@ -54,15 +54,15 @@ int main(int argc, char* argv[])
 
         if ((Currenttime - Lasttime) >= 1000/FPS)
         {
-            g_currentState->update();
             g_currentState->handleInput(window);
+            g_currentState->update();
             g_currentState->render();
             glCallList(terrainDL);
             Lasttime = SDL_GetTicks();
+            window.r_refresh();
 
             SDL_Delay((Currenttime - Lasttime) / 1000);
         }
-            window.r_refresh();
     }
         return 0;
 }

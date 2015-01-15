@@ -31,8 +31,8 @@ void Camera::rotate(GLdouble nyaw, GLdouble npitch)
         _pitchang = 0;
     }
 
-    _pitchang += npitch;
-    _yawang += nyaw;
+    _pitchang = _pitchang + (0.005 * npitch);
+    _yawang = _yawang + (0.005 * nyaw);
 }
 
 //Update where our camera is looking (by moving the world hehehehe)
