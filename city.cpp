@@ -60,8 +60,6 @@ int main(int argc, char* argv[])
             glCallList(terrainDL);
             Lasttime = SDL_GetTicks();
             window.r_refresh();
-
-            SDL_Delay((Currenttime - Lasttime) / 1000);
         }
     }
         return 0;
