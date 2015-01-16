@@ -12,9 +12,16 @@ Camera::~Camera()
 
 }
 
-void Camera::updatePos(GLfloat x, GLfloat y, GLfloat z)
+void Camera::updatePos(GLfloat x, GLfloat y, GLfloat z, GLfloat LRTrue)
 {
-    _pos = glm::vec3(_pos.x + x, _pos.y + y, _pos.z + z);
+    if (LRTrue == 1)
+    {
+        _pos = glm::vec3(_pos.x + (x * sin( getYaw() ) ), _pos.y + y, _pos.z + (z * cos( getYaw() ) ));
+    }
+    else if (LRTrue == 0)
+    {
+        _pos = glm::vec3(_pos.x + (x * cos( getYaw() ) ), _pos.y + y, _pos.z + (z * sin( getYaw() ) ));
+    }
 
 }
 

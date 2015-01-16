@@ -20,7 +20,7 @@ class TerrainGenerator
         void BuildHeightMap(string File);
         void ScaleHeightMap();
         int EditHeightMap();
-        int UpdateHeightMap();
+        int UpdateHeightMap(float xOffset, float yOffset, float zOffset);
         int SaveHeightMap();
     protected:
     private:

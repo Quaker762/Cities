@@ -29,14 +29,22 @@ int main(int argc, char* argv[])
     int FPS = 120;
     int32_t Currenttime;
     int32_t Lasttime = 0;
+
+    //Declare Terrain Variables
     GLuint terrainDL;
+    float xOffset;
+    float yOffset;
+    float zOffset;
 
 
     //Temporary Create Worldspace -> Will need title space and then move to hear when getting to game state
     string File = "map.tga";
+    xOffset = 0;
+    yOffset = -150;
+    zOffset = 0;
     WORLDSPACE.BuildHeightMap(File);
-    WORLDSPACE.ScaleHeightMap();
-    terrainDL = WORLDSPACE.UpdateHeightMap();
+    /**WORLDSPACE.ScaleHeightMap(); **/ //Need to fix scaling, random shit happening ATM
+    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset);
 
 
     //Debug variables

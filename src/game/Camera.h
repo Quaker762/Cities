@@ -16,7 +16,7 @@ public:
     Camera(GLfloat x, GLfloat y, GLfloat z);
     ~Camera();
 
-    void updatePos(GLfloat x, GLfloat y, GLfloat z);
+    void updatePos(GLfloat x, GLfloat y, GLfloat z, GLfloat LRTrue);
     void rotate(GLdouble nyaw, GLdouble npitch);
 
     void look();

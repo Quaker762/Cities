@@ -48,11 +48,12 @@ void TerrainGenerator::ScaleHeightMap()
         {
             scaledheightmap[i][j] = (4.70588 * (sin(((((double)heightmap[i][j]) / 510) * PI))) * (double)heightmap[i][j]) - 200;
             //printf("Scaled x = %d, z = %d, y = %d\n",i,j,scaledheightmap[i][j]);
+            heightmap[i][j] = scaledheightmap[i][j];
         }
     }
 }
 
-int TerrainGenerator::UpdateHeightMap()
+int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffset)
 {
     GLuint terrainDL;
 	float startW,startL;
@@ -73,12 +74,50 @@ int TerrainGenerator::UpdateHeightMap()
 	for (i = 0 ; i < width-1; i++)
     {
 		glBegin(GL_TRIANGLE_STRIP);
-		for (j = 0;j < length; j++)
+		for (j = 0; j < length; j++)
         {
-            glColor3f(1.0f, 1.0f, 1.0f);
-			glVertex3f(startW + j, heightmap[i+1][j], startL - (i+1));
-            glColor3f(1.0f, 1.0f, 1.0f);
-			glVertex3f(startW + j, heightmap[i+1][j], startL - i);
+            if (heightmap[i+1][j] < 0)
+            {
+                glColor3f(0.05f, 0.2f, 0.8f);
+            }
+            else if (heightmap[i+1][j] < 200)
+            {
+                glColor3f(0.7f, 1.0f, 0.1f);
+            }
+            else if (heightmap[i+1][j] > 1000)
+            {
+                glColor3f(0.8f, 0.8f, 0.9f);
+            }
+            else if (heightmap[i+1][j] - heightmap[i][j] > 20 | heightmap[i+1][j] - heightmap[i][j] < -20)
+            {
+                glColor3f(0.7f, 0.3f, 0.5f);
+            }
+            else
+            {
+                glColor3f(0.4f, 1.0f, 0.1f);
+            }
+			glVertex3f(startW + j + xOffset, heightmap[i+1][j] + yOffset, startL - (i+1) + zOffset);
+            if (heightmap[i][j] < 0)
+            {
+                glColor3f(0.05f, 0.2f, 0.8f);
+            }
+            else if (heightmap[i][j] < 200)
+            {
+                glColor3f(0.7f, 1.0f, 0.1f);
+            }
+            else if (heightmap[i][j] > 1000)
+            {
+                glColor3f(0.8f, 0.8f, 0.9f);
+            }
+            else if (heightmap[i+1][j] - heightmap[i][j] > 20 | heightmap[i+1][j] - heightmap[i][j] < -20)
+            {
+                glColor3f(0.7f, 0.3f, 0.5f);
+            }
+            else
+            {
+                glColor3f(0.4f, 1.0f, 0.1f);
+            }
+			glVertex3f(startW + j + xOffset, heightmap[i][j] + yOffset, startL - i + zOffset);
 		}
 		glEnd();
 	}
