@@ -63,6 +63,12 @@ char * TGAReader::tgaLoadFile(string File)
     printf("length is %d\n", length);
     printf("pixdepth is %d\n", pixDepth);
 
+    if (pixDepth > 8)
+    {
+        printf("Err: Not Grayscale\n");
+        return(NULL);
+    }
+
     //Load Image Pixels
     //Mode is # components per pixel
     int mode;
@@ -83,6 +89,7 @@ char * TGAReader::tgaLoadFile(string File)
     }
     else
     {
+        printf("Failed to open file");
         return(NULL);
     }
 }

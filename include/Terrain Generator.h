@@ -18,7 +18,9 @@ class TerrainGenerator
         TerrainGenerator();
         virtual ~TerrainGenerator();
         void BuildHeightMap(string File);
+        void GenerateHeightMap();
         void ScaleHeightMap();
+        void SmoothHeightMap();
         int EditHeightMap();
         int UpdateHeightMap(float xOffset, float yOffset, float zOffset);
         int SaveHeightMap();
@@ -28,6 +30,7 @@ class TerrainGenerator
         int scaledheightmap[1000][1000];
         short int width;
         short int length;
+        unsigned char scaled = 0;
 };
 
 #endif // TERRAIN GENERATOR_H

@@ -44,22 +44,22 @@ void CTitleState::handleInput(GameWindow& window)
 
             if(event.key.keysym.sym == SDLK_LEFT)
             {
-                gamecam.updatePos(1.0f * 0.1f, 0.0f, -1.0f * 0.1, 1.0f);
+                gamecam.updatePos(1.0f * 1.5f, 0.0f, -1.0f * 1.5, 1.0f);
             }
 
             if(event.key.keysym.sym == SDLK_RIGHT)
             {
-                gamecam.updatePos(-1.0f * 0.1f, 0.0f, 1.0f * 0.1, 1.0f);
+                gamecam.updatePos(-1.0f * 1.5f, 0.0f, 1.0f * 1.5, 1.0f);
             }
 
             if(event.key.keysym.sym == SDLK_UP)
             {
-                gamecam.updatePos(1.0f * 0.1f, 0.0f, 1.0f * 0.1, 0.0f);
+                gamecam.updatePos(1.0f * 1.5f, 0.0f, 1.0f * 1.5, 0.0f);
             }
 
             if(event.key.keysym.sym == SDLK_DOWN)
             {
-                gamecam.updatePos(-1.0f * 0.1f, 0.0f, -1.0f * 0.1, 0.0f);
+                gamecam.updatePos(-1.0f * 1.5f, 0.0f, -1.0f * 1.5, 0.0f);
             }
         }
 

@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
     g_currentState->init();
 
     //Declare FPS variables
-    int FPS = 120;
+    int FPS = 500;
     int32_t Currenttime;
     int32_t Lasttime = 0;
 
@@ -43,7 +43,8 @@ int main(int argc, char* argv[])
     yOffset = -150;
     zOffset = 0;
     WORLDSPACE.BuildHeightMap(File);
-    /**WORLDSPACE.ScaleHeightMap(); **/ //Need to fix scaling, random shit happening ATM
+    //WORLDSPACE.GenerateHeightMap();
+    //WORLDSPACE.ScaleHeightMap(); //Need to fix scaling, completely fucked ATM
     terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset);
 
 
@@ -70,5 +71,5 @@ int main(int argc, char* argv[])
             window.r_refresh();
         }
     }
-        return 0;
+    return 0;
 }
