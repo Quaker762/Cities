@@ -13,7 +13,7 @@ bool running = true;
 
 GameWindow window;
 SDL_Event event;
-TerrainGenerator WORLDSPACE;
+
 
 int main(int argc, char* argv[])
 {
@@ -29,23 +29,6 @@ int main(int argc, char* argv[])
     int FPS = 500;
     int32_t Currenttime;
     int32_t Lasttime = 0;
-
-    //Declare Terrain Variables
-    GLuint terrainDL;
-    float xOffset;
-    float yOffset;
-    float zOffset;
-
-
-    //Temporary Create Worldspace -> Will need title space and then move to hear when getting to game state
-    string File = "map.tga";
-    xOffset = 0;
-    yOffset = -150;
-    zOffset = 0;
-    WORLDSPACE.BuildHeightMap(File);
-    //WORLDSPACE.GenerateHeightMap();
-    //WORLDSPACE.ScaleHeightMap(); //Need to fix scaling, completely fucked ATM
-    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset);
 
 
     //Debug variables
@@ -66,7 +49,6 @@ int main(int argc, char* argv[])
             g_currentState->handleInput(window);
             g_currentState->update();
             g_currentState->render();
-            glCallList(terrainDL);
             Lasttime = SDL_GetTicks();
             window.r_refresh();
         }

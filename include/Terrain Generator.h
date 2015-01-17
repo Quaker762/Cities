@@ -24,6 +24,7 @@ class TerrainGenerator
         int EditHeightMap();
         int UpdateHeightMap(float xOffset, float yOffset, float zOffset);
         int SaveHeightMap();
+        int GetHeightAtPoint(int x, int z);
     protected:
     private:
         unsigned char heightmap[1000][1000];

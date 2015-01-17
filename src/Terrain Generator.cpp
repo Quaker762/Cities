@@ -150,8 +150,8 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 	printf("preStartW width = %d\npreStartL length = %d\n", width, length);
 
 	// compute the initial point of the terrain on the XZ plane
-	startW = (width / 2.0) - width;
-	startL = (-length / 2.0) + length;
+	startW = (width / 2.0) - width; //Start = x = -500
+	startL = (-length / 2.0) + length; //Start = z = 500
 
 	// Create the id for the display list
 	terrainDL = glGenLists(1);
@@ -261,4 +261,13 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 
 	// return the list index so that the application can use it
 	return(terrainDL);
+}
+
+/**
+    We're doing some funky ass counting, so length array [2nd dimension] values are (z * -1) + 500,
+    while the first dimension [x values] are (x + 500)
+**/
+int TerrainGenerator::GetHeightAtPoint(int x, int z)
+{
+    return heightmap[x + 500][(z * -1) + 500];
 }

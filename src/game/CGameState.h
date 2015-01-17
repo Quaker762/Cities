@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <GL\glu.h>
 #include <SDL_opengl.h>
+#include <string>
+#include <iostream>
 
 #include "../render/GameWindow.h"
 

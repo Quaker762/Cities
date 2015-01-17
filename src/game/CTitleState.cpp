@@ -1,9 +1,18 @@
+#include <cmath>
+
 #include "CGameState.h"
 #include "Camera.h"
+#include "../include/Terrain Generator.h"
 
 float time = 0.0f;
 
 Camera gamecam(0.0f, 0.0f, -3.0f);
+TerrainGenerator WORLDSPACE;
+
+GLuint terrainDL;
+
+int lastxrel = 0;
+int lastyrel = 0;
 
 CTitleState::CTitleState()
 {
@@ -18,6 +27,21 @@ CTitleState::~CTitleState()
 void CTitleState::init()
 {
 
+    //Declare Terrain Variables
+    float xOffset;
+    float yOffset;
+    float zOffset;
+
+
+    //Temporary Create Worldspace -> Will need title space and then move to hear when getting to game state
+    std::string File = "map.tga";
+    xOffset = 0;
+    yOffset = -150;
+    zOffset = 0;
+    WORLDSPACE.BuildHeightMap(File);
+    //WORLDSPACE.GenerateHeightMap();
+    //WORLDSPACE.ScaleHeightMap(); //Need to fix scaling, completely fucked ATM
+    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset);
 }
 
 void CTitleState::destroy()
@@ -27,6 +51,8 @@ void CTitleState::destroy()
 
 void CTitleState::handleInput(GameWindow& window)
 {
+    int height = WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ());
+
     while(SDL_PollEvent(&event) != 0)
     {
         if(event.type == SDL_QUIT)
@@ -61,32 +87,44 @@ void CTitleState::handleInput(GameWindow& window)
             {
                 gamecam.updatePos(-1.0f * 1.5f, 0.0f, -1.0f * 1.5, 0.0f);
             }
+
+            if(event.key.keysym.sym == SDLK_SPACE)
+            {
+                gamecam.updatePos(0.0f, 1.5f, 0.0f, 0.0f);
+            }
+
+            if(event.key.keysym.sym == SDLK_LCTRL)
+            {
+                gamecam.updatePos(0.0f, -1.5f, 0.0f, 0.0f);
+            }
         }
 
         if(event.type == SDL_MOUSEWHEEL)
         {
-            //gamecam.updatePos(0.0f, 0.0f, (GLfloat)event.wheel.y);
+            gamecam.updatePos(0.0f, (GLfloat)event.wheel.y, 0.0f, 0.0f);
         }
 
         if(event.type == SDL_MOUSEMOTION)
         {
             gamecam.rotate(event.motion.xrel, event.motion.yrel);
+            /**
+                This sort of works. How it really should work is:
+                1. The current world X and Z co-ordinates are actually our origin for selection
+                2. We should count how many pixels the mouse has moved IN RELATION to the current X and Z co-ords
+            **/
+            //std::cout << "Height: " << WORLDSPACE.GetHeightAtPoint(gamecam.getX() + event.motion.xrel , gamecam.getY() + event.motion.yrel) << std::endl;
         }
     }
-
-    gamecam.look();
 }
 
 void CTitleState::update()
 {
-
+    gamecam.look();
 }
 
 void CTitleState::render()
 {
-
-    //THIS HAS TO BE CALLED BEFORE WE MAKE ANY CHANGES TO MATRIX!!!
-    //gluLookAt(0.0, 0.0,(GLdouble)gamecam.getZ(), (GLdouble)gamecam.getX(), (GLdouble)gamecam.getY(), 0.0, 0.0, 1.0, 0.0);
+    glCallList(terrainDL);
 
     //Draw a cube
     glBegin(GL_QUADS);
