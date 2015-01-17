@@ -7,3 +7,4 @@
 *.o
 obj/Release/src/game/CTitleState.o
 *.o
+*.txt
