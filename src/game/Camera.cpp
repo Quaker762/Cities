@@ -42,15 +42,9 @@ void Camera::rotate(GLdouble nyaw, GLdouble npitch)
     _yawang = _yawang + (0.01 * nyaw);
 }
 
-//Update where our camera is looking (by moving the world hehehehe)
+
 void Camera::look()
 {
-    //Oookaay, this is sort of weird, but it works for now...
-    //We should probably fix this up, because changing the location of the world
-    //can result in some bizzare things.
-    //glTranslatef(getX(), getY(), getZ());
-    //glRotatef(getYaw(), 0.0f, 1.0f, 0.0f);
-    //glRotatef(getPitch(), 1.0f, 0.0f, 0.0f);
     gluLookAt(getX(), getY(), getZ(), getX() + cos(getYaw()), getY() + 5*sin(getPitch()+0.5*PI), getZ() + sin(getYaw()), 0.0, 1.0, 0.0);
 }
 

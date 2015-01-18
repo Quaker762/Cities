@@ -41,5 +41,9 @@ public:
 
 private:
     SDL_Event event;
+    //Declare Terrain Variables
+    float xOffset;
+    float yOffset;
+    float zOffset;
 };
 #endif // CGAMESTATE_H

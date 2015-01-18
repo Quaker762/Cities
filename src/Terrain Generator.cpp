@@ -109,36 +109,72 @@ void TerrainGenerator::GenerateHeightMap()
 
 void TerrainGenerator::ScaleHeightMap()
 {
-    printf("preScaled Width = %d\npreScaled Length = %d\n", width, length);
-    int i,j;
+    //Ensure to change array size if using map larger than 1000 x 1000
+    int i,j,temp;
     for (i=0; i < width; i++)
     {
-        //printf("For i = %d width = %d\n", i, width);
         for (j=0; j < length; j++)
         {
-            //scaledheightmap[i][j] = (0.5 * (sin(((((double)heightmap[i][j]) / 510) * PI))) * (double)heightmap[i][j]);
-            if (j > 1)
-            {
-                if (scaledheightmap[i][j] == scaledheightmap[i][j-1])
-                {
-                    scaledheightmap[i][j] = scaledheightmap[i][j] + 1;
-                }
-                if (scaledheightmap[i][j] > scaledheightmap[i][j-1] && scaledheightmap[i][j-1] > scaledheightmap[i][j-2])
-                {
-                    scaledheightmap[i][j-1] = (scaledheightmap[i][j] - scaledheightmap[i][j-2]) / 2;
-                }
-                else if (scaledheightmap[i][j] < scaledheightmap[i][j-1] && scaledheightmap[i][j-1] > scaledheightmap[i][j-2])
-                {
-                    scaledheightmap[i][j-1] = (scaledheightmap[i][j] + scaledheightmap[i][j-2] + scaledheightmap[i][j-1]) / 3;
-                }
-
-            }
-            //printf("Scaled x = %d, z = %d, y = %d\n",i,j,scaledheightmap[i][j]);
+            temp = ((-30.0) / (heightmap[i][j] - 265.0) + 1) * heightmap[i][j];
+            //printf("Temp = %d\n", temp);
+            scaledheightmap[i][j] = temp * 1.0f;
+            //printf("Scaled x = %d, z = %d, y = %f\n",i,j,scaledheightmap[i][j]);
         }
     }
-    printf("prevarScaled width = %d\nprevarScaled length = %d\n", width, length);
     scaled = 1;
-    printf("Scaled width = %d\nScaled length = %d\n", width, length);
+}
+
+//ONLY CALL FOR SCALED TERRAIN
+void TerrainGenerator::SmoothHeightMap(int advancedsmooth)
+{
+    int i, j;
+
+    //Basic Smoothing
+    for (i = 2; i < width; i++)
+    {
+        for (j = 2; j < length; j++)
+        {
+            scaledheightmap[i-1][j-1] = (scaledheightmap[i-2][j-1] + scaledheightmap[i-1][j-1] + scaledheightmap[i][j-1] + scaledheightmap[i-1][j-2] + scaledheightmap[i-1][j-1] + scaledheightmap[i-1][j] + scaledheightmap[i-2][j-2] + scaledheightmap[i-2][j] + scaledheightmap[i][j-2] + scaledheightmap[i][j]) * 0.1;
+            //printf("Smoothed i = %d j = %d height = %f\n", i-1, j-1, scaledheightmap[i-1][j-1]);
+        }
+    }
+
+    //Advanced Smoothing [WIP]
+    if (advancedsmooth == 1)
+    {
+        for (i = 4; i < width; i++)
+        {
+            for (j = 0; j < length; j++)
+            {
+                if (scaledheightmap[i-3][j] == scaledheightmap[i-4][j] | scaledheightmap[i-3][j] == scaledheightmap[i-2][j])
+                {
+                    if (scaledheightmap[i][j] > scaledheightmap[i-3][j] | scaledheightmap[i][j] < scaledheightmap[i-3][j])
+                    {
+                        scaledheightmap[i-3][j] = ((scaledheightmap[i][j] - scaledheightmap[i-3][j]) * sin(PI / 8)) + scaledheightmap[i-3][j];
+                        scaledheightmap[i-2][j] = ((scaledheightmap[i][j] - scaledheightmap[i-3][j]) * sin((2 * PI) / 8)) + scaledheightmap[i-3][j];
+                        scaledheightmap[i-1][j] = ((scaledheightmap[i][j] - scaledheightmap[i-3][j]) * sin((3 * PI) / 8)) + scaledheightmap[i-3][j];
+                        scaledheightmap[i][j] = ((scaledheightmap[i][j] - scaledheightmap[i-3][j]) * sin((4 * PI) / 8)) + scaledheightmap[i-3][j];
+                    }
+                }
+            }
+        }
+        for (i = 0; i < width; i++)
+        {
+            for (j = 4; j < length; j++)
+            {
+                if (scaledheightmap[i][j-3] == scaledheightmap[i][j-4] | scaledheightmap[i][j-3] == scaledheightmap[i][j-2])
+                {
+                    if (scaledheightmap[i][j] > scaledheightmap[i][j-3] | scaledheightmap[i][j] < scaledheightmap[i][j-3])
+                    {
+                        scaledheightmap[i][j-3] = ((scaledheightmap[i][j] - scaledheightmap[i][j-3]) * sin(PI / 8)) + scaledheightmap[i][j-3];
+                        scaledheightmap[i][j-2] = ((scaledheightmap[i][j] - scaledheightmap[i][j-3]) * sin((2 * PI) / 8)) + scaledheightmap[i][j-3];
+                        scaledheightmap[i][j-1] = ((scaledheightmap[i][j] - scaledheightmap[i][j-3]) * sin((3 * PI) / 8)) + scaledheightmap[i][j-3];
+                        scaledheightmap[i][j] = ((scaledheightmap[i][j] - scaledheightmap[i][j-3]) * sin((4 * PI) / 8)) + scaledheightmap[i][j-3];
+                    }
+                }
+            }
+        }
+    }
 }
 
 int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffset)
@@ -159,7 +195,6 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 	// create the display list
 	glNewList(terrainDL,GL_COMPILE);
 
-    printf("Updated Width = %d\nUpdated Length = %d\n", width, length);
     printf("scaled = %d\n", scaled);
 
 	// generate n-1 strips, where n = terrainGridLength
@@ -269,5 +304,12 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 **/
 int TerrainGenerator::GetHeightAtPoint(int x, int z)
 {
-    return heightmap[x + 500][(z * -1) + 500];
+    if (scaled == 0)
+    {
+        return heightmap[x + (width / 2)][(z * -1) + (length / 2)];
+    }
+    else if (scaled == 1)
+    {
+        return scaledheightmap[x + (width / 2)][(z * -1) + (length / 2)];
+    }
 }

@@ -26,21 +26,15 @@ CTitleState::~CTitleState()
 
 void CTitleState::init()
 {
-
-    //Declare Terrain Variables
-    float xOffset;
-    float yOffset;
-    float zOffset;
-
-
     //Temporary Create Worldspace -> Will need title space and then move to hear when getting to game state
     std::string File = "map.tga";
     xOffset = 0;
-    yOffset = -150;
+    yOffset = -400;
     zOffset = 0;
     WORLDSPACE.BuildHeightMap(File);
     //WORLDSPACE.GenerateHeightMap();
-    //WORLDSPACE.ScaleHeightMap(); //Need to fix scaling, completely fucked ATM
+    WORLDSPACE.ScaleHeightMap();
+    WORLDSPACE.SmoothHeightMap(1);
     terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset);
 }
 
@@ -96,6 +90,10 @@ void CTitleState::handleInput(GameWindow& window)
             if(event.key.keysym.sym == SDLK_LCTRL)
             {
                 gamecam.updatePos(0.0f, -1.5f, 0.0f, 0.0f);
+            }
+            if(gamecam.getY() > (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 55 + yOffset) | gamecam.getY() < (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 45 + yOffset))
+            {
+                gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
             }
         }
 
