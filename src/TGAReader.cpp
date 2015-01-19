@@ -17,7 +17,6 @@ char * TGAReader::tgaLoadFile(string File)
 {
     char * cGarbage;
     char * infomove;
-    char intermediary;
     short int INTermediary;
 
     //Assign Memory

@@ -180,7 +180,7 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 {
     GLuint terrainDL;
 	float startW,startL;
-	int i,j,aux;
+	int i,j;
 
 	printf("preStartW width = %d\npreStartL length = %d\n", width, length);
 
@@ -263,7 +263,7 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
             {
                 glColor3f(0.8f, 0.8f, 0.9f);
             }
-            else if (heightmap[i+1][j] - heightmap[i][j] > 5 | heightmap[i+1][j] - heightmap[i][j] < -5)
+            else if (heightmap[i+1][j] - heightmap[i][j] > 5 || heightmap[i+1][j] - heightmap[i][j] < -5)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
@@ -311,4 +311,5 @@ int TerrainGenerator::GetHeightAtPoint(int x, int z)
     {
         return scaledheightmap[x + (width / 2)][(z * -1) + (length / 2)];
     }
+    return -1;
 }
