@@ -21,6 +21,7 @@ int main(int argc, char* argv[])
         Basic game loop style shit, yo
     **/
 
+    g_changeState(CGAMESTATE);
     window.r_init();
 
     g_currentState->init();

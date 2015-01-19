@@ -41,9 +41,27 @@ public:
 
 private:
     SDL_Event event;
+};
+
+class CInGameState : public CGameState
+{
+    public:
+    CInGameState();
+    ~CInGameState();
+    void init();
+    void destroy();
+    void handleInput(GameWindow& window);
+    void update();
+    void render();
+
+    void initLighting();
+
+private:
+    SDL_Event event;
     //Declare Terrain Variables
     float xOffset;
     float yOffset;
     float zOffset;
 };
+
 #endif // CGAMESTATE_H

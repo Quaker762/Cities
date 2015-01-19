@@ -14,6 +14,9 @@ void g_changeState(uint8_t stateID)
         case CTITLESTATE:
             g_currentState = new CTitleState();
             break;
+        case CGAMESTATE:
+            g_currentState = new CInGameState();
+            break;
     }
 
     g_currentState->init(); //Call the state's init function
