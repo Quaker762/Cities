@@ -21,7 +21,7 @@ public:
     virtual ~CGameState() {};
     virtual void init() = 0; //Do we need these if we have a constructor and destructor???
     virtual void destroy() = 0;
-    virtual void handleInput(GameWindow& window) = 0;
+    virtual void handleInput() = 0;
     virtual void update() = 0;
     virtual void render() = 0;
 
@@ -35,7 +35,7 @@ public:
     ~CTitleState();
     void init();
     void destroy();
-    void handleInput(GameWindow& window);
+    void handleInput();
     void update();
     void render();
 
@@ -50,7 +50,7 @@ class CInGameState : public CGameState
     ~CInGameState();
     void init();
     void destroy();
-    void handleInput(GameWindow& window);
+    void handleInput();
     void update();
     void render();
 

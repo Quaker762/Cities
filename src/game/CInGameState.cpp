@@ -3,6 +3,7 @@
 #include "CGameState.h"
 #include "Camera.h"
 #include "../include/Terrain Generator.h"
+#include "Global.h"
 
 float time = 0.0f;
 
@@ -44,15 +45,13 @@ void CInGameState::destroy()
 
 }
 
-void CInGameState::handleInput(GameWindow& window)
+void CInGameState::handleInput()
 {
-    int height = WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ());
-
     while(SDL_PollEvent(&event) != 0)
     {
         if(event.type == SDL_QUIT)
         {
-            window.r_shutdown();
+            window->r_shutdown();
         }
 
         if(event.type == SDL_KEYDOWN)
@@ -60,7 +59,7 @@ void CInGameState::handleInput(GameWindow& window)
             //Check for escape key press
             if(event.key.keysym.sym == SDLK_ESCAPE)
             {
-                window.r_shutdown();
+                window->r_shutdown();
             }
 
             if(event.key.keysym.sym == SDLK_LEFT)
@@ -114,7 +113,7 @@ void CInGameState::handleInput(GameWindow& window)
 
 void CInGameState::update()
 {
-    if(gamecam.getY() > (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 55 + yOffset) | gamecam.getY() < (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 45 + yOffset))
+    if(gamecam.getY() > (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 55 + yOffset) || gamecam.getY() < (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 45 + yOffset))
     {
         gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
     }

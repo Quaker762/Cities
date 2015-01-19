@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 
         if ((Currenttime - Lasttime) >= 1000/FPS)
         {
-            g_currentState->handleInput(*window);
+            g_currentState->handleInput();
             g_currentState->update();
             g_currentState->render();
             Lasttime = SDL_GetTicks();

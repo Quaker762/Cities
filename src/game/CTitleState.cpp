@@ -23,7 +23,7 @@ void CTitleState::destroy()
 
 }
 
-void CTitleState::handleInput(GameWindow& window)
+void CTitleState::handleInput()
 {
 
 }

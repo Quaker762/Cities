@@ -24,6 +24,7 @@ public:
     bool            r_isRunning();
 
     SDL_Window*     r_getGameWindow();
+    SDL_Renderer*    r_renderer;
 
 private:
     int16_t         width,  height;

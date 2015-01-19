@@ -27,7 +27,6 @@ void TerrainGenerator::BuildHeightMap(string File)
     printf("Map Length = %d\n", length);
     int i;
     int j;
-    char aux;
 
     for (i=0; i < width; i++)
     {
@@ -146,9 +145,9 @@ void TerrainGenerator::SmoothHeightMap(int advancedsmooth)
         {
             for (j = 0; j < length; j++)
             {
-                if (scaledheightmap[i-3][j] == scaledheightmap[i-4][j] | scaledheightmap[i-3][j] == scaledheightmap[i-2][j])
+                if (scaledheightmap[i-3][j] == scaledheightmap[i-4][j] || scaledheightmap[i-3][j] == scaledheightmap[i-2][j])
                 {
-                    if (scaledheightmap[i][j] > scaledheightmap[i-3][j] | scaledheightmap[i][j] < scaledheightmap[i-3][j])
+                    if (scaledheightmap[i][j] > scaledheightmap[i-3][j] || scaledheightmap[i][j] < scaledheightmap[i-3][j])
                     {
                         scaledheightmap[i-3][j] = ((scaledheightmap[i][j] - scaledheightmap[i-3][j]) * sin(PI / 8)) + scaledheightmap[i-3][j];
                         scaledheightmap[i-2][j] = ((scaledheightmap[i][j] - scaledheightmap[i-3][j]) * sin((2 * PI) / 8)) + scaledheightmap[i-3][j];
@@ -162,9 +161,9 @@ void TerrainGenerator::SmoothHeightMap(int advancedsmooth)
         {
             for (j = 4; j < length; j++)
             {
-                if (scaledheightmap[i][j-3] == scaledheightmap[i][j-4] | scaledheightmap[i][j-3] == scaledheightmap[i][j-2])
+                if (scaledheightmap[i][j-3] == scaledheightmap[i][j-4] || scaledheightmap[i][j-3] == scaledheightmap[i][j-2])
                 {
-                    if (scaledheightmap[i][j] > scaledheightmap[i][j-3] | scaledheightmap[i][j] < scaledheightmap[i][j-3])
+                    if (scaledheightmap[i][j] > scaledheightmap[i][j-3] || scaledheightmap[i][j] < scaledheightmap[i][j-3])
                     {
                         scaledheightmap[i][j-3] = ((scaledheightmap[i][j] - scaledheightmap[i][j-3]) * sin(PI / 8)) + scaledheightmap[i][j-3];
                         scaledheightmap[i][j-2] = ((scaledheightmap[i][j] - scaledheightmap[i][j-3]) * sin((2 * PI) / 8)) + scaledheightmap[i][j-3];
@@ -221,7 +220,7 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
             {
                 glColor3f(0.8f, 0.8f, 0.9f);
             }
-            else if (heightmap[i][j] - heightmap[i][j] > 5 | heightmap[i+1][j] - heightmap[i][j] < -5)
+            else if (heightmap[i][j] - heightmap[i][j] > 5 || heightmap[i+1][j] - heightmap[i][j] < -5)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
