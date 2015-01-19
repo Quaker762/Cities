@@ -91,10 +91,6 @@ void CTitleState::handleInput(GameWindow& window)
             {
                 gamecam.updatePos(0.0f, -1.5f, 0.0f, 0.0f);
             }
-            if(gamecam.getY() > (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 55 + yOffset) | gamecam.getY() < (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 45 + yOffset))
-            {
-                gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
-            }
         }
 
         if(event.type == SDL_MOUSEWHEEL)
@@ -117,6 +113,10 @@ void CTitleState::handleInput(GameWindow& window)
 
 void CTitleState::update()
 {
+    if(gamecam.getY() > (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 55 + yOffset) | gamecam.getY() < (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 45 + yOffset))
+    {
+        gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
+    }
     gamecam.look();
 }
 

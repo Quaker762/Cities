@@ -63,7 +63,7 @@ void GameWindow::r_init()
     SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); //Enable double buffering
-    SDL_ShowCursor(1); //Don't show the cursor
+    SDL_ShowCursor(0); //Don't show the cursor
 
     r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
     r_glContext = SDL_GL_CreateContext(r_window);
@@ -71,7 +71,7 @@ void GameWindow::r_init()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    gluPerspective(75.0f, (GLfloat)width/(GLfloat)height, 0.01f, 100.0f);
+    gluPerspective(75.0f, (GLfloat)width/(GLfloat)height, 0.01f, 2000.0f);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
