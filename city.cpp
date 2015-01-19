@@ -4,10 +4,6 @@
 
 #include "src\render\GameWindow.h"
 #include "src\game\Global.h"
-#include "include\Terrain Generator.h"
-
-#define SCREEN_HEIGHT   1280
-#define SCREEN_WIDTH    720
 
 int main(int argc, char* argv[])
 {
@@ -15,15 +11,15 @@ int main(int argc, char* argv[])
         Basic game loop style shit, yo
     **/
 
-    g_changeState(CGAMESTATE);
+    g_changeState(CTITLESTATE);
     window->r_init();
 
     g_currentState->init();
 
     //Declare FPS variables
     int FPS = 500;
-    int32_t Currenttime;
-    int32_t Lasttime = 0;
+    int Currenttime;
+    int Lasttime = 0;
 
     while(window->r_isRunning())
     {
@@ -37,11 +33,10 @@ int main(int argc, char* argv[])
             g_currentState->handleInput();
             g_currentState->update();
             g_currentState->render();
-            Lasttime = SDL_GetTicks();
             window->r_refresh();
+            Lasttime = SDL_GetTicks();
         }
     }
-
     g_cleanup();
     return 0;
 }

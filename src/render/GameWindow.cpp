@@ -67,6 +67,7 @@ void GameWindow::r_init()
 
     r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
     r_glContext = SDL_GL_CreateContext(r_window);
+    r_renderer = SDL_CreateRenderer(r_window, -1, SDL_RENDERER_ACCELERATED);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
