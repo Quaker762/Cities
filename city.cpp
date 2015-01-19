@@ -9,12 +9,6 @@
 #define SCREEN_HEIGHT   1280
 #define SCREEN_WIDTH    720
 
-bool running = true;
-
-GameWindow window;
-SDL_Event event;
-
-
 int main(int argc, char* argv[])
 {
     /**
@@ -22,7 +16,7 @@ int main(int argc, char* argv[])
     **/
 
     g_changeState(CGAMESTATE);
-    window.r_init();
+    window->r_init();
 
     g_currentState->init();
 
@@ -31,15 +25,8 @@ int main(int argc, char* argv[])
     int32_t Currenttime;
     int32_t Lasttime = 0;
 
-
-    //Debug variables
-    //int FUCKYOU;
-
-    while(window.r_isRunning())
+    while(window->r_isRunning())
     {
-
-        //GameState logic
-        //Only Draw if FPS
         Currenttime = SDL_GetTicks();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -47,12 +34,14 @@ int main(int argc, char* argv[])
 
         if ((Currenttime - Lasttime) >= 1000/FPS)
         {
-            g_currentState->handleInput(window);
+            g_currentState->handleInput(*window);
             g_currentState->update();
             g_currentState->render();
             Lasttime = SDL_GetTicks();
-            window.r_refresh();
+            window->r_refresh();
         }
     }
+
+    g_cleanup();
     return 0;
 }

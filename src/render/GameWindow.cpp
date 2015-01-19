@@ -85,7 +85,7 @@ void GameWindow::r_init()
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);          // Draw everything as a wireframe
 
-	glEnable(GL_LIGHTING); //Enable lighting!
+	//glEnable(GL_LIGHTING); //Enable lighting!
 	glEnable(GL_COLOR_MATERIAL); //Make Color3f work (for the moment)
 }
 

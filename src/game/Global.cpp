@@ -1,6 +1,7 @@
 #include "Global.h"
 
 CGameState* g_currentState = new CTitleState();
+GameWindow* window = new GameWindow();
 
 void g_changeState(uint8_t stateID)
 {
@@ -37,4 +38,10 @@ void die(std::string message)
 
     SDL_Quit();
     exit(EXIT_FAILURE);
+}
+
+void g_cleanup()
+{
+    delete window;
+    delete g_currentState;
 }

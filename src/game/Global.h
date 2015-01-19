@@ -32,9 +32,11 @@ enum gameStates
 
 //Current gamestate
 extern CGameState* g_currentState;
+extern GameWindow* window;
 
 //External function definitions
 extern void g_changeState(uint8_t stateID);
 extern void die(std::string message);
+extern void g_cleanup();
 
 #endif // GLOBAL_H
