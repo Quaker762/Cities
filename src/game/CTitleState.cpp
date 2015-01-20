@@ -40,5 +40,5 @@ void CTitleState::update()
 
 void CTitleState::render()
 {
-    SDL_RenderCopy(window->r_renderer, tex, NULL, NULL);
+    SDL_RenderCopy(window->r_renderer, tex, NULL, NULL); //TODO: Alpha to fade image in??? Need .png??
 }
