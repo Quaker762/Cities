@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     g_currentState->init();
 
     //Declare FPS variables
-    int FPS = 500;
+    int FPS = 60;
     int Currenttime;
     int Lasttime = 0;
 
@@ -33,9 +33,9 @@ int main(int argc, char* argv[])
             g_currentState->handleInput();
             g_currentState->update();
             g_currentState->render();
-            window->r_refresh();
             Lasttime = SDL_GetTicks();
         }
+        window->r_refresh();
     }
     g_cleanup();
     return 0;

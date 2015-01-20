@@ -19,7 +19,6 @@ CTitleState::~CTitleState()
 
 void CTitleState::init()
 {
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     logo = SDL_LoadBMP("data/image/logo.bmp");
     tex = SDL_CreateTextureFromSurface(window->r_renderer, logo);
 }
@@ -42,5 +41,4 @@ void CTitleState::update()
 void CTitleState::render()
 {
     SDL_RenderCopy(window->r_renderer, tex, NULL, NULL);
-    SDL_RenderPresent(window->r_renderer);
 }

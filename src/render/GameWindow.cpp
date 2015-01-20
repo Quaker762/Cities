@@ -67,7 +67,7 @@ void GameWindow::r_init()
 
     r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
     r_glContext = SDL_GL_CreateContext(r_window);
-    r_renderer = SDL_CreateRenderer(r_window, -1, SDL_RENDERER_ACCELERATED);
+    r_renderer = SDL_CreateRenderer(r_window, -1, SDL_RENDERER_SOFTWARE);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -82,6 +82,7 @@ void GameWindow::r_init()
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
 	glClearDepth(1.0f);									// Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
+	glEnable(GL_BLEND);                                 //Enable blending
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);          // Draw everything as a wireframe
@@ -93,6 +94,7 @@ void GameWindow::r_init()
 void GameWindow::r_shutdown()
 {
     SDL_DestroyWindow(r_window);
+    SDL_DestroyRenderer(r_renderer);
     SDL_GL_DeleteContext(r_glContext);
     SDL_Quit(); //Kill Engine
     running = false;
@@ -103,6 +105,7 @@ void GameWindow::r_shutdown()
 void GameWindow::r_refresh()
 {
     SDL_GL_SwapWindow(r_window);
+    SDL_RenderPresent(r_renderer);
 }
 
 void GameWindow::r_setWindowSize(int16_t width, int16_t height)
