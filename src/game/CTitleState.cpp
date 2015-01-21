@@ -25,7 +25,9 @@ void CTitleState::init()
 
 void CTitleState::destroy()
 {
-
+    SDL_FreeSurface(logo);
+    logo = NULL;
+    tex = NULL;
 }
 
 void CTitleState::handleInput()

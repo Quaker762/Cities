@@ -105,6 +105,11 @@ void GameWindow::r_shutdown()
 void GameWindow::r_refresh()
 {
     SDL_GL_SwapWindow(r_window);
+}
+
+//Temporary redraw splash screen
+void GameWindow::r_SplashRefresh()
+{
     SDL_RenderPresent(r_renderer);
 }
 

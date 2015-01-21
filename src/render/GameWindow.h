@@ -17,6 +17,7 @@ public:
     //Class functions
     void            r_init();
     void            r_refresh();
+    void            r_SplashRefresh();
     void            r_setWindowSize(int16_t width, int16_t height);
     void            r_shutdown();
 
