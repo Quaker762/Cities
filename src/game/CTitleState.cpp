@@ -3,7 +3,9 @@
 #include "CGameState.h"
 #include "Camera.h"
 #include "Global.h"
+#include "../render/GameWindow.h"
 
+SDL_Surface* windowsurf = NULL;
 SDL_Surface* logo = NULL;
 SDL_Texture* tex = NULL;
 
@@ -19,6 +21,7 @@ CTitleState::~CTitleState()
 
 void CTitleState::init()
 {
+    windowsurf = SDL_GetWindowSurface(window->r_getGameWindow());
     logo = SDL_LoadBMP("data/image/logo.bmp");
     tex = SDL_CreateTextureFromSurface(window->r_renderer, logo);
 }
@@ -42,5 +45,5 @@ void CTitleState::update()
 
 void CTitleState::render()
 {
-    SDL_RenderCopy(window->r_renderer, tex, NULL, NULL); //TODO: Alpha to fade image in??? Need .png??
+    SDL_BlitSurface(logo, NULL, windowsurf, NULL);
 }

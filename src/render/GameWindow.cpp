@@ -110,7 +110,7 @@ void GameWindow::r_refresh()
 //Temporary redraw splash screen
 void GameWindow::r_SplashRefresh()
 {
-    SDL_RenderPresent(r_renderer);
+    SDL_UpdateWindowSurface(r_window);
 }
 
 void GameWindow::r_setWindowSize(int16_t width, int16_t height)
