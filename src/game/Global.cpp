@@ -5,6 +5,7 @@ GameWindow* window = new GameWindow();
 
 void g_changeState(uint8_t stateID)
 {
+    g_currentState->destroy();
     delete g_currentState; //Free up memory the current state was using
 
     switch(stateID)
