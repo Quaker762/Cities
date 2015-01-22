@@ -128,16 +128,6 @@ void TerrainGenerator::SmoothHeightMap(int advancedsmooth)
 {
     int i, j;
 
-    //Basic Smoothing
-    for (i = 2; i < width; i++)
-    {
-        for (j = 2; j < length; j++)
-        {
-            scaledheightmap[i-1][j-1] = (scaledheightmap[i-2][j-1] + scaledheightmap[i-1][j-1] + scaledheightmap[i][j-1] + scaledheightmap[i-1][j-2] + scaledheightmap[i-1][j-1] + scaledheightmap[i-1][j] + scaledheightmap[i-2][j-2] + scaledheightmap[i-2][j] + scaledheightmap[i][j-2] + scaledheightmap[i][j]) * 0.1;
-            //printf("Smoothed i = %d j = %d height = %f\n", i-1, j-1, scaledheightmap[i-1][j-1]);
-        }
-    }
-
     //Advanced Smoothing [WIP]
     if (advancedsmooth == 1)
     {
@@ -172,6 +162,16 @@ void TerrainGenerator::SmoothHeightMap(int advancedsmooth)
                     }
                 }
             }
+        }
+    }
+
+    //Basic Smoothing
+    for (i = 2; i < width; i++)
+    {
+        for (j = 2; j < length; j++)
+        {
+            scaledheightmap[i-1][j-1] = (scaledheightmap[i-2][j-1] + scaledheightmap[i-1][j-1] + scaledheightmap[i][j-1] + scaledheightmap[i-1][j-2] + scaledheightmap[i-1][j-1] + scaledheightmap[i-1][j] + scaledheightmap[i-2][j-2] + scaledheightmap[i-2][j] + scaledheightmap[i][j-2] + scaledheightmap[i][j]) * 0.1;
+            //printf("Smoothed i = %d j = %d height = %f\n", i-1, j-1, scaledheightmap[i-1][j-1]);
         }
     }
 }
@@ -220,7 +220,11 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
             {
                 glColor3f(0.8f, 0.8f, 0.9f);
             }
-            else if (heightmap[i][j] - heightmap[i][j] > 5 || heightmap[i+1][j] - heightmap[i][j] < -5)
+            else if (heightmap[i][j] - heightmap[i][j] > 2 || heightmap[i+1][j] - heightmap[i][j] < -2)
+            {
+                glColor3f(0.7f, 0.3f, 0.5f);
+            }
+            else if (heightmap[i][j+1] - heightmap[i][j] > 2 || heightmap[i][j+1] - heightmap[i][j] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
@@ -263,7 +267,11 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
             {
                 glColor3f(0.8f, 0.8f, 0.9f);
             }
-            else if (heightmap[i+1][j] - heightmap[i][j] > 5 || heightmap[i+1][j] - heightmap[i][j] < -5)
+            else if (heightmap[i+1][j] - heightmap[i][j] > 2 || heightmap[i+1][j] - heightmap[i][j] < -2)
+            {
+                glColor3f(0.7f, 0.3f, 0.5f);
+            }
+            else if (heightmap[i][j+1] - heightmap[i][j] > 2 || heightmap[i][j+1] - heightmap[i][j] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }

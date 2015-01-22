@@ -38,7 +38,7 @@ void Camera::rotate(GLdouble nyaw, GLdouble npitch)
         _pitchang = 0;
     }
 
-    _pitchang = _pitchang + (0.01 * npitch);
+    _pitchang = _pitchang + (0.005 * npitch);
     _yawang = _yawang + (0.01 * nyaw);
 }
 
