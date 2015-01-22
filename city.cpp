@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     window->r_init();
     g_currentState->init();
     g_currentState->render();
-    window->r_SplashRefresh();
+    window->r_2Drefresh();
 
     //Declare FPS variables
     int FPS = 60;

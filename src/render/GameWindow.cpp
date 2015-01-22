@@ -108,7 +108,7 @@ void GameWindow::r_refresh()
 }
 
 //Temporary redraw splash screen
-void GameWindow::r_SplashRefresh()
+void GameWindow::r_2Drefresh()
 {
     SDL_UpdateWindowSurface(r_window);
 }
