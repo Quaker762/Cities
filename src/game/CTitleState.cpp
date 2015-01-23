@@ -58,7 +58,7 @@ void CTitleState::update()
 
     std::cout << SDL_GetTicks() << std::endl;
 
-    if(SDL_GetTicks() >= 20000)
+    if(SDL_GetTicks() >= 20000) //This is about 20 seconds long.
         g_changeState(CGAMESTATE);
 }
 
@@ -79,6 +79,6 @@ void CTitleState::render()
 {
     SDL_SetRenderDrawColor(window->r_getRenderer(), 255, 255, 255, alpha);
     SDL_RenderCopy(window->r_getRenderer(), tex, NULL, NULL);
-    SDL_RenderFillRect(window->r_getRenderer(), &c_rect);
+    SDL_RenderFillRect(window->r_getRenderer(), &c_rect); //Alpha rectangle
     SDL_RenderPresent(window->r_getRenderer());
 }
