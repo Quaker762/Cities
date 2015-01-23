@@ -23,7 +23,7 @@ void CTitleState::init()
 {
     windowsurf = SDL_GetWindowSurface(window->r_getGameWindow());
     logo = SDL_LoadBMP("data/image/logo.bmp");
-    tex = SDL_CreateTextureFromSurface(window->r_renderer, logo);
+    tex = SDL_CreateTextureFromSurface(window->r_getRenderer(), logo);
 }
 
 void CTitleState::destroy()
@@ -61,7 +61,7 @@ void CTitleState::update()
 
 void CTitleState::render()
 {
-    //SDL_BlitSurface(logo, NULL, windowsurf, NULL);
-    SDL_RenderCopy(window->r_renderer, tex, NULL, NULL);
-    SDL_RenderPresent(window->r_renderer);
+
+    SDL_RenderCopy(window->r_getRenderer(), tex, NULL, NULL);
+    SDL_RenderPresent(window->r_getRenderer());
 }

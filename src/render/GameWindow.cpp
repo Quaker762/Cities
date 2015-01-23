@@ -132,3 +132,8 @@ SDL_Window* GameWindow::r_getGameWindow()
 {
     return r_window;
 }
+
+SDL_Renderer* GameWindow::r_getRenderer()
+{
+    return r_renderer;
+}
