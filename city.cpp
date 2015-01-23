@@ -11,13 +11,24 @@ int main(int argc, char* argv[])
     //Enter Title State, initialise window and state
     //g_changeState(CTITLESTATE);
     window->r_init();
-
-    g_changeState(CTITLESTATE);
+    g_currentState->init();
+    g_currentState->render();
+    window->r_2Drefresh();
 
     //Declare FPS variables
     int FPS = 60;
-    int Currenttime = 0;
+    int Currenttime;
     int Lasttime = 0;
+
+    //Wait, then swap to in-game state and init
+    /**
+        if(Running Windows) //HOW do we do this nicely? I can think of some shit ways to do it, hopefully an easy way.
+    **/
+    Sleep(1000);
+    g_currentState->destroy();
+    SDL_RenderClear(window->r_renderer);
+    g_changeState(CGAMESTATE);
+    g_currentState->init();
 
     while(window->r_isRunning())
     {
@@ -32,7 +43,6 @@ int main(int argc, char* argv[])
             g_currentState->update();
             g_currentState->render();
             window->r_refresh();
-            //window->r_2Drefresh(); //Refresh 2D first
             Lasttime = SDL_GetTicks();
         }
     }

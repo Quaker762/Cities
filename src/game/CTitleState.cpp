@@ -41,13 +41,9 @@ void CTitleState::handleInput()
 void CTitleState::update()
 {
     SDL_PollEvent(&event);
-
-    if(SDL_GetTicks() >= 4000)
-        g_changeState(CGAMESTATE);
 }
 
 void CTitleState::render()
 {
     SDL_BlitSurface(logo, NULL, windowsurf, NULL);
-    SDL_RenderPresent(window->r_renderer);
 }
