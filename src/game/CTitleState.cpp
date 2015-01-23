@@ -10,6 +10,9 @@ SDL_Surface* logo = NULL;
 SDL_Texture* tex = NULL;
 SDL_Rect     c_rect; //The rectangle to clear our screen
 
+//Audio stuff
+Mix_Chunk* fx = NULL;
+
 int alpha = 0;
 
 CTitleState::CTitleState()
@@ -24,7 +27,6 @@ CTitleState::~CTitleState()
 
 void CTitleState::init()
 {
-    windowsurf = SDL_GetWindowSurface(window->r_getGameWindow());
     logo = SDL_LoadBMP("data/image/logo.bmp");
     tex = SDL_CreateTextureFromSurface(window->r_getRenderer(), logo);
     SDL_SetRenderDrawBlendMode(window->r_getRenderer(), SDL_BLENDMODE_BLEND);
@@ -33,6 +35,11 @@ void CTitleState::init()
     c_rect.h = 720;
     c_rect.x = 0;
     c_rect.y = 0;
+
+    //Audio init
+    fx = Mix_LoadWAV("data/audio/misc/splsfx2.wav");
+
+    Mix_PlayChannel(-1, fx, 0); //Play our Audio
 }
 
 void CTitleState::destroy()
@@ -40,6 +47,7 @@ void CTitleState::destroy()
     SDL_FreeSurface(logo);
     logo = NULL;
     tex = NULL;
+    Mix_FreeChunk(fx);
 }
 
 void CTitleState::handleInput()

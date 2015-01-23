@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <GL\glu.h>
 #include <SDL_opengl.h>
+#include <SDL_mixer.h>
 
 #ifdef _WIN32
     #include <windows.h>
@@ -38,5 +39,8 @@ extern GameWindow* window;
 extern void g_changeState(uint8_t stateID);
 extern void die(std::string message);
 extern void g_cleanup();
+
+//External Audio functions
+extern void a_initAudio();
 
 #endif // GLOBAL_H

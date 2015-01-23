@@ -7,17 +7,15 @@
 
 int main(int argc, char* argv[])
 {
-
-    //Enter Title State, initialise window and state
-    //g_changeState(CTITLESTATE);
     window->r_init();
+    a_initAudio(); //Init audio
 
     g_changeState(CTITLESTATE);
 
     //Declare FPS variables
     int FPS = 5000;
-    int Currenttime = 0;
-    int Lasttime = 0;
+    long Currenttime = 0;
+    long Lasttime = 0;
 
     while(window->r_isRunning())
     {

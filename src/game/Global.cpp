@@ -7,6 +7,7 @@ void g_changeState(uint8_t stateID)
 {
     g_currentState->destroy();
     delete g_currentState; //Free up memory the current state was using
+    g_currentState = NULL;
 
     switch(stateID)
     {
@@ -20,7 +21,6 @@ void g_changeState(uint8_t stateID)
             g_currentState = new CInGameState();
             break;
     }
-
     g_currentState->init(); //Call the state's init function
 }
 
@@ -45,4 +45,13 @@ void g_cleanup()
 {
     delete window;
     delete g_currentState;
+}
+
+//AUDIO STUFF
+void a_initAudio()
+{
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+    {
+        die("Unable to intialise Audio correctly!");
+    }
 }
