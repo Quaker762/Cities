@@ -8,6 +8,9 @@
 SDL_Surface* windowsurf = NULL;
 SDL_Surface* logo = NULL;
 SDL_Texture* tex = NULL;
+SDL_Rect     c_rect; //The rectangle to clear our screen
+
+int alpha = 0;
 
 CTitleState::CTitleState()
 {
@@ -24,6 +27,12 @@ void CTitleState::init()
     windowsurf = SDL_GetWindowSurface(window->r_getGameWindow());
     logo = SDL_LoadBMP("data/image/logo.bmp");
     tex = SDL_CreateTextureFromSurface(window->r_getRenderer(), logo);
+    SDL_SetRenderDrawBlendMode(window->r_getRenderer(), SDL_BLENDMODE_BLEND);
+
+    c_rect.w = 1280;
+    c_rect.h = 720;
+    c_rect.x = 0;
+    c_rect.y = 0;
 }
 
 void CTitleState::destroy()
@@ -42,7 +51,14 @@ void CTitleState::update()
 {
     SDL_PollEvent(&event);
 
-    if(SDL_GetTicks() >= 4000)
+    alpha = 255 - SDL_GetTicks() / 40;
+
+    if(alpha <= 0)
+        alpha = 0 + SDL_GetTicks() / 40;
+
+    std::cout << SDL_GetTicks() << std::endl;
+
+    if(SDL_GetTicks() >= 20000)
         g_changeState(CGAMESTATE);
 }
 
@@ -61,7 +77,8 @@ void CTitleState::update()
 
 void CTitleState::render()
 {
-
+    SDL_SetRenderDrawColor(window->r_getRenderer(), 255, 255, 255, alpha);
     SDL_RenderCopy(window->r_getRenderer(), tex, NULL, NULL);
+    SDL_RenderFillRect(window->r_getRenderer(), &c_rect);
     SDL_RenderPresent(window->r_getRenderer());
 }

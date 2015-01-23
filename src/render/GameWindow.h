@@ -27,15 +27,19 @@ public:
     SDL_Window*     r_getGameWindow();
     SDL_Renderer*   r_getRenderer();
 
+    int             r_getWidth();
+    int             r_getHeight();
+
 private:
-    int16_t         width,  height;
-
-    bool            fullscreen;
-    bool            running = true;
-
     SDL_Window*     r_window;
     SDL_Renderer*   r_renderer;
     SDL_GLContext   r_glContext;
+
+protected:
+    int             width,  height;
+
+    bool            fullscreen;
+    bool            running = true;
 };
 
 #endif // GAMEWINDOW_H_
