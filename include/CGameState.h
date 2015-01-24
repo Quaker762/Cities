@@ -7,7 +7,7 @@
 #include <string>
 #include <iostream>
 
-#include "../render/GameWindow.h"
+#include "..\include\GameWindow.h"
 
 #define NULLSTATE -1
 #define SPLASH 0

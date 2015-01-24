@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "..\include\Camera.h"
 #define PI 3.1415926535897932384626433
 
 Camera::Camera(GLfloat x, GLfloat y, GLfloat z)

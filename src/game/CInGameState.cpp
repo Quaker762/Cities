@@ -1,9 +1,9 @@
 #include <cmath>
 
-#include "CGameState.h"
-#include "Camera.h"
-#include "../include/Terrain Generator.h"
-#include "Global.h"
+#include "..\include\CGameState.h"
+#include "..\include\Camera.h"
+#include "..\include\Terrain Generator.h"
+#include "..\include\Global.h"
 
 float time = 0.0f;
 

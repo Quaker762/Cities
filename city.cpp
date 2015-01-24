@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "src\render\GameWindow.h"
-#include "src\game\Global.h"
+#include "include\GameWindow.h"
+#include "include\Global.h"
 
 int main(int argc, char* argv[])
 {

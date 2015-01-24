@@ -1,4 +1,4 @@
-#include "Global.h"
+#include "..\include\Global.h"
 
 CGameState* g_currentState = new CTitleState();
 GameWindow* window = new GameWindow();

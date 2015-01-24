@@ -1,9 +1,9 @@
 #include <cmath>
 
-#include "CGameState.h"
-#include "Camera.h"
-#include "Global.h"
-#include "../render/GameWindow.h"
+#include "..\include\CGameState.h"
+#include "..\include\Camera.h"
+#include "..\include\Global.h"
+#include "..\include\GameWindow.h"
 
 SDL_Surface* windowsurf = NULL;
 SDL_Surface* logo = NULL;

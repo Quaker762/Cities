@@ -31,14 +31,14 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-std=c++11" />
-					<Add directory="E:/Users/Jesse/Documents/C++/City Game/SDL2/include/SDL2" />
+					<Add directory="E:/Users/Jesse/Documents/Github/Cities/SDL2/include/SDL2" />
 					<Add directory="E:/Users/Jesse/Documents/Github/Cities/GL" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-lmingw32 -lSDL2main -lSDL2" />
+					<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer" />
 					<Add option="-lopengl32 -lglu32" />
-					<Add directory="E:/Users/Jesse/Documents/C++/City Game/SDL2/lib" />
+					<Add directory="E:/Users/Jesse/Documents/Github/Cities/SDL2/lib" />
 				</Linker>
 			</Target>
 		</Build>

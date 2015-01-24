@@ -1,6 +1,6 @@
-#include "GameWindow.h"
+#include "..\include\GameWindow.h"
 
-#include "../game/Global.h"
+#include "..\include\Global.h"
 
 //Class constructor
 GameWindow::GameWindow()
