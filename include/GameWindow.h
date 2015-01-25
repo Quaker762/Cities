@@ -26,6 +26,7 @@ public:
     SDL_GLContext   r_glContext;
 
     bool            fullscreen;
+    bool            running = true;
 
 private:
     int             width,  height;

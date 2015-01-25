@@ -3,8 +3,6 @@
 CGameState* g_currentState = new CTitleState();
 GameWindow* window = new GameWindow();
 
-bool running = true;
-
 void g_changeState(uint8_t stateID)
 {
     g_currentState->destroy(); //This should just be the destructor..
@@ -29,9 +27,10 @@ void g_changeState(uint8_t stateID)
 //Game Shutdown
 void g_shutdown()
 {
-    running = false;
+    window->r_shutdown();
     delete window;
     delete g_currentState;
+
 }
 
 //Kill the program if we detect an error

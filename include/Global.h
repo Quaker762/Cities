@@ -31,8 +31,6 @@ enum gameStates
     CNULLSTATE
 };
 
-extern bool running;
-
 //Current gamestate
 extern CGameState* g_currentState;
 extern GameWindow* window;

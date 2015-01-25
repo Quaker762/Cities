@@ -18,35 +18,6 @@ GameWindow::~GameWindow()
     SDL_Quit(); //Kill Engine
 }
 
-/**
-//Window initialisation routine.
-void GameWindow::r_init(bool fullscreen)
-{
-    r_window = NULL;
-    r_surface = NULL;
-
-    if(SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        printf("SDL Initilisation failed with error: %s", SDL_GetError());
-        return;
-    }
-    else
-    {
-       r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
-       if(r_window == NULL)
-       {
-           printf("Window Initilisation failed with error: %s", SDL_GetError());
-           return;
-       }
-       else
-       {
-           r_surface = SDL_GetWindowSurface(r_window);
-           SDL_FillRect(r_surface, NULL, SDL_MapRGB(r_surface->format, 0x00, 0x00, 0x00));
-       }            window.r_refresh();
-    }
-}
-*/
-
 void GameWindow::r_init()
 {
     r_window = NULL;
@@ -93,11 +64,11 @@ void GameWindow::r_init()
 
 void GameWindow::r_shutdown()
 {
+    running = false;
     SDL_DestroyWindow(r_window);
     SDL_DestroyRenderer(r_renderer);
     SDL_GL_DeleteContext(r_glContext);
     SDL_Quit(); //Kill Engine
-    running = false;
 }
 
 

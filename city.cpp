@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     long Currenttime = 0;
     long Lasttime = 0;
 
-    while(running)
+    while(window->running)
     {
         Currenttime = SDL_GetTicks();
 
@@ -33,7 +33,5 @@ int main(int argc, char* argv[])
             Lasttime = SDL_GetTicks();
         }
     }
-
-    g_shutdown();
     return 0;
 }
