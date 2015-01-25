@@ -117,13 +117,3 @@ void GameWindow::r_resize(int16_t width, int16_t height)
 {
     SDL_SetWindowSize(r_window, width, height);
 }
-
-SDL_Window* GameWindow::r_getGameWindow() const
-{
-    return r_window;
-}
-
-SDL_Renderer* GameWindow::r_getRenderer() const
-{
-    return r_renderer;
-}

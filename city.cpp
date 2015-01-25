@@ -1,9 +1,9 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <string.h>
-
 #include "include\GameWindow.h"
 #include "include\Global.h"
+
 
 int main(int argc, char* argv[])
 {
@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     long Currenttime = 0;
     long Lasttime = 0;
 
-    while(window->running)
+    while(running)
     {
         Currenttime = SDL_GetTicks();
 
@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
             Lasttime = SDL_GetTicks();
         }
     }
-    g_cleanup();
+
+    g_shutdown();
     return 0;
 }

@@ -28,8 +28,8 @@ CTitleState::~CTitleState()
 void CTitleState::init()
 {
     logo = SDL_LoadBMP("data/image/logo.bmp");
-    tex = SDL_CreateTextureFromSurface(window->r_getRenderer(), logo);
-    SDL_SetRenderDrawBlendMode(window->r_getRenderer(), SDL_BLENDMODE_BLEND);
+    tex = SDL_CreateTextureFromSurface(window->r_renderer, logo);
+    SDL_SetRenderDrawBlendMode(window->r_renderer, SDL_BLENDMODE_BLEND);
 
     c_rect.w = 1280;
     c_rect.h = 720;
@@ -66,7 +66,7 @@ void CTitleState::update()
 
     std::cout << SDL_GetTicks() << std::endl;
 
-    if(SDL_GetTicks() >= 20000) //This is about 20 seconds long.
+    if(SDL_GetTicks() >= 20000 || event.key.keysym.sym == SDLK_ESCAPE) //This is about 20 seconds long.
         g_changeState(CGAMESTATE);
 }
 
@@ -85,8 +85,8 @@ void CTitleState::update()
 
 void CTitleState::render()
 {
-    SDL_SetRenderDrawColor(window->r_getRenderer(), 255, 255, 255, alpha);
-    SDL_RenderCopy(window->r_getRenderer(), tex, NULL, NULL);
-    SDL_RenderFillRect(window->r_getRenderer(), &c_rect); //Alpha rectangle
-    SDL_RenderPresent(window->r_getRenderer());
+    SDL_SetRenderDrawColor(window->r_renderer, 255, 255, 255, alpha);
+    SDL_RenderCopy(window->r_renderer, tex, NULL, NULL);
+    SDL_RenderFillRect(window->r_renderer, &c_rect); //Alpha rectangle
+    SDL_RenderPresent(window->r_renderer);
 }

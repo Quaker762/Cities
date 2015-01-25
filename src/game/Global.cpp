@@ -3,9 +3,11 @@
 CGameState* g_currentState = new CTitleState();
 GameWindow* window = new GameWindow();
 
+bool running = true;
+
 void g_changeState(uint8_t stateID)
 {
-    g_currentState->destroy();
+    g_currentState->destroy(); //This should just be the destructor..
     delete g_currentState; //Free up memory the current state was using
     g_currentState = NULL;
 
@@ -24,6 +26,14 @@ void g_changeState(uint8_t stateID)
     g_currentState->init(); //Call the state's init function
 }
 
+//Game Shutdown
+void g_shutdown()
+{
+    running = false;
+    delete window;
+    delete g_currentState;
+}
+
 //Kill the program if we detect an error
 void die(std::string message)
 {
@@ -39,12 +49,6 @@ void die(std::string message)
 
     SDL_Quit();
     exit(EXIT_FAILURE);
-}
-
-void g_cleanup()
-{
-    delete window;
-    delete g_currentState;
 }
 
 //AUDIO STUFF

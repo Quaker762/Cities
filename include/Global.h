@@ -31,16 +31,18 @@ enum gameStates
     CNULLSTATE
 };
 
+extern bool running;
+
 //Current gamestate
 extern CGameState* g_currentState;
 extern GameWindow* window;
 
-//External function definitions
-extern void g_changeState(uint8_t stateID);
-extern void die(std::string message);
-extern void g_cleanup();
+//function definitions
+void g_changeState(uint8_t stateID);
+void g_shutdown();
+void die(std::string message);
 
-//External Audio functions
-extern void a_initAudio();
+//Audio functions
+void a_initAudio();
 
 #endif // GLOBAL_H

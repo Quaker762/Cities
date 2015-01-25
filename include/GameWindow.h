@@ -21,17 +21,13 @@ public:
     void            r_resize(int16_t width, int16_t height);
     void            r_shutdown();
 
-    SDL_Window*     r_getGameWindow() const;
-    SDL_Renderer*   r_getRenderer() const;
-
-    bool            fullscreen;
-    bool            running = true;
-
-private:
     SDL_Window*     r_window;
     SDL_Renderer*   r_renderer;
     SDL_GLContext   r_glContext;
 
+    bool            fullscreen;
+
+private:
     int             width,  height;
 
 };

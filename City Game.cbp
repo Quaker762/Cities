@@ -46,19 +46,20 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="city.cpp" />
+		<Unit filename="include/CGameState.h" />
+		<Unit filename="include/Camera.h" />
+		<Unit filename="include/GameWindow.h" />
+		<Unit filename="include/Global.h" />
 		<Unit filename="include/TGAReader.h" />
 		<Unit filename="include/Terrain Generator.h" />
+		<Unit filename="include/Texture.h" />
 		<Unit filename="src/TGAReader.cpp" />
 		<Unit filename="src/Terrain Generator.cpp" />
-		<Unit filename="src/game/CGameState.h" />
 		<Unit filename="src/game/CInGameState.cpp" />
 		<Unit filename="src/game/CTitleState.cpp" />
 		<Unit filename="src/game/Camera.cpp" />
-		<Unit filename="src/game/Camera.h" />
 		<Unit filename="src/game/Global.cpp" />
-		<Unit filename="src/game/Global.h" />
 		<Unit filename="src/render/GameWindow.cpp" />
-		<Unit filename="src/render/GameWindow.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
