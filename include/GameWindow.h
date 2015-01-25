@@ -18,7 +18,7 @@ public:
     void            r_init();
     void            r_refresh();
     void            r_2Drefresh();
-    void            r_resize(int16_t width, int16_t height);
+    void            r_resize(int nwidth, int nheight);
     void            r_shutdown();
 
     SDL_Window*     r_window;
@@ -28,8 +28,9 @@ public:
     bool            fullscreen;
     bool            running = true;
 
-private:
     int             width,  height;
+
+private:
 
 };
 

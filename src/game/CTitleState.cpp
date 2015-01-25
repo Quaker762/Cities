@@ -31,8 +31,8 @@ void CTitleState::init()
     tex = SDL_CreateTextureFromSurface(window->r_renderer, logo);
     SDL_SetRenderDrawBlendMode(window->r_renderer, SDL_BLENDMODE_BLEND);
 
-    c_rect.w = 1280;
-    c_rect.h = 720;
+    c_rect.w = window->width;
+    c_rect.h = window->height;
     c_rect.x = 0;
     c_rect.y = 0;
 

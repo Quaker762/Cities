@@ -84,7 +84,8 @@ void GameWindow::r_2Drefresh()
     SDL_UpdateWindowSurface(r_window);
 }
 
-void GameWindow::r_resize(int16_t width, int16_t height)
+void GameWindow::r_resize(int nwidth, int nheight)
 {
-    SDL_SetWindowSize(r_window, width, height);
+    SDL_SetWindowSize(r_window, nwidth, nheight);
+    SDL_GetWindowSize(r_window, &width, &height);
 }
