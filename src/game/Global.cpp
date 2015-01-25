@@ -1,7 +1,7 @@
 #include "..\include\Global.h"
 
 CGameState* g_currentState = new CTitleState();
-GameWindow* window = new GameWindow();
+GameWindow* window = new GameWindow(640, 480);
 
 void g_changeState(uint8_t stateID)
 {

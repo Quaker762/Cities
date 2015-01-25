@@ -91,6 +91,11 @@ void CInGameState::handleInput()
             {
                 gamecam.updatePos(0.0f, -1.5f, 0.0f, 0.0f);
             }
+
+            if(event.key.keysym.sym == SDLK_SPACE)
+            {
+                window->r_resize(1280, 720);
+            }
         }
 
         if(event.type == SDL_MOUSEWHEEL)

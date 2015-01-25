@@ -31,8 +31,8 @@ void CTitleState::init()
     tex = SDL_CreateTextureFromSurface(window->r_renderer, logo);
     SDL_SetRenderDrawBlendMode(window->r_renderer, SDL_BLENDMODE_BLEND);
 
-    c_rect.w = window->width;
-    c_rect.h = window->height;
+    c_rect.w = window->getWidth();
+    c_rect.h = window->getHeight();
     c_rect.x = 0;
     c_rect.y = 0;
 
@@ -64,9 +64,7 @@ void CTitleState::update()
     if(alpha <= 0)
         alpha = 0 + SDL_GetTicks() / 40;
 
-    std::cout << SDL_GetTicks() << std::endl;
-
-    if(SDL_GetTicks() >= 20000 || event.key.keysym.sym == SDLK_ESCAPE) //This is about 20 seconds long.
+    if(SDL_GetTicks() >= 20000) //This is about 20 seconds long.
         g_changeState(CGAMESTATE);
 }
 
@@ -86,7 +84,7 @@ void CTitleState::update()
 void CTitleState::render()
 {
     SDL_SetRenderDrawColor(window->r_renderer, 255, 255, 255, alpha);
-    SDL_RenderCopy(window->r_renderer, tex, NULL, NULL);
+    SDL_RenderCopy(window->r_renderer, tex, NULL, &c_rect);
     SDL_RenderFillRect(window->r_renderer, &c_rect); //Alpha rectangle
     SDL_RenderPresent(window->r_renderer);
 }

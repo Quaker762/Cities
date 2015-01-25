@@ -10,6 +10,8 @@ int main(int argc, char* argv[])
     window->r_init();
     a_initAudio(); //Init audio
 
+    window->r_resize(640, 480);
+
     g_changeState(CTITLESTATE);
 
     //Declare FPS variables

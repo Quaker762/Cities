@@ -11,7 +11,7 @@
 class GameWindow
 {
 public:
-    GameWindow();
+    GameWindow(int nwidth, int nheight);
     ~GameWindow();
 
     //Class functions
@@ -21,6 +21,9 @@ public:
     void            r_resize(int nwidth, int nheight);
     void            r_shutdown();
 
+    int             getWidth();
+    int             getHeight();
+
     SDL_Window*     r_window;
     SDL_Renderer*   r_renderer;
     SDL_GLContext   r_glContext;
@@ -28,9 +31,8 @@ public:
     bool            fullscreen;
     bool            running = true;
 
-    int             width,  height;
-
 private:
+    int             width,  height;
 
 };
 

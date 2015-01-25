@@ -3,11 +3,10 @@
 #include "..\include\Global.h"
 
 //Class constructor
-GameWindow::GameWindow()
+GameWindow::GameWindow(int nwidth, int nheight)
 {
-    //Set the screen size to a default one.
-    width = 1280;
-    height = 720;
+    width = nwidth;
+    height = nheight;
 }
 
 //Class destructor
@@ -20,7 +19,8 @@ GameWindow::~GameWindow()
 
 void GameWindow::r_init()
 {
-    r_window = NULL;
+    SDL_DestroyWindow(r_window);
+    SDL_GL_DeleteContext(r_glContext);
 
     if(SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -34,7 +34,7 @@ void GameWindow::r_init()
     SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); //Enable double buffering
-    SDL_ShowCursor(0); //Don't show the cursor
+    SDL_SetRelativeMouseMode(SDL_TRUE); //Trap the mouse inside our screen
 
     r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
     r_glContext = SDL_GL_CreateContext(r_window);
@@ -43,7 +43,7 @@ void GameWindow::r_init()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    gluPerspective(75.0f, (GLfloat)width/(GLfloat)height, 0.01f, 2000.0f);
+    gluPerspective(75.0f, (GLfloat)getWidth()/(GLfloat)getHeight(), 0.01f, 2000.0f);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -71,7 +71,6 @@ void GameWindow::r_shutdown()
     SDL_Quit(); //Kill Engine
 }
 
-
 //Redraw the screen
 void GameWindow::r_refresh()
 {
@@ -87,5 +86,18 @@ void GameWindow::r_2Drefresh()
 void GameWindow::r_resize(int nwidth, int nheight)
 {
     SDL_SetWindowSize(r_window, nwidth, nheight);
-    SDL_GetWindowSize(r_window, &width, &height);
+    SDL_GetWindowSize(r_window,&width, &height);
+
+    glViewport(0, 0, width, height); //Make sure our GL stays updated as well
+
+}
+
+int GameWindow::getWidth()
+{
+    return width;
+}
+
+int GameWindow::getHeight()
+{
+    return height;
 }
