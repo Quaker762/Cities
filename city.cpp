@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
     window->r_init();
     a_initAudio(); //Init audio
 
-    window->r_resize(640, 480);
+    window->r_resize(1280, 720);
 
     g_changeState(CTITLESTATE);
 

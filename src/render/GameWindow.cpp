@@ -36,7 +36,7 @@ void GameWindow::r_init()
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1); //Enable double buffering
     SDL_SetRelativeMouseMode(SDL_TRUE); //Trap the mouse inside our screen
 
-    r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
+    r_window = SDL_CreateWindow("Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
     r_glContext = SDL_GL_CreateContext(r_window);
     r_renderer = SDL_CreateRenderer(r_window, -1, SDL_RENDERER_SOFTWARE);
 
@@ -60,6 +60,14 @@ void GameWindow::r_init()
 
 	//glEnable(GL_LIGHTING); //Enable lighting!
 	glEnable(GL_COLOR_MATERIAL); //Make Color3f work (for the moment)
+
+	r_renderInfo.vendor     = glGetString(GL_VENDOR);
+	r_renderInfo.gfxcard    = glGetString(GL_RENDERER);
+	r_renderInfo.glver      = glGetString(GL_VERSION);
+
+	std::cerr << "GL vendor: " << r_renderInfo.vendor << std::endl;
+	std::cerr << "Graphics Card: " << r_renderInfo.gfxcard << std::endl;
+	std::cerr << "GL Version: " << r_renderInfo.glver << std::endl;
 }
 
 void GameWindow::r_shutdown()
@@ -89,7 +97,6 @@ void GameWindow::r_resize(int nwidth, int nheight)
     SDL_GetWindowSize(r_window,&width, &height);
 
     glViewport(0, 0, width, height); //Make sure our GL stays updated as well
-
 }
 
 int GameWindow::getWidth()

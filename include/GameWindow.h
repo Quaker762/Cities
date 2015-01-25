@@ -5,8 +5,13 @@
 #include <stdio.h>
 #include <SDL_opengl.h>
 
-#define DEFAULT_WIDTH   640
-#define DEFAULT_HEIGHT  480
+
+struct RenderInfo //Render info structure
+{
+    const GLubyte* vendor;
+    const GLubyte* gfxcard;
+    const GLubyte* glver;
+};
 
 class GameWindow
 {
@@ -33,6 +38,7 @@ public:
 
 private:
     int             width,  height;
+    RenderInfo      r_renderInfo;
 
 };
 
