@@ -113,27 +113,17 @@ void GameWindow::r_2Drefresh()
     SDL_UpdateWindowSurface(r_window);
 }
 
-void GameWindow::r_setWindowSize(int16_t width, int16_t height)
+void GameWindow::r_resize(int16_t width, int16_t height)
 {
     SDL_SetWindowSize(r_window, width, height);
 }
 
-bool GameWindow::r_isFullscreen()
-{
-    return fullscreen;
-}
-
-bool GameWindow::r_isRunning()
-{
-    return running;
-}
-
-SDL_Window* GameWindow::r_getGameWindow()
+SDL_Window* GameWindow::r_getGameWindow() const
 {
     return r_window;
 }
 
-SDL_Renderer* GameWindow::r_getRenderer()
+SDL_Renderer* GameWindow::r_getRenderer() const
 {
     return r_renderer;
 }
