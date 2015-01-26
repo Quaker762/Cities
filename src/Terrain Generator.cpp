@@ -322,7 +322,7 @@ void TerrainGenerator::SaveHeightMap()
                 matrix = (char*)&scaledheightmap[i][j];
                 printf("float = %f\n",scaledheightmap[i][j]);
                 check = (float)*matrix;
-                printf("cnvrtd = %f\n",check);
+                cout << matrix;
                 SAVE.write(matrix, blocksize);
             }
         }
