@@ -37,6 +37,7 @@ void CInGameState::init()
     //WORLDSPACE.GenerateHeightMap();
     WORLDSPACE.ScaleHeightMap();
     WORLDSPACE.SmoothHeightMap(1);
+    WORLDSPACE.SaveHeightMap();
     terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset);
 }
 

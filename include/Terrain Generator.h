@@ -23,7 +23,7 @@ class TerrainGenerator
         void SmoothHeightMap(int advancedsmooth);
         int EditHeightMap();
         int UpdateHeightMap(float xOffset, float yOffset, float zOffset);
-        int SaveHeightMap();
+        void SaveHeightMap();
         int GetHeightAtPoint(int x, int z);
     protected:
     private:

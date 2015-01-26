@@ -305,6 +305,33 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 	return(terrainDL);
 }
 
+void TerrainGenerator::SaveHeightMap()
+{
+    ofstream SAVE ("map1.bin", ios::out | ios::trunc | ios::binary);
+    if (SAVE.is_open())
+    {
+        int i, j, blocksize;
+        blocksize = sizeof(float);
+        char* matrix;
+        float check;
+        matrix = (char*)malloc(4);
+        for (i = 0; i <= width; i++)
+        {
+            for (j = 0; j <= length; j++)
+            {
+                matrix = (char*)&scaledheightmap[i][j];
+                printf("float = %f\n",scaledheightmap[i][j]);
+                check = (float)*matrix;
+                printf("cnvrtd = %f\n",check);
+                SAVE.write(matrix, blocksize);
+            }
+        }
+    }
+    else
+    {
+        printf("Error Openning File");
+    }
+}
 /**
     We're doing some funky ass counting, so length array [2nd dimension] values are (z * -1) + 500,
     while the first dimension [x values] are (x + 500)
