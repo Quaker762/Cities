@@ -311,19 +311,14 @@ void TerrainGenerator::SaveHeightMap()
     if (SAVE.is_open())
     {
         int i, j, blocksize;
-        blocksize = sizeof(float);
-        char* matrix;
         float check;
-        matrix = (char*)malloc(4);
         for (i = 0; i <= width; i++)
         {
             for (j = 0; j <= length; j++)
             {
-                matrix = (char*)&scaledheightmap[i][j];
-                printf("float = %f\n",scaledheightmap[i][j]);
-                check = (float)*matrix;
-                cout << matrix;
-                SAVE.write(matrix, blocksize);
+                check = scaledheightmap[i][j];
+                blocksize = sizeof(check);
+                SAVE.write((char*)&check, blocksize);
             }
         }
     }
@@ -331,6 +326,26 @@ void TerrainGenerator::SaveHeightMap()
     {
         printf("Error Openning File");
     }
+    //De-Comment below to see that loading now works
+/**    ifstream LOAD ("map1.bin", ios::in | ios::binary);
+    if (LOAD.is_open())
+    {
+        int i, j;
+        float check;
+        for (i = 0; i <= width; i++)
+        {
+            for (j = 0; j <= length; j++)
+            {
+                LOAD.read((char*)&check, sizeof(float));
+                printf("Original = %f\n", scaledheightmap[i][j]);
+                printf("Retrievd = %f\n", check);
+            }
+        }
+    }
+    else
+    {
+        printf("Error Re-Openning File\n");
+    } **/
 }
 /**
     We're doing some funky ass counting, so length array [2nd dimension] values are (z * -1) + 500,
