@@ -182,8 +182,6 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 	float startW,startL;
 	int i,j;
 
-	printf("preStartW width = %d\npreStartL length = %d\n", width, length);
-
 	// compute the initial point of the terrain on the XZ plane
 	startW = (width / 2.0) - width; //Start = x = -500
 	startL = (-length / 2.0) + length; //Start = z = 500
@@ -194,14 +192,12 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 	// create the display list
 	glNewList(terrainDL,GL_COMPILE);
 
-    printf("scaled = %d\n", scaled);
-
 	// generate n-1 strips, where n = terrainGridLength
 	// for each vertex test if colors and normals are enabled
-	for (j = 0 ; j < length-1; j++)
+	for (j = 0 ; j < 749; j++)
     {
 		glBegin(GL_TRIANGLE_STRIP);
-		for (i = 0; i < width; i++)
+		for (i = 0; i < 750; i++)
         {
             //Colour Vertex based on height
             if (heightmap[i][j] < 84)
@@ -312,6 +308,12 @@ void TerrainGenerator::SaveHeightMap()
     {
         int i, j, blocksize;
         float check;
+
+        //First save our 'Header' of length and width
+        SAVE.write((char*)&width, sizeof(int));
+        SAVE.write((char*)&length, sizeof(int));
+
+        //Then save the rest of the data
         for (i = 0; i <= width; i++)
         {
             for (j = 0; j <= length; j++)
@@ -326,30 +328,71 @@ void TerrainGenerator::SaveHeightMap()
     {
         printf("Error Openning File");
     }
-    //De-Comment below to see that loading now works
-/**    ifstream LOAD ("map1.bin", ios::in | ios::binary);
+}
+
+void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
+{
+    ifstream LOAD ("map1.bin", ios::in | ios::binary);
     if (LOAD.is_open())
     {
-        int i, j;
+        int i, j, x, z;
+        int startx, startz, endx, endz;
         float check;
-        for (i = 0; i <= width; i++)
+        int pos;
+
+        //Load Length and Width;
+        LOAD.seekg(0, ios::beg);
+        LOAD.read((char*)&width, sizeof(int));
+        LOAD.read((char*)&length, sizeof(int));
+
+        //Set StartX to the start of the co-ordinates we'll load into memory for now, and endX to the end. Same for Z
+        startx = (xpos - 374) + (width / 2);
+        if (startx < 0)
         {
-            for (j = 0; j <= length; j++)
-            {
-                LOAD.read((char*)&check, sizeof(float));
-                printf("Original = %f\n", scaledheightmap[i][j]);
-                printf("Retrievd = %f\n", check);
-            }
+            startx = 0;
         }
+        endx = (xpos + 375) + (width / 2);
+        if (endx > width)
+        {
+            endx = width;
+        }
+        startz = ((zpos - 374) * -1) + (length / 2);
+        if (startz < 0)
+        {
+            startz = 0;
+        }
+        endz = ((zpos + 375) * -1) + (length / 2);
+        if (endz > length)
+        {
+            endz = length;
+        }
+
+        //Load X and Z positions into active heightmap
+        x = 0;
+        z = 0;
+        for (i = startx; i <= endx; i++)
+        {
+            for (j = startz; j <= endz; j++)
+            {
+                pos = ((i * sizeof(float) * width) + (j * sizeof(float)) + (2 * sizeof(int)));
+                LOAD.seekg(pos, ios::beg);
+                LOAD.read((char*)&check, sizeof(float));
+                scaledheightmap[x][z] = check;
+                z = z+1;
+            }
+            x = x+1;
+        }
+        scaled = 1;
     }
     else
     {
         printf("Error Re-Openning File\n");
-    } **/
+    }
 }
+
 /**
-    We're doing some funky ass counting, so length array [2nd dimension] values are (z * -1) + 500,
-    while the first dimension [x values] are (x + 500)
+    We're doing some funky ass counting, so length array [2nd dimension] values are (z * -1) + (length / 2),
+    while the first dimension [x values] are (x + (width / 2))
 **/
 int TerrainGenerator::GetHeightAtPoint(int x, int z)
 {
