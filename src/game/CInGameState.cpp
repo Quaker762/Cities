@@ -9,9 +9,12 @@ float time = 0.0f;
 
 Camera gamecam(0.0f, 0.0f, -3.0f);
 TerrainGenerator WORLDSPACE;
+GLuint terrainDL;
 
 int lastxrel = 0;
 int lastyrel = 0;
+
+int TcentreX, TcentreZ;
 
 CInGameState::CInGameState()
 {
@@ -47,7 +50,9 @@ void CInGameState::init()
     }
     //Load initial data from file
     WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
-    WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
+    terrainDL = WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
+    TcentreX = gamecam.getX();
+    TcentreZ = gamecam.getZ();
 }
 
 void CInGameState::destroy()
@@ -129,17 +134,23 @@ void CInGameState::handleInput()
 
 void CInGameState::update()
 {
-    if(gamecam.getY() > (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 55 + yOffset) || gamecam.getY() < (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 45 + yOffset))
+    if(gamecam.getY() > (WORLDSPACE.GetHeightAtPoint(gamecam.getX() - TcentreX, gamecam.getZ() - TcentreZ) + 55 + yOffset) || gamecam.getY() < (WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 45 + yOffset))
     {
         gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
+    }
+    if (gamecam.getX() > (TcentreX + 50) || gamecam.getZ() > (TcentreZ + 50) || gamecam.getX() < (TcentreX - 50) || gamecam.getZ() < (TcentreZ - 50))
+    {
+        WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
+        terrainDL = WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
+        TcentreX = gamecam.getX();
+        TcentreZ = gamecam.getZ();
     }
     gamecam.look();
 }
 
 void CInGameState::render()
 {
-    WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
-    WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
+    glCallList(terrainDL);
 
     //Draw a cube
     glBegin(GL_QUADS);

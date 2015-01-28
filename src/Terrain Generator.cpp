@@ -176,8 +176,9 @@ void TerrainGenerator::SmoothHeightMap(int advancedsmooth)
     }
 }
 
-void TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffset, int xpos, int zpos)
+int TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffset, int xpos, int zpos)
 {
+    GLuint terrainDL;
 	float startW,startL;
 	int i,j,x,z;
 	int startx, startz, endx, endz;
@@ -187,6 +188,13 @@ void TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffs
 	startL = (-length / 2.0) + length; //Start = z = 500
     z = 0;
 
+    // Create the id for the display list
+	terrainDL = glGenLists(1);
+
+	// create the display list
+	glNewList(terrainDL,GL_COMPILE);
+
+    //Set start and end x and z positions for moving camera
 	startx = (xpos - 254) + (width / 2);
         if (startx < 0)
         {
@@ -218,39 +226,39 @@ void TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffs
 		for (i = startx; i < endx; i++)
         {
             //Colour Vertex based on height
-            if (heightmap[x][z] < 84)
+            if (scaledheightmap[x][z] < 84)
             {
                 glColor3f(0.05f, 0.2f, 0.8f);
             }
-            else if (heightmap[x][z] < 85)
+            else if (scaledheightmap[x][z] < 85)
             {
                 glColor3f(0.7f, 0.7f, 1.0f);
             }
-            else if (heightmap[x][z] < 90)
+            else if (scaledheightmap[x][z] < 90)
             {
                 glColor3f(0.7f, 1.0f, 0.1f);
             }
-            else if (heightmap[x][z] > 240)
+            else if (scaledheightmap[x][z] > 240)
             {
                 glColor3f(0.8f, 0.8f, 0.9f);
             }
-            else if (heightmap[x][z] - heightmap[x][z] > 2 || heightmap[x+1][z] - heightmap[x][z] < -2)
+            else if (scaledheightmap[x][z] - scaledheightmap[x][z] > 2 || scaledheightmap[x+1][z] - scaledheightmap[x][z] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
-            else if (heightmap[x][z+1] - heightmap[x][z] > 2 || heightmap[x][z+1] - heightmap[x][z] < -2)
+            else if (scaledheightmap[x][z+1] - scaledheightmap[x][z] > 2 || scaledheightmap[x][z+1] - scaledheightmap[x][z] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
             else
             {
-                if (tan(heightmap[x][z]) >= 0)
+                if (tan(scaledheightmap[x][z]) >= 0)
                 {
-                    glColor3f(tan(heightmap[x][z] / 330) * 0.4f, (0.7 * tan(heightmap[x][z] / 330) + 0.3) * 1.0f,tan(heightmap[x][z] / 330) * 0.1f);
+                    glColor3f(tan(scaledheightmap[x][z] / 330) * 0.4f, (0.7 * tan(scaledheightmap[x][z] / 330) + 0.3) * 1.0f,tan(scaledheightmap[x][z] / 330) * 0.1f);
                 }
                 else if (tan(heightmap[x][z]) < 0)
                 {
-                    glColor3f(-tan(heightmap[x][z] / 330) * 0.4f, (-0.7 * tan(heightmap[x][z] / 330) + 0.3) * 1.0f, -tan(heightmap[x][z] / 330) * 0.1f);
+                    glColor3f(-tan(scaledheightmap[x][z] / 330) * 0.4f, (-0.7 * tan(scaledheightmap[x][z] / 330) + 0.3) * 1.0f, -tan(scaledheightmap[x][z] / 330) * 0.1f);
                 }
             }
 
@@ -266,39 +274,39 @@ void TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffs
             }
 
             //Colour Vertex for terrain height
-            if (heightmap[x+1][z] < 84)
+            if (scaledheightmap[x+1][z] < 84)
             {
                 glColor3f(0.05f, 0.2f, 0.8f);
             }
-            else if (heightmap[x][z] < 85)
+            else if (scaledheightmap[x][z] < 85)
             {
                 glColor3f(0.7f, 0.7f, 1.0f);
             }
-            else if (heightmap[x+1][z] < 90)
+            else if (scaledheightmap[x+1][z] < 90)
             {
                 glColor3f(0.7f, 1.0f, 0.1f);
             }
-            else if (heightmap[x+1][z] > 240)
+            else if (scaledheightmap[x+1][z] > 240)
             {
                 glColor3f(0.8f, 0.8f, 0.9f);
             }
-            else if (heightmap[x+1][z] - heightmap[x][z] > 2 || heightmap[x+1][z] - heightmap[x][z] < -2)
+            else if (scaledheightmap[x+1][z] - scaledheightmap[x][z] > 2 || scaledheightmap[x+1][z] - scaledheightmap[x][z] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
-            else if (heightmap[x][z+1] - heightmap[x][z] > 2 || heightmap[x][z+1] - heightmap[x][z] < -2)
+            else if (scaledheightmap[x][z+1] - scaledheightmap[x][z] > 2 || scaledheightmap[x][z+1] - scaledheightmap[x][z] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
             else
             {
-                if (tan(heightmap[x][z]) >= 0)
+                if (tan(scaledheightmap[x][z]) >= 0)
                 {
-                    glColor3f(tan(heightmap[x][z] / 330) * 0.4f, (0.7 * tan(heightmap[x][z] / 330) + 0.3) * 1.0f,tan(heightmap[x][z] / 330) * 0.1f);
+                    glColor3f(tan(scaledheightmap[x][z] / 330) * 0.4f, (0.7 * tan(scaledheightmap[x][z] / 330) + 0.3) * 1.0f,tan(scaledheightmap[x][z] / 330) * 0.1f);
                 }
                 else if (tan(heightmap[x][z]) < 0)
                 {
-                    glColor3f(-tan(heightmap[x][z] / 330) * 0.4f, (-0.7 * tan(heightmap[x][z] / 330) + 0.3) * 1.0f, -tan(heightmap[x][z] / 330) * 0.1f);
+                    glColor3f(-tan(scaledheightmap[x][z] / 330) * 0.4f, (-0.7 * tan(scaledheightmap[x][z] / 330) + 0.3) * 1.0f, -tan(scaledheightmap[x][z] / 330) * 0.1f);
                 }
             }
 
@@ -318,6 +326,10 @@ void TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffs
 		glEnd();
 		//printf("Strip %d ended\n",z);
 	}
+	glEndList();
+
+	// return the list index so that the application can use it
+	return(terrainDL);
 }
 
 void TerrainGenerator::SaveHeightMap()
@@ -427,7 +439,7 @@ int TerrainGenerator::GetHeightAtPoint(int x, int z)
     }
     else if (scaled == 1)
     {
-        return scaledheightmap[x + (width / 2)][(z * -1) + (length / 2)];
+        return scaledheightmap[375 + x][375 - z];
     }
     return -1;
 }
