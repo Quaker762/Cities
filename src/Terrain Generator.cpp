@@ -398,16 +398,17 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
 
         //Load X and Z positions into active heightmap
         x = 0;
-        z = 0;
         for (i = startx; i <= endx; i++)
         {
+            z = 0;
             for (j = startz; j <= endz; j++)
             {
                 pos = ((i * sizeof(float) * width) + (j * sizeof(float)) + (2 * sizeof(int)));
-                printf("pos = %d", pos);
+                printf("pos = %d\n", pos);
                 LOAD.seekg(pos, ios::beg);
                 LOAD.read((char*)&check, sizeof(float));
                 scaledheightmap[x][z] = check;
+                printf("x = %d\nz = %d\n",x,z);
                 check = 0;
                 z = z+1;
             }

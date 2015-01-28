@@ -18,7 +18,7 @@
 					<Add directory="C:/Users/Matthew/Documents/GitHub/Cities/GL" />
 				</Compiler>
 				<Linker>
-					<Add option="-lmingw32 -lSDL2main -lSDL2" />
+					<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_mixer" />
 					<Add option="-lopengl32 -lglu32" />
 					<Add directory="C:/Users/Matthew/Documents/GitHub/Cities/SDL2/lib" />
 				</Linker>
