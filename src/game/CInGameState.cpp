@@ -31,7 +31,7 @@ void CInGameState::init()
     //Temporary Create Worldspace -> Will need title space and then move to hear when getting to game state
     std::string File = "map.tga";
     xOffset = 0;
-    yOffset = -400;
+    yOffset = 0;
     zOffset = 0;
 
     //Check if map file exists
@@ -48,8 +48,8 @@ void CInGameState::init()
         WORLDSPACE.SaveHeightMap();
     }
     //Load initial data from file
-    WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getY());
-    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset);
+    WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
+    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
 }
 
 void CInGameState::destroy()
@@ -123,7 +123,8 @@ void CInGameState::handleInput()
                 1. The current world X and Z co-ordinates are actually our origin for selection
                 2. We should count how many pixels the mouse has moved IN RELATION to the current X and Z co-ords
             **/
-            //std::cout << "Height: " << WORLDSPACE.GetHeightAtPoint(gamecam.getX() + event.motion.xrel , gamecam.getY() + event.motion.yrel) << std::endl;
+            /**printf("X = %d\nZ = %d\n", (gamecam.getX() + 500), ((-1 * gamecam.getZ()) + 500));
+            printf("Height = %d\n", WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getY()));**/
         }
     }
 }
@@ -135,8 +136,8 @@ void CInGameState::update()
         gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
     }
     gamecam.look();
-    WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getY());
-    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset);
+    WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
+    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
 }
 
 void CInGameState::render()

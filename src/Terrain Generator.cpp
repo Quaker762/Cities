@@ -176,15 +176,39 @@ void TerrainGenerator::SmoothHeightMap(int advancedsmooth)
     }
 }
 
-int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffset)
+int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffset, int xpos, int zpos)
 {
     GLuint terrainDL;
 	float startW,startL;
-	int i,j;
+	int i,j,x,z;
+	int startx, startz, endx, endz;
 
 	// compute the initial point of the terrain on the XZ plane
 	startW = (width / 2.0) - width; //Start = x = -500
 	startL = (-length / 2.0) + length; //Start = z = 500
+    z = 0;
+    x = 0;
+
+	startx = (xpos - 374) + (width / 2);
+        if (startx < 0)
+        {
+            startx = 0;
+        }
+        endx = (xpos + 375) + (width / 2);
+        if (endx > width)
+        {
+            endx = width;
+        }
+        startz = ((zpos + 375) * -1) + (length / 2);
+        if (startz < 0)
+        {
+            startz = 0;
+        }
+        endz = ((zpos - 374) * -1) + (length / 2);
+        if (endz > length)
+        {
+            endz = length;
+        }
 
 	// Create the id for the display list
 	terrainDL = glGenLists(1);
@@ -194,105 +218,107 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 
 	// generate n-1 strips, where n = terrainGridLength
 	// for each vertex test if colors and normals are enabled
-	for (j = 0 ; j < 749; j++)
+	for (j = startz ; j < endz - 1; j++)
     {
 		glBegin(GL_TRIANGLE_STRIP);
-		for (i = 0; i < 750; i++)
+		for (i = startx; i < endx; i++)
         {
             //Colour Vertex based on height
-            if (heightmap[i][j] < 84)
+            if (heightmap[x][z] < 84)
             {
                 glColor3f(0.05f, 0.2f, 0.8f);
             }
-            else if (heightmap[i][j] < 85)
+            else if (heightmap[x][z] < 85)
             {
                 glColor3f(0.7f, 0.7f, 1.0f);
             }
-            else if (heightmap[i][j] < 90)
+            else if (heightmap[x][z] < 90)
             {
                 glColor3f(0.7f, 1.0f, 0.1f);
             }
-            else if (heightmap[i][j] > 240)
+            else if (heightmap[x][z] > 240)
             {
                 glColor3f(0.8f, 0.8f, 0.9f);
             }
-            else if (heightmap[i][j] - heightmap[i][j] > 2 || heightmap[i+1][j] - heightmap[i][j] < -2)
+            else if (heightmap[x][z] - heightmap[x][z] > 2 || heightmap[x+1][z] - heightmap[x][z] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
-            else if (heightmap[i][j+1] - heightmap[i][j] > 2 || heightmap[i][j+1] - heightmap[i][j] < -2)
+            else if (heightmap[x][z+1] - heightmap[x][z] > 2 || heightmap[x][z+1] - heightmap[x][z] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
             else
             {
-                if (tan(heightmap[i][j]) >= 0)
+                if (tan(heightmap[x][z]) >= 0)
                 {
-                    glColor3f(tan(heightmap[i][j] / 330) * 0.4f, (0.7 * tan(heightmap[i][j] / 330) + 0.3) * 1.0f,tan(heightmap[i][j] / 330) * 0.1f);
+                    glColor3f(tan(heightmap[x][z] / 330) * 0.4f, (0.7 * tan(heightmap[x][z] / 330) + 0.3) * 1.0f,tan(heightmap[x][z] / 330) * 0.1f);
                 }
-                else if (tan(heightmap[i][j]) < 0)
+                else if (tan(heightmap[x][z]) < 0)
                 {
-                    glColor3f(-tan(heightmap[i][j] / 330) * 0.4f, (-0.7 * tan(heightmap[i][j] / 330) + 0.3) * 1.0f, -tan(heightmap[i][j] / 330) * 0.1f);
+                    glColor3f(-tan(heightmap[x][z] / 330) * 0.4f, (-0.7 * tan(heightmap[x][z] / 330) + 0.3) * 1.0f, -tan(heightmap[x][z] / 330) * 0.1f);
                 }
             }
 
             //Render Vertex for scaled or unscaled heightmap
             if (scaled == 1)
             {
-                glVertex3f(startW + i + xOffset, scaledheightmap[i][j] + yOffset, startL - (j) + zOffset);
+                glVertex3f(startW + i + xOffset, scaledheightmap[x][z] + yOffset, startL - (j) + zOffset);
             }
             else if (scaled == 0)
             {
-                glVertex3f(startW + i + xOffset, heightmap[i][j] + yOffset, startL - (j) + zOffset);
+                glVertex3f(startW + i + xOffset, heightmap[x][z] + yOffset, startL - (j) + zOffset);
             }
 
             //Colour Vertex for terrain height
-            if (heightmap[i+1][j] < 84)
+            if (heightmap[x+1][z] < 84)
             {
                 glColor3f(0.05f, 0.2f, 0.8f);
             }
-            else if (heightmap[i][j] < 85)
+            else if (heightmap[x][z] < 85)
             {
                 glColor3f(0.7f, 0.7f, 1.0f);
             }
-            else if (heightmap[i+1][j] < 90)
+            else if (heightmap[x+1][z] < 90)
             {
                 glColor3f(0.7f, 1.0f, 0.1f);
             }
-            else if (heightmap[i+1][j] > 240)
+            else if (heightmap[x+1][z] > 240)
             {
                 glColor3f(0.8f, 0.8f, 0.9f);
             }
-            else if (heightmap[i+1][j] - heightmap[i][j] > 2 || heightmap[i+1][j] - heightmap[i][j] < -2)
+            else if (heightmap[x+1][z] - heightmap[x][z] > 2 || heightmap[x+1][z] - heightmap[x][z] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
-            else if (heightmap[i][j+1] - heightmap[i][j] > 2 || heightmap[i][j+1] - heightmap[i][j] < -2)
+            else if (heightmap[x][z+1] - heightmap[x][z] > 2 || heightmap[x][z+1] - heightmap[x][z] < -2)
             {
                 glColor3f(0.7f, 0.3f, 0.5f);
             }
             else
             {
-                if (tan(heightmap[i][j]) >= 0)
+                if (tan(heightmap[x][z]) >= 0)
                 {
-                    glColor3f(tan(heightmap[i][j] / 330) * 0.4f, (0.7 * tan(heightmap[i][j] / 330) + 0.3) * 1.0f,tan(heightmap[i][j] / 330) * 0.1f);
+                    glColor3f(tan(heightmap[x][z] / 330) * 0.4f, (0.7 * tan(heightmap[x][z] / 330) + 0.3) * 1.0f,tan(heightmap[x][z] / 330) * 0.1f);
                 }
-                else if (tan(heightmap[i][j]) < 0)
+                else if (tan(heightmap[x][z]) < 0)
                 {
-                    glColor3f(-tan(heightmap[i][j] / 330) * 0.4f, (-0.7 * tan(heightmap[i][j] / 330) + 0.3) * 1.0f, -tan(heightmap[i][j] / 330) * 0.1f);
+                    glColor3f(-tan(heightmap[x][z] / 330) * 0.4f, (-0.7 * tan(heightmap[x][z] / 330) + 0.3) * 1.0f, -tan(heightmap[x][z] / 330) * 0.1f);
                 }
             }
 
             //Render Vertex based on scaled or unscaled heightmap
             if (scaled == 1)
             {
-                glVertex3f(startW + i + xOffset, scaledheightmap[i][j+1] + yOffset, startL - (j+1) + zOffset);
+                glVertex3f(startW + i + xOffset, scaledheightmap[x][z+1] + yOffset, startL - (j+1) + zOffset);
             }
             else if (scaled ==0)
             {
-                glVertex3f(startW + i + xOffset, heightmap[i][j+1] + yOffset, startL - (j+1) + zOffset);
+                glVertex3f(startW + i + xOffset, heightmap[x][z+1] + yOffset, startL - (j+1) + zOffset);
             }
+            x = x+1;
 		}
+		z = z+1;
 		glEnd();
 	}
 	glEndList();
@@ -340,6 +366,8 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
         float check;
         int pos;
 
+        printf("xpos = %d\nzpos = %d\n", xpos, zpos);
+
         //Load Length and Width;
         LOAD.seekg(0, ios::beg);
         LOAD.read((char*)&width, sizeof(int));
@@ -356,16 +384,17 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
         {
             endx = width;
         }
-        startz = ((zpos - 374) * -1) + (length / 2);
+        startz = ((zpos + 375) * -1) + (length / 2);
         if (startz < 0)
         {
             startz = 0;
         }
-        endz = ((zpos + 375) * -1) + (length / 2);
+        endz = ((zpos - 374) * -1) + (length / 2);
         if (endz > length)
         {
             endz = length;
         }
+        printf("StartX = %d, EndX = %d\nStartZ = %d, EndZ = %d\n", startx, endx, startz, endz);
 
         //Load X and Z positions into active heightmap
         x = 0;
@@ -375,9 +404,11 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
             for (j = startz; j <= endz; j++)
             {
                 pos = ((i * sizeof(float) * width) + (j * sizeof(float)) + (2 * sizeof(int)));
+                printf("pos = %d", pos);
                 LOAD.seekg(pos, ios::beg);
                 LOAD.read((char*)&check, sizeof(float));
                 scaledheightmap[x][z] = check;
+                check = 0;
                 z = z+1;
             }
             x = x+1;
