@@ -176,9 +176,8 @@ void TerrainGenerator::SmoothHeightMap(int advancedsmooth)
     }
 }
 
-int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffset, int xpos, int zpos)
+void TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffset, int xpos, int zpos)
 {
-    GLuint terrainDL;
 	float startW,startL;
 	int i,j,x,z;
 	int startx, startz, endx, endz;
@@ -187,40 +186,35 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 	startW = (width / 2.0) - width; //Start = x = -500
 	startL = (-length / 2.0) + length; //Start = z = 500
     z = 0;
-    x = 0;
 
-	startx = (xpos - 374) + (width / 2);
+	startx = (xpos - 254) + (width / 2);
         if (startx < 0)
         {
             startx = 0;
         }
-        endx = (xpos + 375) + (width / 2);
+        endx = (xpos + 255) + (width / 2);
         if (endx > width)
         {
             endx = width;
         }
-        startz = ((zpos + 375) * -1) + (length / 2);
+        startz = ((zpos + 255) * -1) + (length / 2);
         if (startz < 0)
         {
             startz = 0;
         }
-        endz = ((zpos - 374) * -1) + (length / 2);
+        endz = ((zpos - 254) * -1) + (length / 2);
         if (endz > length)
         {
             endz = length;
         }
 
-	// Create the id for the display list
-	terrainDL = glGenLists(1);
-
-	// create the display list
-	glNewList(terrainDL,GL_COMPILE);
-
 	// generate n-1 strips, where n = terrainGridLength
 	// for each vertex test if colors and normals are enabled
 	for (j = startz ; j < endz - 1; j++)
     {
+        //printf("Strip %d Started\n", z);
 		glBegin(GL_TRIANGLE_STRIP);
+		x = 0;
 		for (i = startx; i < endx; i++)
         {
             //Colour Vertex based on height
@@ -263,6 +257,7 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
             //Render Vertex for scaled or unscaled heightmap
             if (scaled == 1)
             {
+                //printf("Vertice %d - 1\n",x);
                 glVertex3f(startW + i + xOffset, scaledheightmap[x][z] + yOffset, startL - (j) + zOffset);
             }
             else if (scaled == 0)
@@ -310,6 +305,7 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
             //Render Vertex based on scaled or unscaled heightmap
             if (scaled == 1)
             {
+                //printf("Vertice %d - 2\n",x);
                 glVertex3f(startW + i + xOffset, scaledheightmap[x][z+1] + yOffset, startL - (j+1) + zOffset);
             }
             else if (scaled ==0)
@@ -320,11 +316,8 @@ int TerrainGenerator::UpdateHeightMap(float xOffset, float yOffset, float zOffse
 		}
 		z = z+1;
 		glEnd();
+		//printf("Strip %d ended\n",z);
 	}
-	glEndList();
-
-	// return the list index so that the application can use it
-	return(terrainDL);
 }
 
 void TerrainGenerator::SaveHeightMap()
@@ -366,7 +359,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
         float check;
         int pos;
 
-        printf("xpos = %d\nzpos = %d\n", xpos, zpos);
+        //printf("xpos = %d\nzpos = %d\n", xpos, zpos);
 
         //Load Length and Width;
         LOAD.seekg(0, ios::beg);
@@ -374,27 +367,27 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
         LOAD.read((char*)&length, sizeof(int));
 
         //Set StartX to the start of the co-ordinates we'll load into memory for now, and endX to the end. Same for Z
-        startx = (xpos - 374) + (width / 2);
+        startx = (xpos - 254) + (width / 2);
         if (startx < 0)
         {
             startx = 0;
         }
-        endx = (xpos + 375) + (width / 2);
+        endx = (xpos + 255) + (width / 2);
         if (endx > width)
         {
             endx = width;
         }
-        startz = ((zpos + 375) * -1) + (length / 2);
+        startz = ((zpos + 255) * -1) + (length / 2);
         if (startz < 0)
         {
             startz = 0;
         }
-        endz = ((zpos - 374) * -1) + (length / 2);
+        endz = ((zpos - 254) * -1) + (length / 2);
         if (endz > length)
         {
             endz = length;
         }
-        printf("StartX = %d, EndX = %d\nStartZ = %d, EndZ = %d\n", startx, endx, startz, endz);
+        //printf("StartX = %d, EndX = %d\nStartZ = %d, EndZ = %d\n", startx, endx, startz, endz);
 
         //Load X and Z positions into active heightmap
         x = 0;
@@ -404,11 +397,11 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
             for (j = startz; j <= endz; j++)
             {
                 pos = ((i * sizeof(float) * width) + (j * sizeof(float)) + (2 * sizeof(int)));
-                printf("pos = %d\n", pos);
+                //printf("pos = %d\n", pos);
                 LOAD.seekg(pos, ios::beg);
                 LOAD.read((char*)&check, sizeof(float));
                 scaledheightmap[x][z] = check;
-                printf("x = %d\nz = %d\n",x,z);
+                //printf("x = %d\nz = %d\n",x,z);
                 check = 0;
                 z = z+1;
             }

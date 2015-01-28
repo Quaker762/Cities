@@ -10,8 +10,6 @@ float time = 0.0f;
 Camera gamecam(0.0f, 0.0f, -3.0f);
 TerrainGenerator WORLDSPACE;
 
-GLuint terrainDL;
-
 int lastxrel = 0;
 int lastyrel = 0;
 
@@ -49,7 +47,7 @@ void CInGameState::init()
     }
     //Load initial data from file
     WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
-    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
+    WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
 }
 
 void CInGameState::destroy()
@@ -136,13 +134,12 @@ void CInGameState::update()
         gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
     }
     gamecam.look();
-    WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
-    terrainDL = WORLDSPACE.UpdateHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
 }
 
 void CInGameState::render()
 {
-    glCallList(terrainDL);
+    WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
+    WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
 
     //Draw a cube
     glBegin(GL_QUADS);

@@ -64,7 +64,7 @@ void CTitleState::update()
     if(alpha <= 0)
         alpha = 0 + SDL_GetTicks() / 40;
 
-    if(SDL_GetTicks() >= 20000) //This is about 20 seconds long.
+    if(SDL_GetTicks() >= 3000) //This is about 3 seconds long.
         g_changeState(CGAMESTATE);
 }
 
