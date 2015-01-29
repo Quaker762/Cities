@@ -39,7 +39,7 @@ void CInGameState::init()
     int temp;
     ifstream CHECK ("map1.bin", ios::in | ios::binary);
     CHECK.read((char*)&temp, sizeof(int));
-    if (!CHECK.is_open())
+    if (CHECK.is_open())
     {
         //If file doesn't exist, create it
         WORLDSPACE.BuildHeightMap(File);
@@ -138,7 +138,7 @@ void CInGameState::update()
     {
         gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
     }
-    //if (gamecam.getX() > (TcentreX + 50) || gamecam.getZ() > (TcentreZ + 50) || gamecam.getX() < (TcentreX - 50) || gamecam.getZ() < (TcentreZ - 50))
+    if (gamecam.getX() > (TcentreX + 50) || gamecam.getZ() > (TcentreZ + 50) || gamecam.getX() < (TcentreX - 50) || gamecam.getZ() < (TcentreZ - 50))
     {
         WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
         terrainDL = WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
