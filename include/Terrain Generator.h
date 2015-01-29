@@ -28,8 +28,8 @@ class TerrainGenerator
         int GetHeightAtPoint(int x, int z);
     protected:
     private:
-        unsigned char heightmap[1000][1000];
-        float scaledheightmap[1000][1000];
+        unsigned char heightmap[750][750];
+        float scaledheightmap[750][750];
         short int width;
         short int length;
         int framecount = 0;

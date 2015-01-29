@@ -252,14 +252,7 @@ int TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffse
             }
             else
             {
-                if (tan(scaledheightmap[x][z]) >= 0)
-                {
-                    glColor3f(tan(scaledheightmap[x][z] / 330) * 0.4f, (0.7 * tan(scaledheightmap[x][z] / 330) + 0.3) * 1.0f,tan(scaledheightmap[x][z] / 330) * 0.1f);
-                }
-                else if (tan(heightmap[x][z]) < 0)
-                {
-                    glColor3f(-tan(scaledheightmap[x][z] / 330) * 0.4f, (-0.7 * tan(scaledheightmap[x][z] / 330) + 0.3) * 1.0f, -tan(scaledheightmap[x][z] / 330) * 0.1f);
-                }
+                glColor3f(0.4f, 1.0f, 0.1f);
             }
 
             //Render Vertex for scaled or unscaled heightmap
@@ -300,14 +293,7 @@ int TerrainGenerator::RenderHeightMap(float xOffset, float yOffset, float zOffse
             }
             else
             {
-                if (tan(scaledheightmap[x][z]) >= 0)
-                {
-                    glColor3f(tan(scaledheightmap[x][z] / 330) * 0.4f, (0.7 * tan(scaledheightmap[x][z] / 330) + 0.3) * 1.0f,tan(scaledheightmap[x][z] / 330) * 0.1f);
-                }
-                else if (tan(heightmap[x][z]) < 0)
-                {
-                    glColor3f(-tan(scaledheightmap[x][z] / 330) * 0.4f, (-0.7 * tan(scaledheightmap[x][z] / 330) + 0.3) * 1.0f, -tan(scaledheightmap[x][z] / 330) * 0.1f);
-                }
+                glColor3f(0.4f, 1.0f, 0.1f);
             }
 
             //Render Vertex based on scaled or unscaled heightmap
@@ -345,9 +331,9 @@ void TerrainGenerator::SaveHeightMap()
         SAVE.write((char*)&length, sizeof(int));
 
         //Then save the rest of the data
-        for (i = 0; i <= width; i++)
+        for (i = 0; i < width; i++)
         {
-            for (j = 0; j <= length; j++)
+            for (j = 0; j < length; j++)
             {
                 check = scaledheightmap[i][j];
                 blocksize = sizeof(check);
@@ -389,24 +375,24 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
         {
             endx = width;
         }
-        startz = ((zpos + 255) * -1) + (length / 2);
+        startz = ((zpos - 254) * -1) + (length / 2);
         if (startz < 0)
         {
             startz = 0;
         }
-        endz = ((zpos - 254) * -1) + (length / 2);
+        endz = ((zpos + 255) * -1) + (length / 2);
         if (endz > length)
         {
             endz = length;
         }
-        //printf("StartX = %d, EndX = %d\nStartZ = %d, EndZ = %d\n", startx, endx, startz, endz);
+        printf("StartX = %d, EndX = %d\nStartZ = %d, EndZ = %d\n", startx, endx, startz, endz);
 
         //Load X and Z positions into active heightmap
         x = 0;
         for (i = startx; i <= endx; i++)
         {
             z = 0;
-            for (j = startz; j <= endz; j++)
+            for (j = startz; j >= endz; j--)
             {
                 pos = ((i * sizeof(float) * width) + (j * sizeof(float)) + (2 * sizeof(int)));
                 //printf("pos = %d\n", pos);

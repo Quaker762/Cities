@@ -126,8 +126,8 @@ void CInGameState::handleInput()
                 1. The current world X and Z co-ordinates are actually our origin for selection
                 2. We should count how many pixels the mouse has moved IN RELATION to the current X and Z co-ords
             **/
-            /**printf("X = %d\nZ = %d\n", (gamecam.getX() + 500), ((-1 * gamecam.getZ()) + 500));
-            printf("Height = %d\n", WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getY()));**/
+            printf("X = %f\nZ = %f\n", (gamecam.getX() + 500), ((-1 * gamecam.getZ()) + 500));
+            printf("Height = %d\n", WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getY()));
         }
     }
 }
@@ -138,7 +138,7 @@ void CInGameState::update()
     {
         gamecam.updatePos(0.0f, ((WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getZ()) + 50 +yOffset) - gamecam.getY() ) * 0.5f, 0.0f, 0.0f);
     }
-    if (gamecam.getX() > (TcentreX + 50) || gamecam.getZ() > (TcentreZ + 50) || gamecam.getX() < (TcentreX - 50) || gamecam.getZ() < (TcentreZ - 50))
+    //if (gamecam.getX() > (TcentreX + 50) || gamecam.getZ() > (TcentreZ + 50) || gamecam.getX() < (TcentreX - 50) || gamecam.getZ() < (TcentreZ - 50))
     {
         WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ());
         terrainDL = WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
