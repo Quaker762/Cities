@@ -347,7 +347,7 @@ void TerrainGenerator::SaveHeightMap()
     }
 }
 
-void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
+void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int frstrn)
 {
     ifstream LOAD ("map1.bin", ios::in | ios::binary);
     if (LOAD.is_open())
@@ -358,54 +358,298 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos)
         int pos;
 
         //printf("xpos = %d\nzpos = %d\n", xpos, zpos);
+        if ( frstrn == 1)
+        {
+            //Load Length and Width;
+            LOAD.seekg(0, ios::beg);
+            LOAD.read((char*)&width, sizeof(int));
+            LOAD.read((char*)&length, sizeof(int));
 
-        //Load Length and Width;
-        LOAD.seekg(0, ios::beg);
-        LOAD.read((char*)&width, sizeof(int));
-        LOAD.read((char*)&length, sizeof(int));
-
-        //Set StartX to the start of the co-ordinates we'll load into memory for now, and endX to the end. Same for Z
-        startx = (xpos - 254) + (width / 2);
-        if (startx < 0)
-        {
-            startx = 0;
-        }
-        endx = (xpos + 255) + (width / 2);
-        if (endx > width)
-        {
-            endx = width;
-        }
-        startz = ((zpos - 254) * -1) + (length / 2);
-        if (startz < 0)
-        {
-            startz = 0;
-        }
-        endz = ((zpos + 255) * -1) + (length / 2);
-        if (endz > length)
-        {
-            endz = length;
-        }
-        printf("StartX = %d, EndX = %d\nStartZ = %d, EndZ = %d\n", startx, endx, startz, endz);
-
-        //Load X and Z positions into active heightmap
-        x = 0;
-        for (i = startx; i <= endx; i++)
-        {
-            z = 0;
-            for (j = startz; j >= endz; j--)
+            //Set StartX to the start of the co-ordinates we'll load into memory for now, and endX to the end. Same for Z
+            startx = (xpos - 254) + (width / 2);
+            if (startx < 0)
             {
-                pos = ((i * sizeof(float) * width) + (j * sizeof(float)) + (2 * sizeof(int)));
-                //printf("pos = %d\n", pos);
-                LOAD.seekg(pos, ios::beg);
-                LOAD.read((char*)&check, sizeof(float));
-                scaledheightmap[x][z] = check;
-                //printf("x = %d\nz = %d\n",x,z);
-                check = 0;
-                z = z+1;
+                startx = 0;
             }
-            x = x+1;
+            endx = (xpos + 255) + (width / 2);
+            if (endx > width)
+            {
+                endx = width;
+            }
+            startz = ((zpos - 255) * -1) + (length / 2);
+            if (startz < 0)
+            {
+                startz = 0;
+            }
+            endz = ((zpos + 254) * -1) + (length / 2);
+            if (endz > length)
+            {
+                endz = length;
+            }
+            //printf("StartX = %d, EndX = %d\nStartZ = %d, EndZ = %d\n", startx, endx, startz, endz);
+
+            //Load X and Z positions into active heightmap
+            x = 0;
+            for (i = startx; i <= endx; i++)
+            {
+                z = 0;
+                for (j = startz; j >= endz; j--)
+                {
+                    pos = ((i * sizeof(float) * width) + (j * sizeof(float)) + (2 * sizeof(int)));
+                    //printf("pos = %d\n", pos);
+                    LOAD.seekg(pos, ios::beg);
+                    LOAD.read((char*)&check, sizeof(float));
+                    scaledheightmap[x][z] = check;
+                    //printf("x = %d\nz = %d\n",x,z);
+                    check = 0;
+                    z = z+1;
+                }
+                x = x+1;
+            }
+            scaled = 1;
         }
-        scaled = 1;
+        else if (frstrn == 0)
+        {
+            //Create necessary extra variables
+            int xdifference, zdifference;
+
+            //Re-arrange shit
+            xdifference = xpos - oldx;
+            zdifference = zpos - oldz;
+
+            if (xdifference > 0)
+            {
+                for (j = 0; j < 512; j++)
+                {
+                    for (i = xdifference; i < 512; i++)
+                    {
+                        scaledheightmap[i - xdifference][j] = scaledheightmap[i][j];
+                    }
+                }
+            }
+            else if (xdifference < 0)
+            {
+                for (j = 0; j < 512; j++)
+                {
+                    for (i = 512; i > (-1 * xdifference); i--)
+                    {
+                        scaledheightmap[i][j] = scaledheightmap[i+xdifference][j];
+                    }
+                }
+            }
+
+            if (zdifference > 0)
+            {
+                for (i = 0; i < 512; i++)
+                {
+                    for (j = zdifference; j < 512; j++)
+                    {
+                        scaledheightmap[i][j-zdifference] = scaledheightmap[i][j];
+                    }
+                }
+            }
+            else if (zdifference < 0)
+            {
+             for (i = 0; i < 512; i++)
+                {
+                    for (j = 512; j > (-1 * zdifference); j--)
+                    {
+                        scaledheightmap[i][j] = scaledheightmap[i][j+zdifference];
+                    }
+                }
+            }
+
+            //Load Shit
+            /** THIS HAS SOME FUNKY ASS MATH THAT EVEN I ONLY KIND OF GET, AND I CAME UP WITH IT.
+            DO NOT TOUCH **/
+            //Load width
+            z = 0;
+            for (j = 0; j < 512; j++)
+            {
+                if (xdifference > 0)
+                {
+                    /**Set start and end x and z. In this case, startx is the array-modified xpos, endx is where to start
+                    loading new values from in terms of the array**/
+                    startx = xpos + (width / 2);
+                    startz = ((zpos - 255 ) * -1) + (length / 2);
+                    endx = 255 - xdifference;
+                    int toolong = 0;
+                    if ((startx + endx + xdifference) > width)
+                    {
+                        toolong = (startx + endx + xdifference) - width;
+                        for (i = (512 - toolong); i < 512; i++)
+                        {
+                            scaledheightmap[i][j] = 0;
+                        }
+                    }
+
+                    if ((startx + endx) > width)
+                    {
+                        for (i = (512 - xdifference); i < 512; i++)
+                        {
+                            scaledheightmap[i][j] = 0;
+                        }
+                    }
+                    else
+                    {
+                        x = 0;
+                        for (i = (512 - xdifference); i < (512 - toolong); i++)
+                        {
+                            pos = ((2 * sizeof(int)) + ((startx + (endx) + x) * sizeof(float) * width) + ((startz + z) * sizeof(float)));
+                            //printf("pos = %d\n", pos);
+                            LOAD.seekg(pos, ios::beg);
+                            LOAD.read((char*)&check, sizeof(float));
+                            scaledheightmap[i][j] = check;
+                            //printf("x = %d\nz = %d\n",x,z);
+                            check = 0;
+                            x = x + 1;
+                        }
+                    }
+                }
+                else if (xdifference < 0)
+                {
+                   /**Set start and end x and z. In this case, startx is the array-modified xpos, endx is where to start
+                    loading new values from in terms of the array**/
+                    startx = xpos + (width / 2);
+                    startz = ((zpos - 255 ) * -1) + (length / 2);
+                    endx = 255 + xdifference;
+                    int tooshort = 0;
+                    if ((startx - endx + xdifference) < 0)
+                    {
+                        tooshort = ((startx - endx + xdifference) * -1);
+                        for (i = 0; i < tooshort; i++)
+                        {
+                            scaledheightmap[i][j] = 0;
+                        }
+                    }
+
+                    if ((startx - endx) < 0)
+                    {
+                        for (i = 0; i < (-1 * xdifference); i++)
+                        {
+                            scaledheightmap[i][j] = 0;
+                        }
+                    }
+                    else
+                    {
+                        x = 0;
+                        for (i = (-1 * xdifference); i > 0 + tooshort; i--)
+                        {
+                            pos = ((2 * sizeof(int)) + ((startx - endx - x) * sizeof(float) * width) + ((startz + z) * sizeof(float)));
+                            //printf("pos = %d\n", pos);
+                            LOAD.seekg(pos, ios::beg);
+                            LOAD.read((char*)&check, sizeof(float));
+                            scaledheightmap[i][j] = check;
+                            //printf("x = %d\nz = %d\n",x,z);
+                            check = 0;
+                            x = x + 1;
+                        }
+                    }
+                }
+            z = z + 1;
+            }
+
+            //Attempt to load fewer points, thereby using less HDD and optimising performance
+            int startinc = 0;
+            int enddec = 0;
+            if (xdifference > 0)
+            {
+                enddec = xdifference;
+                startinc = 0;
+            }
+            else if (xdifference < 0)
+            {
+                startinc = (-1 * xdifference);
+                enddec = 0;
+            }
+
+            //Loading length
+            x = 0;
+            for (i = 0 + startinc; i < 512 - enddec; i++)
+            {
+                if (zdifference > 0)
+                {
+                    /**Set start and end x and z. In this case, startx is the array-modified xpos, endx is where to start
+                    loading new values from in terms of the array**/
+                    startx = (xpos + 255) + (width / 2);
+                    startz = (zpos * -1) + (length / 2);
+                    endz = 255 - zdifference;
+                    int toolong = 0;
+                    if ((startz + endz + zdifference) > length)
+                    {
+                        toolong = (startz + endz + zdifference) - length;
+                        for (j = (512 - toolong); j < 512; j++)
+                        {
+                            scaledheightmap[i][j] = 0;
+                        }
+                    }
+
+                    if ((startz + endz) > length)
+                    {
+                        for (j = (512 - zdifference); j < 512; j++)
+                        {
+                            scaledheightmap[i][j] = 0;
+                        }
+                    }
+                    else
+                    {
+                        z = 0;
+                        for (j = (512 - zdifference); j < (512 - toolong); j++)
+                        {
+                            pos = ((2 * sizeof(int)) + ((startx + x) * sizeof(float) * width) + ((startz + endz + z) * sizeof(float)));
+                            //printf("pos = %d\n", pos);
+                            LOAD.seekg(pos, ios::beg);
+                            LOAD.read((char*)&check, sizeof(float));
+                            scaledheightmap[i][j] = check;
+                            //printf("x = %d\nz = %d\n",x,z);
+                            check = 0;
+                            z = z + 1;
+                        }
+                    }
+                }
+                else if (zdifference < 0)
+                {
+                   /**Set start and end x and z. In this case, startx is the array-modified xpos, endx is where to start
+                    loading new values from in terms of the array**/
+                    startx = (xpos + 255) + (width / 2);
+                    startz = (zpos * -1) + (length / 2);
+                    endx = 255 + zdifference;
+                    int tooshort = 0;
+                    if ((startz - endz + zdifference) < 0)
+                    {
+                        tooshort = ((startz - endz + zdifference) * -1);
+                        for (i = 0; j < tooshort; j++)
+                        {
+                            scaledheightmap[i][j] = 0;
+                        }
+                    }
+
+                    if ((startz - endz) < 0)
+                    {
+                        for (j = 0; j < (-1 * zdifference); j++)
+                        {
+                            scaledheightmap[i][j] = 0;
+                        }
+                    }
+                    else
+                    {
+                        z = 0;
+                        for (j = (-1 * zdifference); j > 0 + tooshort; j--)
+                        {
+                            pos = ((2 * sizeof(int)) + ((startx + x) * sizeof(float) * width) + ((startz - endz - z) * sizeof(float)));
+                            //printf("pos = %d\n", pos);
+                            LOAD.seekg(pos, ios::beg);
+                            LOAD.read((char*)&check, sizeof(float));
+                            scaledheightmap[i][j] = check;
+                            //printf("x = %d\nz = %d\n",x,z);
+                            check = 0;
+                            z = z + 1;
+                        }
+                    }
+                }
+                x = x + 1;
+            }
+        }
     }
     else
     {
@@ -425,7 +669,7 @@ int TerrainGenerator::GetHeightAtPoint(int x, int z)
     }
     else if (scaled == 1)
     {
-        return scaledheightmap[375 + x][375 - z];
+        return scaledheightmap[256 + x][256 - z];
     }
     return -1;
 }

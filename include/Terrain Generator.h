@@ -24,12 +24,12 @@ class TerrainGenerator
         void SmoothHeightMap(int advancedsmooth);
         int EditHeightMap();
         void SaveHeightMap();
-        void LoadHeightMap(int xpos, int zpos);
+        void LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int frstrn);
         int GetHeightAtPoint(int x, int z);
     protected:
     private:
-        unsigned char heightmap[750][750];
-        float scaledheightmap[750][750];
+        unsigned char heightmap[512][512];
+        float scaledheightmap[512][512];
         short int width;
         short int length;
         int framecount = 0;
