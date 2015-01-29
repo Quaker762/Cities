@@ -39,7 +39,7 @@ void CInGameState::init()
     int temp;
     ifstream CHECK ("map1.bin", ios::in | ios::binary);
     CHECK.read((char*)&temp, sizeof(int));
-    if (CHECK.is_open())
+    if (!CHECK.is_open())
     {
         //If file doesn't exist, create it
         WORLDSPACE.BuildHeightMap(File);
@@ -126,7 +126,7 @@ void CInGameState::handleInput()
                 1. The current world X and Z co-ordinates are actually our origin for selection
                 2. We should count how many pixels the mouse has moved IN RELATION to the current X and Z co-ords
             **/
-            printf("X = %f\nZ = %f\n", (gamecam.getX() + 500), ((-1 * gamecam.getZ()) + 500));
+            printf("X = %f\nZ = %f\n", (gamecam.getX() + 5000), ((-1 * gamecam.getZ()) + 5000));
             printf("Height = %d\n", WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getY()));
         }
     }

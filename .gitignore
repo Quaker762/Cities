@@ -8,4 +8,4 @@
 obj/Release/src/game/CTitleState.o
 *.o
 *.txt
-map1.bin
+*.bin
