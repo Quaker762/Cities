@@ -437,7 +437,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
             {
                 for (j = 0; j < 512; j++)
                 {
-                    for (i = 512; i > (-1 * xdifference); i--)
+                    for (i = 511; i > (-1 * xdifference); i--)
                     {
                         scaledheightmap[i][j] = scaledheightmap[i+xdifference][j];
                     }
@@ -458,7 +458,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
             {
              for (i = 0; i < 512; i++)
                 {
-                    for (j = 512; j > (-1 * zdifference); j--)
+                    for (j = 511; j > (-1 * zdifference); j--)
                     {
                         scaledheightmap[i][j] = scaledheightmap[i][j+zdifference];
                     }
@@ -466,7 +466,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
             }
 
             //Debug
-            printf("xdifference = %d\nzdifference = %d\n",xdifference,zdifference);
+            //printf("xdifference = %d\nzdifference = %d\n",xdifference,zdifference);
 
             //Load Shit
             /** THIS HAS SOME FUNKY ASS MATH THAT EVEN I ONLY KIND OF GET, AND I CAME UP WITH IT.
@@ -587,7 +587,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                     startx = (xpos - 255) + (width / 2);
                     startz = (zpos * -1) + (length / 2);
                     endz = 255 - zdifference;
-                    printf("For zdif > 0\nxpos = %d, zpos = %d\n startx = %d, startz = %d, endz = %d, length = %d\n",xpos,zpos,startx,startz,endz,length);
+                    //printf("For zdif > 0\nxpos = %d, zpos = %d\n startx = %d, startz = %d, endz = %d, length = %d\n",xpos,zpos,startx,startz,endz,length);
                     int toolong = 0;
                     if ((startz + endz + zdifference) > length)
                     {
@@ -629,7 +629,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                     startx = (xpos - 255) + (width / 2);
                     startz = (zpos * -1) + (length / 2);
                     endx = 255 + zdifference;
-                    printf("For zdif < 0\nxpos = %d, zpos = %d\n startx = %d, startz = %d, endz = %d, length = %d\n",xpos,zpos,startx,startz,endz,length);
+                    //printf("For zdif < 0\nxpos = %d, zpos = %d\n startx = %d, startz = %d, endz = %d, length = %d\n",xpos,zpos,startx,startz,endz,length);
                     int tooshort = 0;
                     if ((startz - endz + zdifference) < 0)
                     {
