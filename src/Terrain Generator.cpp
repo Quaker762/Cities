@@ -327,6 +327,7 @@ void TerrainGenerator::SaveHeightMap()
         float check;
 
         //First save our 'Header' of length and width
+        //printf("length = %d, width = %d", length, width);
         SAVE.write((char*)&width, sizeof(int));
         SAVE.write((char*)&length, sizeof(int));
 
@@ -364,6 +365,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
             LOAD.seekg(0, ios::beg);
             LOAD.read((char*)&width, sizeof(int));
             LOAD.read((char*)&length, sizeof(int));
+            //printf("width = %d, length = %d\n", width, length);
 
             //Set StartX to the start of the co-ordinates we'll load into memory for now, and endX to the end. Same for Z
             startx = (xpos - 254) + (width / 2);
@@ -410,6 +412,10 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
         }
         else if (frstrn == 0)
         {
+            LOAD.seekg(0, ios::beg);
+            LOAD.read((char*)&width, sizeof(int));
+            LOAD.read((char*)&length, sizeof(int));
+
             //Create necessary extra variables
             int xdifference, zdifference;
 
@@ -459,6 +465,9 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                 }
             }
 
+            //Debug
+            printf("xdifference = %d\nzdifference = %d\n",xdifference,zdifference);
+
             //Load Shit
             /** THIS HAS SOME FUNKY ASS MATH THAT EVEN I ONLY KIND OF GET, AND I CAME UP WITH IT.
             DO NOT TOUCH **/
@@ -470,9 +479,12 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                 {
                     /**Set start and end x and z. In this case, startx is the array-modified xpos, endx is where to start
                     loading new values from in terms of the array**/
+                    //printf("xpos = %d, zpos = %d\n", xpos, zpos);
                     startx = xpos + (width / 2);
-                    startz = ((zpos - 255 ) * -1) + (length / 2);
+                    startz = ((zpos + 255 ) * -1) + (length / 2);
+                    //printf("startx = %d, startz = %d, ",startx,startz);
                     endx = 255 - xdifference;
+                    //printf("endx = %d\n",endx);
                     int toolong = 0;
                     if ((startx + endx + xdifference) > width)
                     {
@@ -481,6 +493,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                         {
                             scaledheightmap[i][j] = 0;
                         }
+                        printf("xtoolong = %d\n",toolong);
                     }
 
                     if ((startx + endx) > width)
@@ -511,7 +524,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                    /**Set start and end x and z. In this case, startx is the array-modified xpos, endx is where to start
                     loading new values from in terms of the array**/
                     startx = xpos + (width / 2);
-                    startz = ((zpos - 255 ) * -1) + (length / 2);
+                    startz = ((zpos + 255 ) * -1) + (length / 2);
                     endx = 255 + xdifference;
                     int tooshort = 0;
                     if ((startx - endx + xdifference) < 0)
@@ -571,9 +584,10 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                 {
                     /**Set start and end x and z. In this case, startx is the array-modified xpos, endx is where to start
                     loading new values from in terms of the array**/
-                    startx = (xpos + 255) + (width / 2);
+                    startx = (xpos - 255) + (width / 2);
                     startz = (zpos * -1) + (length / 2);
                     endz = 255 - zdifference;
+                    printf("For zdif > 0\nxpos = %d, zpos = %d\n startx = %d, startz = %d, endz = %d, length = %d\n",xpos,zpos,startx,startz,endz,length);
                     int toolong = 0;
                     if ((startz + endz + zdifference) > length)
                     {
@@ -582,6 +596,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                         {
                             scaledheightmap[i][j] = 0;
                         }
+                        printf("ztoolong = %d\n",toolong);
                     }
 
                     if ((startz + endz) > length)
@@ -611,9 +626,10 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                 {
                    /**Set start and end x and z. In this case, startx is the array-modified xpos, endx is where to start
                     loading new values from in terms of the array**/
-                    startx = (xpos + 255) + (width / 2);
+                    startx = (xpos - 255) + (width / 2);
                     startz = (zpos * -1) + (length / 2);
                     endx = 255 + zdifference;
+                    printf("For zdif < 0\nxpos = %d, zpos = %d\n startx = %d, startz = %d, endz = %d, length = %d\n",xpos,zpos,startx,startz,endz,length);
                     int tooshort = 0;
                     if ((startz - endz + zdifference) < 0)
                     {

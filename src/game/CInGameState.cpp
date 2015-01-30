@@ -14,7 +14,7 @@ GLuint terrainDL;
 int lastxrel = 0;
 int lastyrel = 0;
 
-int TcentreX, TcentreZ;
+int TcentreX, TcentreZ, passx, passz;
 
 CInGameState::CInGameState()
 {
@@ -34,6 +34,8 @@ void CInGameState::init()
     xOffset = 0;
     yOffset = 0;
     zOffset = 0;
+    TcentreX = 0;
+    TcentreZ = 0;
 
     //Check if map file exists
     int temp;
@@ -138,13 +140,15 @@ void CInGameState::update()
     }
     if (gamecam.getX() > (TcentreX + 50) || gamecam.getZ() > (TcentreZ + 50) || gamecam.getX() < (TcentreX - 50) || gamecam.getZ() < (TcentreZ - 50))
     {
-        WORLDSPACE.LoadHeightMap(gamecam.getX(), gamecam.getZ(), TcentreX, TcentreZ, 0);
+        passx = gamecam.getX();
+        passz = gamecam.getZ();
+        WORLDSPACE.LoadHeightMap(passx, passz, TcentreX, TcentreZ, 0);
         terrainDL = WORLDSPACE.RenderHeightMap(xOffset, yOffset, zOffset, gamecam.getX(), gamecam.getZ());
         TcentreX = gamecam.getX();
         TcentreZ = gamecam.getZ();
     }
-    /**printf("X = %f\nZ = %f\n", (gamecam.getX() + 5000), ((-1 * gamecam.getZ()) + 5000));
-    printf("Height = %d\n", WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getY()));**/
+    printf("X = %f\nZ = %f\n", (gamecam.getX() + 5000), ((-1 * gamecam.getZ()) + 5000));
+    printf("Height = %d\n", WORLDSPACE.GetHeightAtPoint(gamecam.getX(), gamecam.getY()));
 
     gamecam.look();
 }
