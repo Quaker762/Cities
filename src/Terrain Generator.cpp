@@ -506,7 +506,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                     else
                     {
                         x = 0;
-                        for (i = (512 - xdifference); i < (512 - toolong); i++)
+                        for (i = (511 - xdifference); i < (512 - toolong); i++)
                         {
                             pos = ((2 * sizeof(int)) + ((startx + (endx) + x) * sizeof(float) * width) + ((startz + z) * sizeof(float)));
                             //printf("pos = %d\n", pos);
@@ -534,6 +534,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                         {
                             scaledheightmap[i][j] = 0;
                         }
+                        printf("xTooshort = %d",tooshort);
                     }
 
                     if ((startx - endx) < 0)
@@ -546,7 +547,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                     else
                     {
                         x = 0;
-                        for (i = (-1 * xdifference); i > 0 + tooshort; i--)
+                        for (i = (-1 * xdifference); i >= 0 + tooshort; i--)
                         {
                             pos = ((2 * sizeof(int)) + ((startx - endx - x) * sizeof(float) * width) + ((startz + z) * sizeof(float)));
                             //printf("pos = %d\n", pos);
@@ -592,7 +593,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                     if ((startz + endz + zdifference) > length)
                     {
                         toolong = (startz + endz + zdifference) - length;
-                        for (j = (512 - toolong); j < 512; j++)
+                        for (j = (511 - toolong); j < 512; j++)
                         {
                             scaledheightmap[i][j] = 0;
                         }
@@ -601,7 +602,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
 
                     if ((startz + endz) > length)
                     {
-                        for (j = (512 - zdifference); j < 512; j++)
+                        for (j = (511 - zdifference); j < 512; j++)
                         {
                             scaledheightmap[i][j] = 0;
                         }
@@ -609,7 +610,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                     else
                     {
                         z = 0;
-                        for (j = (512 - zdifference); j < (512 - toolong); j++)
+                        for (j = (511 - zdifference); j < (512 - toolong); j++)
                         {
                             pos = ((2 * sizeof(int)) + ((startx + x) * sizeof(float) * width) + ((startz + endz + z) * sizeof(float)));
                             //printf("pos = %d\n", pos);
@@ -638,6 +639,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                         {
                             scaledheightmap[i][j] = 0;
                         }
+                        printf("zTooshort = %d",tooshort);
                     }
 
                     if ((startz - endz) < 0)
@@ -650,7 +652,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                     else
                     {
                         z = 0;
-                        for (j = (-1 * zdifference); j > 0 + tooshort; j--)
+                        for (j = (-1 * zdifference); j >= 0 + tooshort; j--)
                         {
                             pos = ((2 * sizeof(int)) + ((startx + x) * sizeof(float) * width) + ((startz - endz - z) * sizeof(float)));
                             //printf("pos = %d\n", pos);
@@ -685,7 +687,7 @@ int TerrainGenerator::GetHeightAtPoint(int x, int z)
     }
     else if (scaled == 1)
     {
-        return scaledheightmap[256 + x][256 - z];
+        return scaledheightmap[256+x][256+z];
     }
     return -1;
 }
