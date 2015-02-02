@@ -147,8 +147,11 @@ void CInGameState::update()
         TcentreX = gamecam.getX();
         TcentreZ = gamecam.getZ();
     }
-    printf("X = %f\nZ = %f\n", (gamecam.getX() + 5000), ((-1 * gamecam.getZ()) + 5000));
-    printf("Height = %d\n", WORLDSPACE.GetHeightAtPoint((gamecam.getX() - TcentreX), (gamecam.getZ() - TcentreZ)));
+    printf("X = %f, Z = %f\n", (gamecam.getX() + 5000), ((-1 * gamecam.getZ()) + 5000));
+    printf("gamecamx = %f, gamecamz = %f\nTcentreX = %d, TcentreZ = %d\n",gamecam.getX(),gamecam.getZ(),TcentreX,TcentreZ);
+    passx = gamecam.getX() - TcentreX;
+    passz = gamecam.getZ() - TcentreZ;
+    printf("Height = %d\n", WORLDSPACE.GetHeightAtPoint(passx, passz));
 
     gamecam.look();
 }

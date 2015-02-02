@@ -635,7 +635,7 @@ void TerrainGenerator::LoadHeightMap(int xpos, int zpos, int oldx, int oldz, int
                     if ((startz - endz + zdifference) < 0)
                     {
                         tooshort = ((startz - endz + zdifference) * -1);
-                        for (i = 0; j < tooshort; j++)
+                        for (j = 0; j < tooshort; j++)
                         {
                             scaledheightmap[i][j] = 0;
                         }
